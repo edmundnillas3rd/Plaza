@@ -1,0 +1,12 @@
+.item-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.item-card {
+  width: 45vw;
+  height: 25vh;
+  border: 1px solid white;
+}

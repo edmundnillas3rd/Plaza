@@ -1,0 +1,13 @@
+@use "_item-cards";
+
+@font-face {
+  font-family: "Roboto Mono", monospace;
+  src: url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
+}
+
+body {
+  font: 12pt "Roboto Mono", monospace;
+  background-color: #233d4d;
+  color: #e2fdf4;
+  box-sizing: border-box;
+}
