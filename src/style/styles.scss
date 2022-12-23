@@ -1,5 +1,8 @@
 @use "_item-cards";
 
+$base-color: #233d4d;
+$light-color: #e2fdf4;
+
 @font-face {
   font-family: "Roboto Mono", monospace;
   src: url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
@@ -7,7 +10,12 @@
 
 body {
   font: 12pt "Roboto Mono", monospace;
-  background-color: #233d4d;
-  color: #e2fdf4;
+  background-color: $base-color;
+  color: $light-color;
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: $light-color;
 }
