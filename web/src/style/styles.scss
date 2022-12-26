@@ -1,7 +1,5 @@
-@use "_item-cards";
-
-$base-color: #233d4d;
-$light-color: #e2fdf4;
+@import "default-colors";
+@import "_item-cards";
 
 @font-face {
   font-family: "Roboto Mono", monospace;
@@ -10,12 +8,12 @@ $light-color: #e2fdf4;
 
 body {
   font: 12pt "Roboto Mono", monospace;
-  background-color: $base-color;
-  color: $light-color;
+  background-color: $light-color;
+  color: $base-color;
   box-sizing: border-box;
 }
 
 a {
   text-decoration: none;
-  color: $light-color;
+  color: $base-color;
 }

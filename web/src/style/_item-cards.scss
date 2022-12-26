@@ -3,10 +3,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 2rem;
 }
 
 .item-card {
   width: 45vw;
   height: 25vh;
-  border: 1px solid white;
+  border: 1px solid $base-color;
+  border-radius: 4px;
+  padding: 0 2rem;
 }

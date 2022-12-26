@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 
 const ItemCard = ({ title, description, url, id, props }) => {
   return (
-    <div className="item-card" key={id}>
-      <Link to={url}>
+    <Link to={url}>
+      <div className="item-card" key={id}>
         <h3>{title}</h3>
-      </Link>
-      <p>{description}</p>
-    </div>
+        <p>{description}</p>
+      </div>
+    </Link>
   );
 };
 
