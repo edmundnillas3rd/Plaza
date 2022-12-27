@@ -19,7 +19,7 @@ export default function ItemDisplay() {
             key={i}
             name={item.name}
             description={item.description}
-            url={`items/${item._id}`}
+            url={item.url}
           />
         ))
       ) : (
