@@ -3,15 +3,27 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const mongoose = require("mongoose");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
 var app = express();
 
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
+const dotenv = require("dotenv");
+dotenv.config({ path: "config.env" });
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URL);
+    console.log("MongoDB Established Connection");
+  } catch (error) {
+    console.error(`MongoDB Connection Error: ${error}`);
+    process.exit(1);
+  }
+};
+
+connectDB();
 
 app.use(logger("dev"));
 app.use(express.json());
