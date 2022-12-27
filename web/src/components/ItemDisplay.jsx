@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
 
 export default function ItemDisplay() {
-  const [items, setItems] = useState([{}]);
+  const [items, setItems] = useState(null);
 
   useEffect(() => {
     fetch("/items")
       .then((res) => res.json())
-      .then((data) => setItems(data.items));
+      .then((data) => setItems(data.receiveData.items));
   }, []);
 
   return (
@@ -17,10 +17,9 @@ export default function ItemDisplay() {
         items.map((item, i) => (
           <ItemCard
             key={i}
-            title={item.title}
+            name={item.name}
             description={item.description}
-            url={"/item/" + item.id}
-            id={item.id}
+            url={`items/${item._id}`}
           />
         ))
       ) : (
