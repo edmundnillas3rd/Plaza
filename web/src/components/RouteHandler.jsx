@@ -7,10 +7,14 @@ export default function RouteLayout({ children }) {
   return (
     <Router>
       {children}
-      <Routes>
-        <Route exact path="/" element={<ItemDisplay />}></Route>
-        <Route exact path="/item/:id" element={<ItemDescription />}></Route>
-      </Routes>
+      <main>
+        <Routes>
+          <Route exact path="/" element={<ItemDisplay />}>
+            Home
+          </Route>
+          <Route exact path="/item/:id" element={<ItemDescription />}></Route>
+        </Routes>
+      </main>
     </Router>
   );
 }

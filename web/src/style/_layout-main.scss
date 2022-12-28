@@ -1,0 +1,17 @@
+.links-container {
+  background-color: $base-color;
+}
+
+li {
+  list-style-type: none;
+}
+
+li > a {
+  color: $light-color;
+}
+
+ul {
+  display: flex;
+  gap: 2rem;
+  padding: 14px 15%;
+}

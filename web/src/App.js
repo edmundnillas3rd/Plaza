@@ -1,10 +1,11 @@
 import "../src/style/styles.scss";
-import RouteLayout from "./components/RouteLayout";
+import RouteLayout from "./components/RouteHandler";
+import Layout from "./components/layouts/Main";
 
 function App() {
   return (
     <RouteLayout>
-      <div className="App"></div>;
+      <Layout />
     </RouteLayout>
   );
 }
