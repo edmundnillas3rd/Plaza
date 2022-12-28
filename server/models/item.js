@@ -9,7 +9,6 @@ const itemSchema = new Schema(
     description: { type: String }
   },
   {
-    toObject: { virtuals: true },
     toJSON: { virtuals: true }
   }
 );
