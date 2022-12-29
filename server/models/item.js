@@ -4,9 +4,10 @@ const { Schema } = mongoose;
 const itemSchema = new Schema(
   {
     name: { type: String, required: true },
-    owner: { type: String, required: true },
+    owner: { type: Schema.Types.ObjectId, ref: "Owner", required: true },
     price: { type: Number, required: true },
-    description: { type: String }
+    description: { type: String },
+    stock: { type: Number, required: true }
   },
   {
     toJSON: { virtuals: true }
@@ -14,7 +15,7 @@ const itemSchema = new Schema(
 );
 
 itemSchema.virtual("url").get(function () {
-  return `/items/${this._id}`;
+  return `/inventory/items/${this._id}`;
 });
 
 module.exports = mongoose.model("Item", itemSchema);

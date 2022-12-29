@@ -13,23 +13,45 @@ if (!userArgs[0].startsWith('mongodb')) {
 }
 */
 const async = require("async");
+
 const Item = require("./models/item");
+const Owner = require("./models/owner");
+
+const dotenv = require("dotenv");
+dotenv.config({ path: "config.env" });
 
 const mongoose = require("mongoose");
-const mongoDB = userArgs[0];
+const mongoDB = process.env.MONGODB_URL;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 const items = [];
+const owners = [];
 
-function itemCreate(name, owner, price, description, cb) {
+function ownerCreate(name, cb) {
+  const owner = new Owner({ name: name });
+
+  owner.save(function (err) {
+    if (err) {
+      cb(err, null);
+      return;
+    }
+
+    console.log(`New Owner: ${owner}`);
+    owners.push(owner);
+    cb(null, owner);
+  });
+}
+
+function itemCreate(name, owner, price, description, stock, cb) {
   const item = new Item({
     name: name,
     owner: owner,
     price: price,
-    description: description
+    description: description,
+    stock: stock
   });
 
   item.save(function (err) {
@@ -44,62 +66,89 @@ function itemCreate(name, owner, price, description, cb) {
   });
 }
 
-function createItem(cb) {
+function createOwner(cb) {
   async.series(
+    [
+      function (callback) {
+        ownerCreate("Rothfuss", callback);
+      },
+      function (callback) {
+        ownerCreate("Bova", callback);
+      },
+      function (callback) {
+        ownerCreate("Asimov", callback);
+      },
+      function (callback) {
+        ownerCreate("Billings", callback);
+      },
+      function (callback) {
+        ownerCreate("Jones", callback);
+      }
+    ],
+    cb
+  );
+}
+
+function createItem(cb) {
+  async.parallel(
     [
       function (callback) {
         itemCreate(
           "GameBoyAdvance SP",
-          "Rothfuss",
+          owners[0],
           1000.0,
           "A standard gameboy advance SP for your GBA titles",
+          5,
           callback
         );
       },
       function (callback) {
         itemCreate(
           "Mechanical Pen",
-          "Bova",
+          owners[1],
           50.0,
           "perfect for precise penmarkship for writing",
+          30,
           callback
         );
       },
       function (callback) {
         itemCreate(
           "Arduino",
-          "Asimov",
+          owners[2],
           5000.0,
           "a standard pack for getting started in electronics",
+          15,
           callback
         );
       },
       function (callback) {
         itemCreate(
           "GTX 1080",
-          "Billings",
+          owners[3],
           11000.0,
           "mid-end graphics card for gaming",
+          3,
           callback
         );
       },
       function (callback) {
         itemCreate(
           "Kingston Flash Drive",
-          "Jones",
+          owners[4],
           500.0,
           "for storing digital medias and files",
+          100,
           callback
         );
       }
     ],
-    // optional callback
     cb
   );
 }
 
 async.series(
-  [createItem],
+  [createOwner, createItem],
   // Optional callback
   function (err, results) {
     if (err) {

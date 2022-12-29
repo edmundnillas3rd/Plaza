@@ -6,7 +6,7 @@ var logger = require("morgan");
 const mongoose = require("mongoose");
 
 var indexRouter = require("./routes/index");
-const itemRouter = require("./routes/items");
+const inventoryRouter = require("./routes/inventory");
 
 var app = express();
 
@@ -32,7 +32,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/items", itemRouter);
+app.use("/inventory", inventoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
