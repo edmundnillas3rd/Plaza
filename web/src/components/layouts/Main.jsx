@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import ItemDisplay from "../ItemDisplay";
 import ItemDescription from "../ItemDescription";
 
-export default function Main({ children }) {
+export default function Main() {
   return (
     <>
       <header>
@@ -22,10 +22,12 @@ export default function Main({ children }) {
       </header>
       <main>
         <Routes>
-          <Route exact path="/" element={<ItemDisplay />}>
-            Home
-          </Route>
-          <Route exact path="/item/:id" element={<ItemDescription />}></Route>
+          <Route exact path="/" element={<ItemDisplay />} />
+          <Route
+            exact
+            path="/inventory/items/:id"
+            element={<ItemDescription />}
+          />
         </Routes>
       </main>
     </>

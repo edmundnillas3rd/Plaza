@@ -1,18 +1,5 @@
 @import "_default-colors";
+
+@import "_base";
 @import "_item-cards";
 @import "_layout-main";
-
-@font-face {
-  font-family: "Roboto Mono", monospace;
-  src: url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
-}
-
-body {
-  font: 12pt "Roboto Mono", monospace;
-  background-color: $light-color;
-  box-sizing: border-box;
-}
-
-a {
-  text-decoration: none;
-}

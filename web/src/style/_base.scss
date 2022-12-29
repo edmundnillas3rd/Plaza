@@ -1,0 +1,24 @@
+@font-face {
+  font-family: "Roboto Mono", monospace;
+  src: url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 12pt "Roboto Mono", monospace;
+  background-color: $light-color;
+}
+
+a {
+  text-decoration: none;
+}
+
+main {
+  flex-flow: column;
+  padding: 1.5rem 0;
+}
