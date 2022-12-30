@@ -31,8 +31,16 @@ ul {
 
 li {
   list-style-type: none;
+  a {
+    color: $light-color;
+  }
 }
 
-li > a {
-  color: $light-color;
+.container {
+  display: flex;
+  gap: 24px;
+}
+
+.space-btwn {
+  justify-content: space-between;
 }
