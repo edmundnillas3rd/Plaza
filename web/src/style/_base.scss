@@ -22,3 +22,17 @@ main {
   flex-flow: column;
   padding: 1.5rem 0;
 }
+
+ul {
+  display: flex;
+  gap: 2rem;
+  padding: 14px 15%;
+}
+
+li {
+  list-style-type: none;
+}
+
+li > a {
+  color: $light-color;
+}
