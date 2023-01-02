@@ -1,0 +1,46 @@
+.login-card {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  form {
+    display: inherit;
+    flex-flow: column;
+    gap: 24px;
+    border: 1px solid $base-color;
+    border-radius: 4px;
+    box-shadow: 0 3px 5px #687272;
+    padding: 2.5rem 3rem;
+  }
+
+  button {
+    font-family: inherit;
+    font-weight: bold;
+
+    background-color: $base-color;
+    color: $light-color;
+
+    padding: 0.5rem;
+    width: 5rem;
+    border-radius: 10px;
+  }
+
+  input {
+    width: 60%;
+    max-width: 60%;
+  }
+
+  .button-container {
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+
+.form-container {
+  display: flex;
+  gap: 24px;
+
+  div {
+    justify-content: space-between;
+  }
+}

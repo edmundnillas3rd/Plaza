@@ -1,11 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { Routes, Route } from "react-router-dom";
-
-import ItemDisplay from "../ItemDisplay";
-import ItemDescription from "../ItemDescription";
-
-export default function Main() {
+export default function Main({ children }) {
   return (
     <>
       <header>
@@ -15,21 +10,15 @@ export default function Main() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/sell">Sell</Link>
+            </li>
+            <li>
+              <Link to="/user/sign-up">Sign up</Link>
             </li>
           </ul>
         </nav>
       </header>
-      <main>
-        <Routes>
-          <Route exact path="/" element={<ItemDisplay />} />
-          <Route
-            exact
-            path="/inventory/items/:id"
-            element={<ItemDescription />}
-          />
-        </Routes>
-      </main>
+      <main>{children}</main>
     </>
   );
 }

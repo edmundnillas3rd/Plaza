@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 
-console.log(
-  "This script populates some test books, authors, genres and bookinstances to your database. Specified database as argument - e.g.: populatedb mongodb+srv://cooluser:coolpassword@cluster0.lz91hw2.mongodb.net/?retryWrites=true&w=majority"
-);
+console.log(`Populate the database with username and items`);
 
 // Get arguments passed on command line
 const userArgs = process.argv.slice(2);
@@ -15,40 +13,43 @@ if (!userArgs[0].startsWith('mongodb')) {
 const async = require("async");
 
 const Item = require("./models/item");
-const Owner = require("./models/owner");
+const User = require("./models/user");
+const Review = require("./models/review");
 
 const dotenv = require("dotenv");
 dotenv.config({ path: "config.env" });
 
 const mongoose = require("mongoose");
+const review = require("./models/review");
 const mongoDB = process.env.MONGODB_URL;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
+const users = [];
 const items = [];
-const owners = [];
+const reviews = [];
 
-function ownerCreate(name, cb) {
-  const owner = new Owner({ name: name });
+function userCreate(name, cb) {
+  const user = new User({ name: name });
 
-  owner.save(function (err) {
+  user.save(function (err) {
     if (err) {
       cb(err, null);
       return;
     }
 
-    console.log(`New Owner: ${owner}`);
-    owners.push(owner);
-    cb(null, owner);
+    console.log(`New User: ${user}`);
+    users.push(user);
+    cb(null, user);
   });
 }
 
-function itemCreate(name, owner, price, description, stock, cb) {
+function itemCreate(name, user, price, description, stock, cb) {
   const item = new Item({
     name: name,
-    owner: owner,
+    user: user,
     price: price,
     description: description,
     stock: stock
@@ -66,23 +67,43 @@ function itemCreate(name, owner, price, description, stock, cb) {
   });
 }
 
-function createOwner(cb) {
+function reviewCreate(user, item, description, rating, cb) {
+  const review = new Review({
+    user: user,
+    item: item,
+    description: description,
+    rating: rating
+  });
+
+  review.save(function (err) {
+    if (err) {
+      cb(err, null);
+      return;
+    }
+
+    console.log(`New Review: ${review}`);
+    reviews.push(review);
+    cb(null, review);
+  });
+}
+
+function createUser(cb) {
   async.series(
     [
       function (callback) {
-        ownerCreate("Rothfuss", callback);
+        userCreate("Rothfuss", callback);
       },
       function (callback) {
-        ownerCreate("Bova", callback);
+        userCreate("Bova", callback);
       },
       function (callback) {
-        ownerCreate("Asimov", callback);
+        userCreate("Asimov", callback);
       },
       function (callback) {
-        ownerCreate("Billings", callback);
+        userCreate("Billings", callback);
       },
       function (callback) {
-        ownerCreate("Jones", callback);
+        userCreate("Jones", callback);
       }
     ],
     cb
@@ -95,7 +116,7 @@ function createItem(cb) {
       function (callback) {
         itemCreate(
           "GameBoyAdvance SP",
-          owners[0],
+          users[0],
           1000.0,
           "A standard gameboy advance SP for your GBA titles",
           5,
@@ -105,7 +126,7 @@ function createItem(cb) {
       function (callback) {
         itemCreate(
           "Mechanical Pen",
-          owners[1],
+          users[1],
           50.0,
           "perfect for precise penmarkship for writing",
           30,
@@ -115,7 +136,7 @@ function createItem(cb) {
       function (callback) {
         itemCreate(
           "Arduino",
-          owners[2],
+          users[2],
           5000.0,
           "a standard pack for getting started in electronics",
           15,
@@ -125,7 +146,7 @@ function createItem(cb) {
       function (callback) {
         itemCreate(
           "GTX 1080",
-          owners[3],
+          users[3],
           11000.0,
           "mid-end graphics card for gaming",
           3,
@@ -135,7 +156,7 @@ function createItem(cb) {
       function (callback) {
         itemCreate(
           "Kingston Flash Drive",
-          owners[4],
+          users[4],
           500.0,
           "for storing digital medias and files",
           100,
@@ -147,8 +168,34 @@ function createItem(cb) {
   );
 }
 
+function createReview(cb) {
+  async.parallel(
+    [
+      function (callback) {
+        reviewCreate(users[0], items[0], "Dunno what to say", 2, callback);
+      },
+      function (callback) {
+        reviewCreate(users[3], items[1], "Hey this is goood", 5, callback);
+      },
+      function (callback) {
+        reviewCreate(users[4], items[0], "Might do better", 3, callback);
+      },
+      function (callback) {
+        reviewCreate(
+          users[0],
+          items[0],
+          "Good product, received full intact",
+          5,
+          callback
+        );
+      }
+    ],
+    cb
+  );
+}
+
 async.series(
-  [createOwner, createItem],
+  [createUser, createItem, createReview],
   // Optional callback
   function (err, results) {
     if (err) {

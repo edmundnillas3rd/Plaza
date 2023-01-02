@@ -4,17 +4,16 @@ import { useParams } from "react-router-dom";
 const ReviewDisplay = ({ data }) => {
   return (
     <div className="review-container">
-      {data.reviews.map((review) => {
-        return (
-          <div className="review-card">
-            <div className="header">
-              <p>{review.user.name}</p>
-              <p>{review.rating}</p>
-            </div>
-            <p>{review.description}</p>
+      <h3>Reviews:</h3>
+      {data.reviews.map((review, i) => (
+        <div className="review-card" key={i}>
+          <div className="header">
+            <p>{review.user.name}</p>
+            <p>{review.rating}</p>
           </div>
-        );
-      })}
+          <p>{review.description}</p>
+        </div>
+      ))}
     </div>
   );
 };
@@ -28,7 +27,7 @@ export default function ItemDescription() {
     fetch(`${id}`)
       .then((res) => res.json())
       .then((data) => setData(data.result));
-  }, []);
+  }, [id]);
 
   return (
     <div className="item-description-container">
@@ -42,9 +41,7 @@ export default function ItemDescription() {
           </div>
           <ReviewDisplay data={data} />
         </>
-      ) : (
-        <p>Loading...</p>
-      )}
+      ) : null}
     </div>
   );
 }
