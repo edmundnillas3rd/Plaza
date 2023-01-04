@@ -41,10 +41,13 @@ exports.sign_up = async (req, res, next) => {
 exports.log_in = (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
+
     if (!user) {
       res.json({ message: "Incorrect username or password!" });
     } else {
-      res.json({ user: user.username });
+      req.logIn(user, async (err) => {
+        res.json({ user: req.user.username });
+      });
     }
   })(req, res, next);
 };
