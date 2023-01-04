@@ -6,7 +6,7 @@ export default function ItemDisplay() {
   const [items, setItems] = useState(null);
 
   useEffect(() => {
-    fetch("/inventory")
+    fetch(`${process.env.REACT_APP_BASE_URL}/inventory`)
       .then((res) => res.json())
       .then((data) => setItems(data.result.items));
   }, []);
