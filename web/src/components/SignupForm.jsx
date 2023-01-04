@@ -1,52 +1,51 @@
+import { Link } from "react-router-dom";
+
 import { useState } from "react";
 
-import { Link, Navigate } from "react-router-dom";
-
-export default function LoginForm() {
+export default function SignupForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [validationErrors, setValidationErrors] = useState([]);
 
-  const login = () => {
+  const [data, setData] = useState(null);
+
+  const signUp = () => {
     const user = {
+      username: username,
       email: email,
       password: password
     };
 
-    fetch(`${process.env.REACT_APP_BASE_URL}/login`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/sign-up`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      credentials: "include",
       body: JSON.stringify(user)
     })
       .then((res) => res.json())
-      .then((data) => {
-        if (data.user !== undefined) {
-          setUsername(data.user);
-        } else {
-          setValidationErrors([data.message]);
-        }
-      });
+      .then((data) => setData(data));
   };
 
   const validateForms = (e) => {
     e.preventDefault();
 
-    login();
+    signUp();
+
+    console.log(data);
   };
 
   return (
     <div className="form-card form-container">
-      {username && <Navigate to="/" replace={true} />}
-      <form action="/login" method="POST">
-        {validationErrors.map((err, i) => (
-          <p className="login-error" key={i}>
-            {err}
-          </p>
-        ))}
+      <form action="" method="POST">
+        <div className="form-container label-container">
+          <label htmlFor="username">Username: </label>
+          <input
+            name="username"
+            id="username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
         <div className="form-container label-container">
           <label htmlFor="email">Email: </label>
           <input
@@ -67,11 +66,11 @@ export default function LoginForm() {
         </div>
         <div className="button-container form-container">
           <button type="submit" onClick={validateForms}>
-            Log In
+            Sign Up
           </button>
           <p className="form-container sub-heading">
-            Don't have an account?
-            <Link to="/sign-up">Register here</Link>
+            Already have an account?
+            <Link to="/login">Login here</Link>
           </p>
         </div>
       </form>

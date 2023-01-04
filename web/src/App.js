@@ -2,16 +2,24 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "../src/style/styles.scss";
 import Layout from "./components/layouts/Main";
-import LoginForm from "./components/LoginForm";
 import ItemDisplay from "./components/ItemDisplay";
 import ItemDescription from "./components/ItemDescription";
+import SignupForm from "./components/SignupForm";
+import LoginForm from "./components/LoginForm";
+import { useEffect } from "react";
+
+const SellingComponent = () => {
+  return <p>Selling...</p>;
+};
 
 const MainPage = () => {
   return (
     <Routes>
       <Route exact path="/" element={<ItemDisplay />} />
+      <Route exact path="/sell" element={<SellingComponent />} />
       <Route exact path="/inventory/items/:id" element={<ItemDescription />} />
-      <Route exact path="/user/sign-up" element={<LoginForm />} />
+      <Route exact path="/sign-up" element={<SignupForm />} />
+      <Route exact path="/login" element={<LoginForm />} />
     </Routes>
   );
 };

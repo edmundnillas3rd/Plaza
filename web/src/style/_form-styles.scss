@@ -1,4 +1,4 @@
-.login-card {
+.form-card {
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -26,6 +26,7 @@
   }
 
   input {
+    min-width: 50%;
     width: 60%;
     max-width: 60%;
   }
@@ -40,7 +41,18 @@
   display: flex;
   gap: 24px;
 
-  div {
+  .label-container {
     justify-content: space-between;
   }
+
+  .sub-heading {
+    display: flex;
+    flex-flow: column;
+    gap: 2px;
+    font-size: small;
+  }
+}
+
+.login-error {
+  font-size: smaller;
 }

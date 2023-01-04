@@ -1,6 +1,15 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Main({ children }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_BASE_URL}`)
+      .then((res) => res.json())
+      .then((data) => setUser(data));
+  }, []);
+
   return (
     <>
       <header>
@@ -13,7 +22,7 @@ export default function Main({ children }) {
               <Link to="/sell">Sell</Link>
             </li>
             <li>
-              <Link to="/user/sign-up">Sign up</Link>
+              <Link to="/sign-up">Sign up</Link>
             </li>
           </ul>
         </nav>
