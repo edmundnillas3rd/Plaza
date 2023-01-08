@@ -1,14 +1,10 @@
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-export default function Main({ children }) {
-  const [user, setUser] = useState(null);
+import Profile from "../../features/profile/Profile";
 
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_BASE_URL}`)
-      .then((res) => res.json())
-      .then((data) => setUser(data));
-  }, []);
+export default function Main({ children }) {
+  const isLogin = useSelector((state) => state.user.isLogin);
 
   return (
     <>
@@ -22,7 +18,7 @@ export default function Main({ children }) {
               <Link to="/sell">Sell</Link>
             </li>
             <li>
-              <Link to="/sign-up">Sign up</Link>
+              {isLogin ? <Profile /> : <Link to="/sign-up">Sign up</Link>}
             </li>
           </ul>
         </nav>
