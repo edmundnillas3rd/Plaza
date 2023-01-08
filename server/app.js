@@ -33,7 +33,17 @@ app.use(
 
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(session({ secret: "edmund", resave: false, saveUninitialized: true }));
+app.use(
+  session({
+    secret: "edmund",
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      secure: process.env.NODE_ENV === "production"
+    }
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 require("./utils/passportConfig")(passport);
