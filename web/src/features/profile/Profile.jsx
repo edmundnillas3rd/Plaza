@@ -19,9 +19,12 @@ export default function Profile() {
   };
 
   return (
-    <div className="profile-container">
-      <div>User: {username}</div>
-      <button onClick={logout}>Logout</button>
+    <div className="profile-container dropdown">
+      <p>Profile</p>
+      <div className="dropdown-options">
+        <button>{username}</button>
+        <button onClick={logout}>Logout</button>
+      </div>
     </div>
   );
 }

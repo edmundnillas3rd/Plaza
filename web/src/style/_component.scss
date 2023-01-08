@@ -1,0 +1,20 @@
+.dropdown {
+  display: inline-block;
+  position: relative;
+
+  &:hover {
+    & .dropdown-options {
+      display: block;
+    }
+  }
+}
+
+.dropdown-options {
+  display: none;
+  position: absolute;
+  overflow: auto;
+
+  & button {
+    padding: 1vh 5vw;
+  }
+}
