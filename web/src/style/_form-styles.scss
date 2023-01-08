@@ -55,4 +55,11 @@
 
 .login-error {
   font-size: smaller;
+  color: red;
+}
+
+.profile-container {
+  display: flex;
+  gap: 2rem;
+  color: $light-color;
 }

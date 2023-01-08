@@ -25,9 +25,9 @@ export default function Profile() {
   };
 
   return (
-    <>
+    <div className="profile-container">
       <div>User: {username}</div>
       <button onClick={logout}>Logout</button>
-    </>
+    </div>
   );
 }
