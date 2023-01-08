@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { logoutUser } from "./userSlice";
+import { logoutUser, setUser } from "./userSlice";
 
 export default function Profile() {
   const username = useSelector((state) => state.user.username);
@@ -11,16 +11,10 @@ export default function Profile() {
     e.preventDefault();
 
     fetch(`${process.env.REACT_APP_BASE_URL}/logout`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      credentials: "include",
-      body: JSON.stringify(username)
-    })
-      .then((res) => res.json())
-      .then((data) => {});
+      credentials: "include"
+    }).then((res) => res.json());
 
+    dispatch(setUser(""));
     dispatch(logoutUser());
   };
 
