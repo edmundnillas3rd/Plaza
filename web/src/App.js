@@ -6,7 +6,6 @@ import ItemDisplay from "./components/ItemDisplay";
 import ItemDescription from "./components/ItemDescription";
 import SignupForm from "./components/SignupForm";
 import LoginForm from "./components/LoginForm";
-import { useEffect } from "react";
 
 const SellingComponent = () => {
   return <p>Selling...</p>;

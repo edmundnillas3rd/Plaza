@@ -1,12 +1,17 @@
 import { useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 
+import { setUser, loginUser } from "../features/profile/userSlice";
+
 export default function LoginForm() {
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validationErrors, setValidationErrors] = useState([]);
+
+  const isLogin = useSelector((state) => state.user.isLogin);
+
+  const dispatch = useDispatch();
 
   const login = () => {
     const user = {
@@ -25,7 +30,8 @@ export default function LoginForm() {
       .then((res) => res.json())
       .then((data) => {
         if (data.user !== undefined) {
-          setUsername(data.user);
+          dispatch(setUser(data.user));
+          dispatch(loginUser());
         } else {
           setValidationErrors([data.message]);
         }
@@ -40,7 +46,7 @@ export default function LoginForm() {
 
   return (
     <div className="form-card form-container">
-      {username && <Navigate to="/" replace={true} />}
+      {isLogin && <Navigate to="/" replace={true} />}
       <form action="/login" method="POST">
         {validationErrors.map((err, i) => (
           <p className="login-error" key={i}>
