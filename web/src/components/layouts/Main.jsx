@@ -17,9 +17,7 @@ export default function Main({ children }) {
             <li>
               <Link to="/sell">Sell</Link>
             </li>
-            <li>
-              {isLogin ? <Profile /> : <Link to="/sign-up">Sign up</Link>}
-            </li>
+            <li>{isLogin ? <Profile /> : <Link to="/login">Log in</Link>}</li>
           </ul>
         </nav>
       </header>
