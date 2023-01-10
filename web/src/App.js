@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate
+} from "react-router-dom";
 
 import "../src/style/styles.scss";
 import Layout from "./components/layouts/Main";
@@ -6,9 +11,14 @@ import ItemDisplay from "./components/ItemDisplay";
 import ItemDescription from "./components/ItemDescription";
 import SignupForm from "./components/SignupForm";
 import LoginForm from "./components/LoginForm";
+import { useSelector } from "react-redux";
 
 const SellingComponent = () => {
-  return <p>Selling...</p>;
+  const isLogin = useSelector((state) => state.user.isLogin);
+
+  return (
+    <>{isLogin ? <p>Selling...</p> : <Navigate to="/login" replace={true} />}</>
+  );
 };
 
 const MainPage = () => {
