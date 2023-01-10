@@ -20,7 +20,8 @@ export default function SellItem() {
       stock: stock
     });
 
-    fetch(`${process.env.REACT_APP_BASE_URL}/items`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/inventory/items`, {
+      method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify(data)
@@ -29,7 +30,10 @@ export default function SellItem() {
 
   return (
     <div className="container form-container form-card">
-      <form action={`${process.env.REACT_APP_BASE_URL}/additem`} method="post">
+      <form
+        action={`${process.env.REACT_APP_BASE_URL}/inventory/items`}
+        method="post"
+      >
         <p>Enter the information about the new item</p>
         <div className="form-container label-container">
           <label htmlFor="name">Name: </label>

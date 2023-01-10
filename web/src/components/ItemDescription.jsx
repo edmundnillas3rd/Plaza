@@ -35,7 +35,7 @@ export default function ItemDescription() {
         <>
           <div className="item-main-description">
             <p>Name: {data.item.name}</p>
-            <p>Owner: {data.item.user.name}</p>
+            <p>Owner: {data.item.user.username}</p>
             <p>Price: {data.item.price}</p>
             <p>Stock: {data.item.stock}</p>
           </div>

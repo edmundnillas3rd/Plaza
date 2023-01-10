@@ -28,6 +28,27 @@ exports.index = (req, res, next) => {
   );
 };
 
+exports.new_item = async (req, res, next) => {
+  const { id, name, price, description, stock } = req.body;
+
+  const item = await new Item({
+    user: id,
+    name: name,
+    price: price,
+    description: description,
+    stock: stock
+  });
+
+  item.save(function (err) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    console.log(`New Item ${item}`);
+  });
+};
+
 exports.item_detail = (req, res, next) => {
   async.parallel(
     {
