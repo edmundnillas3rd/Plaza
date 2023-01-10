@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 
-import { setUser, loginUser } from "../features/profile/userSlice";
+import { user as auth } from "../features/profile/userSlice";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -30,8 +30,9 @@ export default function LoginForm() {
       .then((res) => res.json())
       .then((data) => {
         if (data.user !== undefined) {
-          dispatch(setUser(data.user));
-          dispatch(loginUser());
+          dispatch(auth.setID(data.id));
+          dispatch(auth.setUser(data.user));
+          dispatch(auth.login());
         } else {
           setValidationErrors([data.message]);
         }

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { logoutUser, setUser } from "./userSlice";
+import { user } from "./userSlice";
 
 export default function Profile() {
   const username = useSelector((state) => state.user.username);
@@ -14,8 +14,9 @@ export default function Profile() {
       credentials: "include"
     }).then((res) => res.json());
 
-    dispatch(setUser(""));
-    dispatch(logoutUser());
+    dispatch(user.setID(""));
+    dispatch(user.setUser(""));
+    dispatch(user.logout());
   };
 
   return (
