@@ -11,13 +11,14 @@ import ItemDisplay from "./components/ItemDisplay";
 import ItemDescription from "./components/ItemDescription";
 import SignupForm from "./components/SignupForm";
 import LoginForm from "./components/LoginForm";
+import SellItem from "./components/SellItem";
 import { useSelector } from "react-redux";
 
 const SellingComponent = () => {
   const isLogin = useSelector((state) => state.user.isLogin);
 
   return (
-    <>{isLogin ? <p>Selling...</p> : <Navigate to="/login" replace={true} />}</>
+    <>{isLogin ? <SellItem /> : <Navigate to="/login" replace={true} />}</>
   );
 };
 

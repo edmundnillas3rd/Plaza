@@ -1,3 +1,12 @@
+.container {
+  display: flex;
+  padding: 5% 10%;
+}
+
+.links-container {
+  background-color: $base-color;
+}
+
 .dropdown {
   display: inline-block;
   position: relative;
