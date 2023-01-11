@@ -41,11 +41,16 @@
   display: flex;
   gap: 24px;
 
-  .label-container {
+  &.label-container {
     justify-content: space-between;
   }
 
-  .sub-heading {
+  &.combo-container {
+    gap: 10px;
+    width: 25%;
+  }
+
+  &.sub-heading {
     display: flex;
     flex-flow: column;
     gap: 2px;

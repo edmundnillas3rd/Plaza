@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import ReviewForm from "./ReviewForm";
 
 const ReviewDisplay = ({ data }) => {
   return (
     <div className="review-container">
+      <ReviewForm item={data.item} />
       <h3>Reviews:</h3>
       {data.reviews.map((review, i) => (
         <div className="review-card" key={i}>
           <div className="header">
-            <p>{review.user.name}</p>
+            <p>{review.user.username}</p>
             <p>{review.rating}</p>
           </div>
           <p>{review.description}</p>

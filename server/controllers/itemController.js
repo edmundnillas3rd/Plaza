@@ -55,11 +55,13 @@ exports.item_detail = (req, res, next) => {
   async.parallel(
     {
       item(callback) {
-        Item.findById(req.params.id).populate("user").exec(callback);
+        Item.findById(req.params.id)
+          .populate("user", "username")
+          .exec(callback);
       },
       reviews(callback) {
-        Review.find({ item: req.params.id }, "reviews description rating")
-          .populate("user", "name")
+        Review.find({ item: req.params.id }, "description rating")
+          .populate("user", "username")
           .populate("item", "name")
           .exec(callback);
       }
@@ -85,4 +87,30 @@ exports.item_detail = (req, res, next) => {
       });
     }
   );
+};
+
+exports.item_review = async (req, res, next) => {
+  const { user, item, description, rating } = req.body;
+
+  const review = await new Review({
+    user: user,
+    item: item,
+    description: description,
+    rating: rating
+  });
+
+  review.save(function (err) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    res.status(200).json({ message: "New Review added!" });
+
+    console.log(`New Item ${item}`);
+  });
+
+  const foundItem = await Item.findByIdAndUpdate(item, {
+    $push: { reviews: review }
+  });
 };
