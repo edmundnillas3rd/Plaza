@@ -1,16 +1,27 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function SellItem() {
+  const navigate = useNavigate();
   const userID = useSelector((state) => state.user.id);
   const [data, setData] = useState(null);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [stock, setStock] = useState(0);
+  const [stock, setStock] = useState("");
 
   const addItem = (e) => {
     e.preventDefault();
+
+    if (
+      name.length === 0 ||
+      price.length === 0 ||
+      description.length === 0 ||
+      stock.length === 0
+    ) {
+      return;
+    }
 
     setData({
       id: userID,
@@ -22,18 +33,20 @@ export default function SellItem() {
 
     fetch(`${process.env.REACT_APP_BASE_URL}/inventory/items`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       credentials: "include",
       body: JSON.stringify(data)
-    }).then((res) => res.json());
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        navigate("/");
+      });
   };
-
   return (
     <div className="container form-container form-card">
-      <form
-        action={`${process.env.REACT_APP_BASE_URL}/inventory/items`}
-        method="post"
-      >
+      <form action="/sell" method="POST">
         <p>Enter the information about the new item</p>
         <div className="form-container label-container">
           <label htmlFor="name">Name: </label>
