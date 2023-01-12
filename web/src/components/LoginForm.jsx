@@ -13,31 +13,30 @@ export default function LoginForm() {
 
   const dispatch = useDispatch();
 
-  const login = () => {
+  const login = async () => {
     const user = {
-      email: email,
-      password: password
+      email,
+      password
     };
 
-    fetch(`${process.env.REACT_APP_BASE_URL}/login`, {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       credentials: "include",
       body: JSON.stringify(user)
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.user !== undefined) {
-          dispatch(auth.setID(data.id));
-          dispatch(auth.setUser(data.user));
-          dispatch(auth.login());
-          localStorage.setItem("user", JSON.stringify(data));
-        } else {
-          setValidationErrors([data.message]);
-        }
-      });
+    });
+    const data = await response.json();
+
+    if (data.user !== undefined) {
+      dispatch(auth.setID(data.id));
+      dispatch(auth.setUser(data.user));
+      dispatch(auth.login());
+      localStorage.setItem("user", JSON.stringify(data));
+    } else {
+      setValidationErrors([data.message]);
+    }
   };
 
   const validateForms = (e) => {
@@ -52,7 +51,7 @@ export default function LoginForm() {
 
   return (
     <div className="form-card form-container">
-      <form action="/login" method="POST">
+      <form action="" method="POST" onSubmit={validateForms}>
         {validationErrors.map((err, i) => (
           <p className="login-error" key={i}>
             {err}
@@ -77,9 +76,7 @@ export default function LoginForm() {
           />
         </div>
         <div className="button-container form-container">
-          <button type="submit" onClick={validateForms}>
-            Log In
-          </button>
+          <button type="submit">Log In</button>
           <p className="form-container sub-heading">
             Don't have an account?
             <Link to="/sign-up">Register here</Link>

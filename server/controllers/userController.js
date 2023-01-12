@@ -3,6 +3,7 @@ const app = express();
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
 const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 
 exports.index = (req, res, next) => {};
 

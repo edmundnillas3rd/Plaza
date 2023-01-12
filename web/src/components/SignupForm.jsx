@@ -7,13 +7,11 @@ export default function SignupForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [data, setData] = useState(null);
-
   const signUp = () => {
     const user = {
-      username: username,
-      email: email,
-      password: password
+      username,
+      email,
+      password
     };
 
     fetch(`${process.env.REACT_APP_BASE_URL}/sign-up`, {
@@ -22,22 +20,18 @@ export default function SignupForm() {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(user)
-    })
-      .then((res) => res.json())
-      .then((data) => setData(data));
+    });
   };
 
   const validateForms = (e) => {
     e.preventDefault();
 
     signUp();
-
-    console.log(data);
   };
 
   return (
     <div className="form-card form-container">
-      <form action="" method="POST">
+      <form action="" method="POST" onSubmit={validateForms}>
         <div className="form-container label-container">
           <label htmlFor="username">Username: </label>
           <input
@@ -65,9 +59,7 @@ export default function SignupForm() {
           />
         </div>
         <div className="button-container form-container">
-          <button type="submit" onClick={validateForms}>
-            Sign Up
-          </button>
+          <button type="submit">Sign Up</button>
           <p className="form-container sub-heading">
             Already have an account?
             <Link to="/login">Login here</Link>
