@@ -8,7 +8,9 @@ exports.index = (req, res, next) => {
   async.parallel(
     {
       items(callback) {
-        Item.find().populate("user", "name").exec(callback);
+        Item.find({}, "name description")
+          .populate("user", "username")
+          .exec(callback);
       }
     },
     (err, results) => {
