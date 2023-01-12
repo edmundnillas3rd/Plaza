@@ -1,35 +1,22 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ReviewForm from "./ReviewForm";
-
-const ReviewDisplay = ({ data }) => {
-  return (
-    <div className="review-container">
-      <ReviewForm item={data.item} />
-      <h3>Reviews:</h3>
-      {data.reviews.map((review, i) => (
-        <div className="review-card" key={i}>
-          <div className="header">
-            <p>{review.user.username}</p>
-            <p>{review.rating}</p>
-          </div>
-          <p>{review.description}</p>
-        </div>
-      ))}
-    </div>
-  );
-};
+import ReviewDisplay from "./ReviewDisplay";
 
 export default function ItemDescription() {
   const [data, setData] = useState(null);
 
   const { id } = useParams();
 
+  const getItemDescription = async () => {
+    const response = await fetch(`${id}`);
+    const data = await response.json();
+
+    setData(data.result);
+  };
+
   useEffect(() => {
-    fetch(`${id}`)
-      .then((res) => res.json())
-      .then((data) => setData(data.result));
-  }, [id]);
+    getItemDescription();
+  }, []);
 
   return (
     <div className="item-description-container">
@@ -37,11 +24,11 @@ export default function ItemDescription() {
         <>
           <div className="item-main-description">
             <p>Name: {data.item.name}</p>
-            <p>Owner: {data.item.user.username}</p>
+            <p>Seller: {data.item.user.username}</p>
             <p>Price: {data.item.price}</p>
             <p>Stock: {data.item.stock}</p>
           </div>
-          <ReviewDisplay data={data} />
+          <ReviewDisplay reviews={data.reviews} />
         </>
       ) : null}
     </div>
