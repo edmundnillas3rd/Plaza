@@ -11,7 +11,7 @@ export default function SellItem() {
   const [description, setDescription] = useState("");
   const [stock, setStock] = useState("");
 
-  const addItem = (e) => {
+  const addItem = async (e) => {
     e.preventDefault();
 
     if (
@@ -25,28 +25,31 @@ export default function SellItem() {
 
     setData({
       id: userID,
-      name: name,
-      price: price,
-      description: description,
-      stock: stock
+      name,
+      price,
+      description,
+      stock
     });
 
-    fetch(`${process.env.REACT_APP_BASE_URL}/inventory/items`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      credentials: "include",
-      body: JSON.stringify(data)
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        navigate("/");
-      });
+    const response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/inventory/items`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify(data)
+      }
+    );
+    const result = await response.json();
+    console.log(result.message);
+
+    navigate("/");
   };
   return (
     <div className="container form-container form-card">
-      <form action="/sell" method="POST">
+      <form action="" method="POST" onSubmit={addItem}>
         <p>Enter the information about the new item</p>
         <div className="form-container label-container">
           <label htmlFor="name">Name: </label>
@@ -89,7 +92,7 @@ export default function SellItem() {
           ></textarea>
         </div>
 
-        <button onClick={addItem}>Add Item</button>
+        <button>Add Item</button>
       </form>
     </div>
   );

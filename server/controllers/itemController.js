@@ -14,7 +14,7 @@ exports.index = (req, res, next) => {
       }
     },
     (err, results) => {
-      if (err) return next(err);
+      if (err) return console.error(err);
 
       if (!results.items) {
         const err = new Error("Items not found");
@@ -35,10 +35,10 @@ exports.new_item = async (req, res, next) => {
 
   const item = await new Item({
     user: id,
-    name: name,
-    price: price,
-    description: description,
-    stock: stock
+    name,
+    price,
+    description,
+    stock
   });
 
   item.save(function (err) {
@@ -95,10 +95,10 @@ exports.item_review = async (req, res, next) => {
   const { user, item, description, rating } = req.body;
 
   const review = await new Review({
-    user: user,
-    item: item,
-    description: description,
-    rating: rating
+    user,
+    item,
+    description,
+    rating
   });
 
   review.save(function (err) {
