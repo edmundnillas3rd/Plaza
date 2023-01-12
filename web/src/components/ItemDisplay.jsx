@@ -5,10 +5,15 @@ import ItemCard from "./ItemCard";
 export default function ItemDisplay() {
   const [items, setItems] = useState(null);
 
+  const getItems = async () => {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/inventory`);
+    const data = await response.json();
+
+    setItems(data.result.items);
+  };
+
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BASE_URL}/inventory`)
-      .then((res) => res.json())
-      .then((data) => setItems(data.result.items));
+    getItems();
   }, []);
 
   return (
