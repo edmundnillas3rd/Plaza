@@ -10,13 +10,12 @@ export default function Profile() {
   const logout = (e) => {
     e.preventDefault();
 
-    fetch(`${process.env.REACT_APP_BASE_URL}/logout`, {
-      credentials: "include"
-    }).then((res) => res.json());
+    fetch(`${process.env.REACT_APP_BASE_URL}/logout`);
 
     dispatch(user.setID(""));
     dispatch(user.setUser(""));
     dispatch(user.logout());
+    localStorage.clear();
   };
 
   return (
