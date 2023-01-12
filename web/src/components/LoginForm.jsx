@@ -33,6 +33,7 @@ export default function LoginForm() {
           dispatch(auth.setID(data.id));
           dispatch(auth.setUser(data.user));
           dispatch(auth.login());
+          localStorage.setItem("user", JSON.stringify(data));
         } else {
           setValidationErrors([data.message]);
         }
@@ -45,9 +46,12 @@ export default function LoginForm() {
     login();
   };
 
+  if (isLogin) {
+    return <Navigate to="/" replace />;
+  }
+
   return (
     <div className="form-card form-container">
-      {isLogin && <Navigate to="/" replace={true} />}
       <form action="/login" method="POST">
         {validationErrors.map((err, i) => (
           <p className="login-error" key={i}>
