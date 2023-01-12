@@ -2,22 +2,24 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-export default function ReviewForm({ item }) {
+export default function ReviewForm() {
   const { id } = useParams();
   const [description, setDescription] = useState("");
   const [rating, setRating] = useState("");
 
   const userID = useSelector((state) => state.user.id);
 
-  const addReview = (e) => {
+  const [review, setReview] = useState(null);
+
+  const addReview = async (e) => {
     e.preventDefault();
 
-    const review = {
+    setReview({
       user: userID,
-      item: item._id,
-      description: description,
-      rating: rating
-    };
+      item: id,
+      description,
+      rating
+    });
 
     fetch(`${process.env.REACT_APP_BASE_URL}/inventory/items/${id}/reviews`, {
       method: "POST",
@@ -28,9 +30,10 @@ export default function ReviewForm({ item }) {
       body: JSON.stringify(review)
     });
   };
+
   return (
     <div className="container form-container form-card">
-      <form action="" method="POST">
+      <form action="" method="POST" onSubmit={addReview}>
         <div className="form-container label-container">
           <label htmlFor="description">Description</label>
           <textarea
@@ -109,9 +112,7 @@ export default function ReviewForm({ item }) {
           </div>
         </div>
 
-        <button type="submit" onClick={addReview}>
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

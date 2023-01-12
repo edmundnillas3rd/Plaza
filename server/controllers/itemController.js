@@ -62,7 +62,7 @@ exports.item_detail = (req, res, next) => {
           .exec(callback);
       },
       reviews(callback) {
-        Review.find({ item: req.params.id }, "description rating")
+        Review.find({ item: req.params.id })
           .populate("user", "username")
           .populate("item", "name")
           .exec(callback);
