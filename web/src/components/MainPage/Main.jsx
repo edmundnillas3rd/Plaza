@@ -1,17 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, Navigate, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
 import Profile from "../../features/profile/Profile";
 import { user } from "../../features/profile/userSlice";
+import { cart } from "../../features/cart/cartSlice";
 
 import ItemDisplay from "./ItemDisplay";
 import ItemDescription from "./ItemDescription";
 import SellItem from "./SellItem";
-import SignupForm from "../AuthPage/SignupForm";
-import LoginForm from "../AuthPage/LoginForm";
 import Cart from "../../features/cart/Cart";
+import LoginForm from "../AuthPage/LoginForm";
+import SignupForm from "../AuthPage/SignupForm";
 
 const MainPage = () => {
   return (
@@ -19,8 +20,8 @@ const MainPage = () => {
       <Route exact path="/" element={<ItemDisplay />} />
       <Route exact path="/sell" element={<SellItem />} />
       <Route exact path="/inventory/items/:id" element={<ItemDescription />} />
-      <Route exact path="/sign-up" element={<SignupForm />} />
       <Route exact path="/login" element={<LoginForm />} />
+      <Route exact path="/signup" element={<SignupForm />} />
       <Route exact path="/shopping-cart" element={<Cart />} />
     </Routes>
   );
@@ -41,6 +42,7 @@ export default function Main() {
       dispatch(user.login());
       dispatch(user.setID(foundUser.id));
       dispatch(user.setUser(foundUser.user));
+      dispatch(cart.setItem(foundUser.items));
     }
   }, []);
 
