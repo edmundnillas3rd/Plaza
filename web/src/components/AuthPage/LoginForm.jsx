@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 
-import { user as auth } from "../features/profile/userSlice";
+import { user as auth } from "../../features/profile/userSlice";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
