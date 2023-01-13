@@ -4,7 +4,7 @@ import { user } from "./userSlice";
 import { cart } from "../cart/cartSlice";
 
 export default function Profile() {
-  const username = useSelector((state) => state.user.username);
+  const username = useSelector((state) => state.user.name);
 
   const dispatch = useDispatch();
 
