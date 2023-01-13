@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { user } from "./userSlice";
+import { cart } from "../cart/cartSlice";
 
 export default function Profile() {
   const username = useSelector((state) => state.user.username);
@@ -15,6 +16,7 @@ export default function Profile() {
     dispatch(user.setID(""));
     dispatch(user.setUser(""));
     dispatch(user.logout());
+    dispatch(cart.reset());
     localStorage.clear();
   };
 

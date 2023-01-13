@@ -79,7 +79,7 @@ export default function LoginForm() {
           <button type="submit">Log In</button>
           <p className="form-container sub-heading">
             Don't have an account?
-            <Link to="/sign-up">Register here</Link>
+            <Link to="/signup">Register here</Link>
           </p>
         </div>
       </form>

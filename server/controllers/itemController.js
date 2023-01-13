@@ -53,6 +53,15 @@ exports.new_item = async (req, res, next) => {
   });
 };
 
+exports.purchase_item = async (req, res, next) => {
+  const items = Array.from(req.body);
+
+  items.forEach(
+    async (item) =>
+      await Item.findByIdAndUpdate(item.id, { $inc: { stock: -item.quantity } })
+  );
+};
+
 exports.item_detail = (req, res, next) => {
   async.parallel(
     {

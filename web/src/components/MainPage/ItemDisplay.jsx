@@ -18,16 +18,15 @@ export default function ItemDisplay() {
 
   return (
     <div className="item-display">
-      {items
-        ? items.map((item) => (
-            <ItemCard
-              key={item._id}
-              name={item.name}
-              description={item.description}
-              url={item.url}
-            />
-          ))
-        : null}
+      {items &&
+        items.map((item) => (
+          <ItemCard
+            key={item._id}
+            name={item.name}
+            description={item.description}
+            url={item.url}
+          />
+        ))}
     </div>
   );
 }
