@@ -4,7 +4,7 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     id: "",
-    username: "",
+    name: "",
     isLogin: false
   },
   reducers: {
@@ -12,7 +12,7 @@ export const userSlice = createSlice({
       state.id = action.payload;
     },
     setUser: (state, action) => {
-      state.username = action.payload;
+      state.name = action.payload;
     },
     login: (state) => {
       state.isLogin = true;

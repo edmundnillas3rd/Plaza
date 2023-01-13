@@ -8,28 +8,29 @@ const bcrypt = require("bcryptjs");
 exports.index = (req, res, next) => {};
 
 exports.sign_up = async (req, res, next) => {
+  const { username, email, password } = req.body;
   const user = await User.findOne({
-    $or: [{ username: req.body.username }, { email: req.body.email }]
+    $or: [{ name: username }, { email: email }]
   }).catch((err) => {
     console.error(err);
   });
 
   if (user === null) {
-    const data = {
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password
+    const newUser = {
+      name: username,
+      email: email,
+      password: password
     };
 
-    data.password = await bcrypt.hash(req.body.password, 10);
+    newUser.password = await bcrypt.hash(password, 10);
 
-    User.create(data).then((user) => {
+    User.create(newUser).then((user) => {
       console.log(user);
 
       return res.status(200).json({ data: user });
     });
   } else {
-    if (req.body.email === user.email) {
+    if (email === user.email) {
       res.status(200).json({ message: "Email already in use." });
       console.log("email in use");
     } else {
@@ -47,7 +48,8 @@ exports.log_in = (req, res, next) => {
       res.json({ message: "Incorrect username or password!" });
     } else {
       req.logIn(user, async (err) => {
-        res.json({ id: req.user.id, user: req.user.username });
+        console.log(req.user);
+        res.json({ id: req.user.id, user: req.user.name });
       });
     }
   })(req, res, next);
