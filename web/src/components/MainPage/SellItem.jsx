@@ -6,7 +6,6 @@ export default function SellItem() {
   const navigate = useNavigate();
   const userID = useSelector((state) => state.user.id);
   const isLogin = useSelector((state) => state.user.isLogin);
-  const [data, setData] = useState(null);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -30,13 +29,13 @@ export default function SellItem() {
       return;
     }
 
-    setData({
+    const data = {
       id: userID,
       name,
       price,
       description,
       stock
-    });
+    };
 
     const response = await fetch(
       `${process.env.REACT_APP_BASE_URL}/inventory/items`,
@@ -49,10 +48,12 @@ export default function SellItem() {
         body: JSON.stringify(data)
       }
     );
-    const result = await response.json();
-    console.log(result.message);
 
-    await navigate("/");
+    if (response.ok) {
+      console.log("Item add successfully");
+    }
+
+    navigate("/");
   };
   return (
     <div className="container form-container form-card">
