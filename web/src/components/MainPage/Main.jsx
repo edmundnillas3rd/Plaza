@@ -18,7 +18,7 @@ const MainPage = () => {
   return (
     <Routes>
       <Route exact path="/" element={<ItemDisplay />} />
-      <Route exact path="/sell" element={<SellItem />} />
+      <Route exact path="/inventory/items" element={<SellItem />} />
       <Route exact path="/inventory/items/:id" element={<ItemDescription />} />
       <Route exact path="/login" element={<LoginForm />} />
       <Route exact path="/signup" element={<SignupForm />} />
@@ -55,7 +55,7 @@ export default function Main() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/sell">Sell</Link>
+              <Link to="/inventory/items">Sell</Link>
             </li>
             <li>{isLogin ? <Profile /> : <Link to="/login">Log in</Link>}</li>
             <li>
