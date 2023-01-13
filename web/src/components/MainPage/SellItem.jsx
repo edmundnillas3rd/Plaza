@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function SellItem() {
   const navigate = useNavigate();
   const userID = useSelector((state) => state.user.id);
+  const isLogin = useSelector((state) => state.user.isLogin);
   const [data, setData] = useState(null);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [stock, setStock] = useState("");
+
+  useEffect(() => {
+    if (!isLogin) {
+      navigate("/login");
+    }
+  }, []);
 
   const addItem = async (e) => {
     e.preventDefault();
@@ -45,7 +52,7 @@ export default function SellItem() {
     const result = await response.json();
     console.log(result.message);
 
-    navigate("/");
+    await navigate("/");
   };
   return (
     <div className="container form-container form-card">
