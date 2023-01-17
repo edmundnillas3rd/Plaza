@@ -53,26 +53,15 @@ exports.new_item = async (req, res, next) => {
   });
 };
 
-exports.purchase_item = async (req, res, next) => {
-  const items = Array.from(req.body);
-
-  items.forEach(
-    async (item) =>
-      await Item.findByIdAndUpdate(item.id, { $inc: { stock: -item.quantity } })
-  );
-};
-
 exports.item_detail = (req, res, next) => {
   async.parallel(
     {
       item(callback) {
-        Item.findById(req.params.id)
-          .populate("user", "username")
-          .exec(callback);
+        Item.findById(req.params.id).populate("user", "name").exec(callback);
       },
       reviews(callback) {
         Review.find({ item: req.params.id })
-          .populate("user", "username")
+          .populate("user", "name")
           .populate("item", "name")
           .exec(callback);
       }
