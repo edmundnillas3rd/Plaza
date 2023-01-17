@@ -7,6 +7,9 @@ const async = require("async");
 exports.index = (req, res, next) => {
   async.parallel(
     {
+      updatedItems(callback) {
+        Item.deleteMany({ stock: 0 }).exec(callback);
+      },
       items(callback) {
         Item.find({}, "name description")
           .populate("user", "username")
