@@ -42,7 +42,12 @@ export default function Main() {
       dispatch(user.login());
       dispatch(user.setID(foundUser.id));
       dispatch(user.setUser(foundUser.user));
-      dispatch(cart.setItem(foundUser.items));
+
+      if (foundUser.items !== undefined) {
+        dispatch(cart.setItem(foundUser.items));
+      } else {
+        dispatch(cart.setItem([]));
+      }
     }
   }, []);
 

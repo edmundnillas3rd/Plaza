@@ -1,34 +1,38 @@
 import { useDispatch, useSelector } from "react-redux";
+
 import { cart } from "../cart/cartSlice";
 import ItemCard from "../../components/MainPage/ItemCard";
-import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
+  const usernameID = useSelector((state) => state.user.id);
   const items = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
-  const submitPurchase = async () => {
-    await fetch(`${process.env.REACT_APP_BASE_URL}/inventory/items/purchase`, {
+  const navigate = useNavigate();
+
+  const submitPurchase = () => {
+    const order = {
+      user: usernameID,
+      orders: items
+    };
+
+    fetch(`${process.env.REACT_APP_BASE_URL}/orders/cart`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      credentials: "include",
-      body: JSON.stringify(items)
+      body: JSON.stringify(order)
     });
-
     dispatch(cart.reset());
+    navigate("/");
   };
-
-  useEffect(() => {
-    console.log(items);
-  }, []);
 
   return (
     <div className="container">
       <h3>Shopping Cart</h3>
       <div className="item-display">
-        {items &&
+        {items !== undefined &&
           items.map((item) => (
             <ItemCard
               key={item.id}

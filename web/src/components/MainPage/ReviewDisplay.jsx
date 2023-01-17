@@ -8,7 +8,7 @@ export default function ReviewDisplay({ reviews }) {
       {reviews.map((review, i) => (
         <div className="review-card" key={i}>
           <div className="header">
-            <p>{review.user.username}</p>
+            <p>{review.user.name}</p>
             <p>{review.rating}</p>
           </div>
           <p>{review.description}</p>
