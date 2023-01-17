@@ -8,18 +8,18 @@ const bcrypt = require("bcryptjs");
 exports.index = (req, res, next) => {};
 
 exports.sign_up = async (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { name, email, password } = req.body;
   const user = await User.findOne({
-    $or: [{ name: username }, { email: email }]
+    $or: [{ name: name }, { email: email }]
   }).catch((err) => {
     console.error(err);
   });
 
   if (user === null) {
     const newUser = {
-      name: username,
-      email: email,
-      password: password
+      name,
+      email,
+      password
     };
 
     newUser.password = await bcrypt.hash(password, 10);
