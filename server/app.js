@@ -11,6 +11,7 @@ const passport = require("passport");
 
 const inventoryRouter = require("./routes/inventory");
 const userRouter = require("./routes/user");
+const orderRouter = require("./routes/orders");
 
 const app = express();
 
@@ -67,6 +68,7 @@ app.use(function (req, res, next) {
 
 app.use("/", userRouter);
 app.use("/inventory", inventoryRouter);
+app.use("/orders", orderRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
