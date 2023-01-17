@@ -9,12 +9,12 @@ export default function SignupForm() {
 
   const signUp = () => {
     const user = {
-      username,
+      name: username,
       email,
       password
     };
 
-    fetch(`${process.env.REACT_APP_BASE_URL}/sign-up`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

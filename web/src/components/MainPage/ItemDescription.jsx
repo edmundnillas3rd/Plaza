@@ -29,20 +29,16 @@ export default function ItemDescription() {
       quantity: Number.parseInt(quantity)
     };
 
-    const loggedInUser = localStorage.getItem("user");
-    if (loggedInUser) {
-      const foundUser = JSON.parse(loggedInUser);
-      foundUser.items = [...items, item];
-      localStorage.setItem("user", JSON.stringify(foundUser));
-    }
-
     dispatch(cart.setItem(item));
   };
 
   useEffect(() => {
     getItemDescription();
-    console.log(items);
   }, []);
+
+  useEffect(() => {
+    console.log(items);
+  }, [items]);
 
   return (
     <div className="item-description-container">
