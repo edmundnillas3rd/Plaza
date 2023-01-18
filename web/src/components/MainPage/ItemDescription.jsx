@@ -17,7 +17,7 @@ export default function ItemDescription() {
     const response = await fetch(`${id}`);
     const data = await response.json();
 
-    setData(data.result);
+    setData(data);
   };
 
   const addToCart = (e) => {
@@ -46,7 +46,7 @@ export default function ItemDescription() {
         <>
           <div className="item-main-description">
             <p>Name: {data.item.name}</p>
-            <p>Seller: {data.item.user.name}</p>
+            <p>Seller: {data.item.seller.name}</p>
             <p>Price: {data.item.price}</p>
             <p>Stock: {data.item.stock}</p>
           </div>

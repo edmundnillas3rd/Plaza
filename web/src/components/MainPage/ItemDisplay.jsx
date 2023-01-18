@@ -9,7 +9,7 @@ export default function ItemDisplay() {
     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/inventory`);
     const data = await response.json();
 
-    setItems(data.result.items);
+    setItems(data.items);
   };
 
   useEffect(() => {
