@@ -12,7 +12,7 @@ exports.index = (req, res, next) => {
       },
       items(callback) {
         Item.find({}, "name description")
-          .populate("user", "username")
+          .populate("seller", "username")
           .exec(callback);
       }
     },
@@ -27,7 +27,7 @@ exports.index = (req, res, next) => {
 
       res.json({
         error: err,
-        result: results
+        items: results.items
       });
     }
   );
@@ -37,7 +37,7 @@ exports.new_item = async (req, res, next) => {
   const { id, name, price, description, stock } = req.body;
 
   const item = await new Item({
-    user: id,
+    seller: id,
     name,
     price,
     description,
@@ -60,7 +60,7 @@ exports.item_detail = (req, res, next) => {
   async.parallel(
     {
       item(callback) {
-        Item.findById(req.params.id).populate("user", "name").exec(callback);
+        Item.findById(req.params.id).populate("seller", "name").exec(callback);
       },
       reviews(callback) {
         Review.find({ item: req.params.id })
@@ -86,7 +86,8 @@ exports.item_detail = (req, res, next) => {
 
       res.json({
         error: err,
-        result: results
+        item: results.item,
+        reviews: results.reviews
       });
     }
   );
