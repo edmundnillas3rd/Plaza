@@ -4,12 +4,16 @@ import { useNavigate } from "react-router-dom";
 
 export default function SellItem() {
   const navigate = useNavigate();
+
   const userID = useSelector((state) => state.user.id);
   const isLogin = useSelector((state) => state.user.isLogin);
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [stock, setStock] = useState("");
+
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     if (!isLogin) {
@@ -55,6 +59,7 @@ export default function SellItem() {
 
     navigate("/");
   };
+
   return (
     <div className="container form-container form-card">
       <form action="" method="POST" onSubmit={addItem}>
@@ -98,6 +103,31 @@ export default function SellItem() {
             rows="10"
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
+        </div>
+
+        <div className="form-container label-container">
+          <label htmlFor="item-image">Image</label>
+          <input
+            type="file"
+            multiple="multiple"
+            accept="image/jpeg, image/png, image/jpg"
+            name="item-image"
+            id="item-image"
+            onChange={(e) => {
+              setImages([...e.target.files]);
+            }}
+          />
+        </div>
+
+        <div className="form-container">
+          <output>
+            {images.length !== 0 &&
+              images.map((image, index) => (
+                <div className="image" key={index}>
+                  <img src={`${URL.createObjectURL(image)}`} alt="item" />
+                </div>
+              ))}
+          </output>
         </div>
 
         <button>Add Item</button>
