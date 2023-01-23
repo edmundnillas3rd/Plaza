@@ -1,34 +1,23 @@
-.item-display {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-}
-
 .item-card {
-  color: $base-color;
-  width: 45vw;
-  height: 25vh;
-  border: 1px solid $base-color;
-  border-radius: 4px;
-  padding: 1.5rem 2rem;
-}
-
-.item-description-container {
   display: flex;
+
+  box-shadow: 0 0 0.5rem 0.001rem #57585a;
+  border-radius: 10px;
+  width: 35vw;
   flex-flow: column;
-  gap: 2rem;
-  padding: 10vh 10vw;
-}
 
-.review-container {
-  display: flex;
-  gap: 2rem;
-  flex-flow: column;
-}
+  .image-container {
+    // background-color: red;
+    display: inherit;
+    align-items: center;
+    justify-content: center;
+    flex: 2;
+  }
 
-.header {
-  display: flex;
-  gap: 0.4rem;
+  .item-info {
+    // background-color: yellow;
+    display: inherit;
+    flex-flow: column;
+    justify-content: center;
+  }
 }
