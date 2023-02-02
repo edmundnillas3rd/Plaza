@@ -1,8 +1,22 @@
+const async = require("async");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "");
+  }
+});
+const upload = multer({ storage: storage });
+
+const { getStorage } = require("firebase-admin/storage");
+
+const initializeFirebase = require("../utils/firebaseConfig");
+const firebaseApp = initializeFirebase();
+
 const Item = require("../models/item");
 const User = require("../models/user");
 const Review = require("../models/review");
-
-const async = require("async");
+const item = require("../models/item");
 
 exports.index = (req, res, next) => {
   async.parallel(
@@ -34,14 +48,38 @@ exports.index = (req, res, next) => {
 };
 
 exports.new_item = async (req, res, next) => {
-  const { id, name, price, description, stock } = req.body;
+  const files = req.files;
+
+  console.log(files);
+
+  const { seller, name, price, description, stock } = JSON.parse(
+    req.body.itemData
+  );
+
+  const bucket = getStorage(firebaseApp).bucket();
+
+  const urlImagePaths = files.map((file) => {
+    const filePath = file.path;
+
+    const url = `${seller}/${name}/${file.originalname}`;
+
+    bucket.upload(filePath, {
+      destination: url,
+      gzip: true
+    });
+
+    return url;
+  });
 
   const item = await new Item({
-    seller: id,
+    seller,
     name,
     price,
     description,
-    stock
+    stock,
+    image: {
+      urls: urlImagePaths
+    }
   });
 
   item.save(function (err) {
@@ -56,7 +94,7 @@ exports.new_item = async (req, res, next) => {
   });
 };
 
-exports.item_detail = (req, res, next) => {
+exports.item_detail = async (req, res, next) => {
   async.parallel(
     {
       item(callback) {
@@ -84,10 +122,31 @@ exports.item_detail = (req, res, next) => {
         return next(err);
       }
 
-      res.json({
-        error: err,
-        item: results.item,
-        reviews: results.reviews
+      console.log(results.item);
+
+      const bucket = getStorage(firebaseApp).bucket();
+
+      const signedUrls = results.item.image.urls.map(async (url) => {
+        const options = {
+          version: "v2", // defaults to 'v2' if missing.
+          action: "read",
+          expires: Date.now() + 1000 * 60 * 60 // one hour
+        };
+
+        const [signedUrl] = await bucket.file(url).getSignedUrl(options);
+
+        return signedUrl;
+      });
+
+      Promise.all(signedUrls).then(function (urls) {
+        console.log("Signed Url", urls);
+
+        res.json({
+          error: err,
+          item: results.item,
+          reviews: results.reviews,
+          urls
+        });
       });
     }
   );
