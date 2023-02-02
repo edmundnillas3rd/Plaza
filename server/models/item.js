@@ -8,7 +8,10 @@ const itemSchema = new Schema(
     price: { type: Number, required: true },
     description: { type: String, required: true },
     stock: { type: Number, required: true },
-    reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }]
+    reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
+    image: {
+      urls: [{ type: String }]
+    }
   },
   {
     toJSON: { virtuals: true }
