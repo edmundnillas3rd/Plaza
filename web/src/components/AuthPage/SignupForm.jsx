@@ -30,9 +30,9 @@ export default function SignupForm() {
   };
 
   return (
-    <div className="form-card form-container">
+    <div className=" ">
       <form action="" method="POST" onSubmit={validateForms}>
-        <div className="form-container label-container">
+        <div className=" ">
           <label htmlFor="username">Username: </label>
           <input
             name="username"
@@ -40,7 +40,7 @@ export default function SignupForm() {
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <div className="form-container label-container">
+        <div className=" ">
           <label htmlFor="email">Email: </label>
           <input
             type="email"
@@ -49,7 +49,7 @@ export default function SignupForm() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="form-container label-container">
+        <div className=" ">
           <label htmlFor="password">Password: </label>
           <input
             type="password"
@@ -58,9 +58,9 @@ export default function SignupForm() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="button-container form-container">
+        <div className="button-container ">
           <button type="submit">Sign Up</button>
-          <p className="form-container sub-heading">
+          <p className=" sub-heading">
             Already have an account?
             <Link to="/login">Login here</Link>
           </p>

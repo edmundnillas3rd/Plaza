@@ -1,12 +1,15 @@
 import { BrowserRouter as Router } from "react-router-dom";
+import { IconContext } from "react-icons";
 
-import "../src/style/styles.scss";
+import "./style/styles.scss";
 import Main from "./components/MainPage/Main";
 
 function App() {
   return (
     <Router>
-      <Main />
+      <IconContext.Provider value={{ className: "react-icons" }}>
+        <Main />
+      </IconContext.Provider>
     </Router>
   );
 }

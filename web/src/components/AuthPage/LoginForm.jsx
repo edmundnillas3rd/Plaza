@@ -50,14 +50,14 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="form-card form-container">
+    <div className=" ">
       <form action="" method="POST" onSubmit={validateForms}>
         {validationErrors.map((err, i) => (
           <p className="login-error" key={i}>
             {err}
           </p>
         ))}
-        <div className="form-container label-container">
+        <div className=" ">
           <label htmlFor="email">Email: </label>
           <input
             type="email"
@@ -66,7 +66,7 @@ export default function LoginForm() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="form-container label-container">
+        <div className=" ">
           <label htmlFor="password">Password: </label>
           <input
             type="password"
@@ -75,9 +75,9 @@ export default function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="button-container form-container">
+        <div className="button-container ">
           <button type="submit">Log In</button>
-          <p className="form-container sub-heading">
+          <p className=" sub-heading">
             Don't have an account?
             <Link to="/signup">Register here</Link>
           </p>

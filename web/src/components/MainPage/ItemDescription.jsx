@@ -36,10 +36,6 @@ export default function ItemDescription() {
     getItemDescription();
   }, []);
 
-  useEffect(() => {
-    console.log(items);
-  }, [items]);
-
   return (
     <div className="item-description-container">
       {data && (
@@ -50,6 +46,12 @@ export default function ItemDescription() {
             <p>Price: {data.item.price}</p>
             <p>Stock: {data.item.stock}</p>
           </div>
+
+          <output>
+            {data.urls.map((url, index) => (
+              <img src={url} alt="item" key={index} />
+            ))}
+          </output>
 
           {isLogin && (
             <>
