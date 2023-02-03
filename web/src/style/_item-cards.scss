@@ -1,23 +1,25 @@
 .item-card {
   display: flex;
-
-  box-shadow: 0 0 0.5rem 0.001rem #57585a;
+  box-shadow: 0 0 1rem 0.1rem #57585a;
   border-radius: 10px;
-  width: 35vw;
-  flex-flow: column;
+  width: 50vw;
 
   .image-container {
-    // background-color: red;
-    display: inherit;
-    align-items: center;
+    width: 10vw;
+    display: flex;
     justify-content: center;
-    flex: 2;
+    align-items: center;
+    background-size: cover;
+    object-fit: fill;
   }
 
   .item-info {
-    // background-color: yellow;
-    display: inherit;
+    flex: 2;
+    background-color: $base-color;
+    display: flex;
     flex-flow: column;
-    justify-content: center;
+    padding: 25px 50px;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 }

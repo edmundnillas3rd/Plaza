@@ -4,12 +4,14 @@ import ItemCard from "./ItemCard";
 
 export default function ItemDisplay() {
   const [items, setItems] = useState(null);
+  const [urls, setUrls] = useState(null);
 
   const getItems = async () => {
     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/inventory`);
     const data = await response.json();
 
     setItems(data.items);
+    setUrls(data.urls);
   };
 
   useEffect(() => {
@@ -19,12 +21,13 @@ export default function ItemDisplay() {
   return (
     <div className="item-display">
       {items &&
-        items.map((item) => (
+        items.map((item, index) => (
           <ItemCard
-            key={item._id}
+            key={index}
             name={item.name}
             description={item.description}
             url={item.url}
+            image={urls[index]}
           />
         ))}
     </div>

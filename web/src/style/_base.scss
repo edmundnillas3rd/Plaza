@@ -16,6 +16,7 @@ body {
 
 a {
   text-decoration: none;
+  color: $light-color;
 }
 
 main {
@@ -39,4 +40,8 @@ li {
   min-width: 25%;
   max-width: 100%;
   height: 25px;
+}
+
+img {
+  max-width: 100%;
 }

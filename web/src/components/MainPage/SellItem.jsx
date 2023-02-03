@@ -33,38 +33,49 @@ export default function SellItem() {
       return;
     }
 
+    const formData = new FormData();
+
+    images.forEach((image) => {
+      formData.append("images", image);
+    });
+
     const data = {
-      id: userID,
+      seller: userID,
       name,
       price,
       description,
       stock
     };
 
+    formData.append("itemData", JSON.stringify(data));
+    // formData.append("itemData", data);
+
     const response = await fetch(
       `${process.env.REACT_APP_BASE_URL}/inventory/items`,
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        credentials: "include",
-        body: JSON.stringify(data)
+        body: formData
       }
     );
 
     if (response.ok) {
-      console.log("Item add successfully");
+      console.log("Item added successfully!");
     }
 
     navigate("/");
   };
 
   return (
-    <div className="container form-container form-card">
-      <form action="" method="POST" onSubmit={addItem}>
+    <div className=" ">
+      <form
+        className=""
+        action=""
+        method="POST"
+        onSubmit={addItem}
+        encType="multipart/form-data"
+      >
         <p>Enter the information about the new item</p>
-        <div className="form-container label-container">
+        <div className=" ">
           <label htmlFor="name">Name: </label>
           <input
             type="text"
@@ -73,8 +84,7 @@ export default function SellItem() {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-
-        <div className="form-container label-container">
+        <div className=" ">
           <label htmlFor="stock">Stock: </label>
           <input
             type="text"
@@ -83,8 +93,7 @@ export default function SellItem() {
             onChange={(e) => setStock(e.target.value)}
           />
         </div>
-
-        <div className="form-container label-container">
+        <div className=" ">
           <label htmlFor="price">Price: </label>
           <input
             type="text"
@@ -93,8 +102,7 @@ export default function SellItem() {
             onChange={(e) => setPrice(e.target.value)}
           />
         </div>
-
-        <div className="form-container label-container">
+        <div className=" ">
           <label htmlFor="description">Description</label>
           <textarea
             name="description"
@@ -104,32 +112,40 @@ export default function SellItem() {
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
-
-        <div className="form-container label-container">
-          <label htmlFor="item-image">Image</label>
+        <div className=" ">
+          <label htmlFor="images">Image</label>
           <input
             type="file"
             multiple="multiple"
-            accept="image/jpeg, image/png, image/jpg"
-            name="item-image"
-            id="item-image"
+            accept="image/*"
+            name="images"
+            id="images"
             onChange={(e) => {
               setImages([...e.target.files]);
             }}
           />
         </div>
-
-        <div className="form-container">
+        <div className="">
           <output>
-            {images.length !== 0 &&
-              images.map((image, index) => (
-                <div className="image" key={index}>
-                  <img src={`${URL.createObjectURL(image)}`} alt="item" />
-                </div>
-              ))}
+            {images.length !== 0
+              ? images.map((image, index) => (
+                  <div className="image" key={index}>
+                    <img src={`${URL.createObjectURL(image)}`} alt="item" />
+                    <span
+                      onClick={() => {
+                        setImages([
+                          ...images.slice(0, index),
+                          ...images.slice(index + 1)
+                        ]);
+                      }}
+                    >
+                      &times;
+                    </span>
+                  </div>
+                ))
+              : null}
           </output>
         </div>
-
         <button>Add Item</button>
       </form>
     </div>
