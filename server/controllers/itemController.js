@@ -18,14 +18,14 @@ const User = require("../models/user");
 const Review = require("../models/review");
 const item = require("../models/item");
 
-exports.index = (req, res, next) => {
+exports.index = async (req, res, next) => {
   async.parallel(
     {
       updatedItems(callback) {
         Item.deleteMany({ stock: 0 }).exec(callback);
       },
       items(callback) {
-        Item.find({}, "name description")
+        Item.find({}, "name description image")
           .populate("seller", "username")
           .exec(callback);
       }
@@ -39,9 +39,29 @@ exports.index = (req, res, next) => {
         return next(err);
       }
 
-      res.json({
-        error: err,
-        items: results.items
+      const bucket = getStorage(firebaseApp).bucket();
+
+      const signedUrls = results.items.map(async (item) => {
+        const options = {
+          version: "v2", // defaults to 'v2' if missing.
+          action: "read",
+          expires: Date.now() + 1000 * 60 * 60 // one hour
+        };
+
+        const url = item.image.urls[0];
+        const [signedUrl] = await bucket.file(url).getSignedUrl(options);
+
+        return signedUrl;
+      });
+
+      Promise.all(signedUrls).then(function (urls) {
+        console.log("Signed Url", urls);
+
+        res.json({
+          error: err,
+          items: results.items,
+          urls
+        });
       });
     }
   );
