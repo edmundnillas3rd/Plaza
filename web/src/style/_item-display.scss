@@ -1,5 +1,7 @@
 .item-display {
   display: flex;
   justify-content: center;
+  flex-flow: wrap;
+  gap: 12px;
   padding: 3vh 0;
 }
