@@ -1,10 +1,11 @@
 import { BsCardImage } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-const ItemCard = ({ name, description, url, image }) => {
+const ItemCard = ({ name, description, price, url, image }) => {
+  const currency = "P";
   return (
-    <Link to={url}>
-      <div className="item-card">
+    <div className="item-card">
+      <Link to={url}>
         <div className="image-container">
           {image !== undefined ? (
             <img src={image} alt="item" />
@@ -15,9 +16,10 @@ const ItemCard = ({ name, description, url, image }) => {
         <div className="item-info">
           <h3>{name}</h3>
           <p>{description}</p>
+          <h3>{`${currency} ${price}`}</h3>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };
 

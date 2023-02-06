@@ -20,16 +20,22 @@ export default function ItemDisplay() {
 
   return (
     <div className="item-display">
-      {items &&
-        items.map((item, index) => (
-          <ItemCard
-            key={index}
-            name={item.name}
-            description={item.description}
-            url={item.url}
-            image={urls[index]}
-          />
-        ))}
+      <div className="item-category-header">
+        <h3>General</h3>
+      </div>
+      <div className="item-lists-container">
+        {items &&
+          items.map((item, index) => (
+            <ItemCard
+              key={index}
+              name={item.name}
+              description={item.description}
+              price={item.price}
+              url={item.url}
+              image={urls[index]}
+            />
+          ))}
+      </div>
     </div>
   );
 }

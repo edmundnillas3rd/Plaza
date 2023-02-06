@@ -25,9 +25,7 @@ exports.index = async (req, res, next) => {
         Item.deleteMany({ stock: 0 }).exec(callback);
       },
       items(callback) {
-        Item.find({}, "name description image")
-          .populate("seller", "username")
-          .exec(callback);
+        Item.find({}).populate("seller", "username").exec(callback);
       }
     },
     (err, results) => {
