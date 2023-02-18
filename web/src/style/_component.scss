@@ -8,7 +8,17 @@
 }
 
 .links-container {
-  background-color: $base-color;
+  flex: 2;
+
+  & ul {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    & a {
+      font-weight: bolder;
+    }
+  }
 }
 
 .dropdown {
