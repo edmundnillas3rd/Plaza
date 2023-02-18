@@ -54,6 +54,7 @@ export default function Main() {
   return (
     <>
       <header>
+        <h3>Plaza</h3>
         <nav className="links-container">
           <ul>
             <li>
