@@ -16,12 +16,18 @@ header {
   align-items: center;
   justify-content: space-around;
 
-  & h3 {
+  & > h3 {
     display: flex;
     width: 25vw;
     justify-content: center;
     font-size: x-large;
     font-weight: bolder;
+  }
+
+  @media (orientation: portrait) {
+    & {
+      padding: 0.7rem;
+    }
   }
 }
 
