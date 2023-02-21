@@ -10,13 +10,29 @@
 .links-container {
   flex: 2;
 
-  & ul {
+  .nav-bar {
+    display: none;
+  }
+
+  & > ul {
     display: flex;
     align-items: center;
     justify-content: flex-end;
 
-    & a {
+    a {
       font-weight: bolder;
+    }
+  }
+
+  @media (orientation: portrait) {
+    .nav-bar {
+      display: flex;
+      justify-content: flex-end;
+      cursor: pointer;
+    }
+
+    ul {
+      display: none;
     }
   }
 }

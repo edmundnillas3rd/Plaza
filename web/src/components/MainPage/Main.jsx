@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Link } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 import Profile from "../../features/profile/Profile";
 import { user } from "../../features/profile/userSlice";
@@ -56,6 +57,10 @@ export default function Main() {
       <header>
         <h3>Plaza</h3>
         <nav className="links-container">
+          <div className="nav-bar">
+            <RxHamburgerMenu />
+          </div>
+
           <ul>
             <li>
               <Link to="/">Home</Link>
