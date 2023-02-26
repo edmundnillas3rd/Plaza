@@ -9,7 +9,7 @@ import { user } from "../../features/profile/userSlice";
 import { cart } from "../../features/cart/cartSlice";
 
 import ItemDisplay from "./ItemDisplay";
-import ItemDescription from "./ItemDescription";
+import ItemDescription from "./ItemPage/ItemDescription";
 import SellItem from "./SellItem";
 import Cart from "../../features/cart/Cart";
 import LoginForm from "../AuthPage/LoginForm";

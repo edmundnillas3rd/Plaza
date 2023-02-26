@@ -1,6 +1,10 @@
 .container {
   display: flex;
   padding: 5% 10%;
+
+  &.column {
+    flex-direction: column;
+  }
 }
 
 .hide {
