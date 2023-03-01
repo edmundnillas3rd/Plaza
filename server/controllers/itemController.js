@@ -16,7 +16,7 @@ const firebaseApp = initializeFirebase();
 const Item = require("../models/item");
 const User = require("../models/user");
 const Review = require("../models/review");
-const item = require("../models/item");
+const Category = require("../models/category");
 
 exports.index = async (req, res, next) => {
   async.parallel(

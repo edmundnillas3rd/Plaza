@@ -9,6 +9,7 @@ const itemSchema = new Schema(
     description: { type: String, required: true },
     stock: { type: Number, required: true },
     reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
+    category: { type: Schema.Types.ObjectId, ref: "Category" },
     image: {
       urls: [{ type: String }]
     }
