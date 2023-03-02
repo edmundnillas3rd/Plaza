@@ -1,8 +1,24 @@
+import { useEffect } from "react";
 import { BsCardImage } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-const ItemCard = ({ name, description, price, url, image }) => {
+const StarRatings = ({ rating }) => {
+  const ratings = [];
+
+  for (let i = 0; i < rating; i++) {
+    ratings.push(<div className="star-ratings-container" key={i}></div>);
+  }
+
+  return <div className="ratings-container">{ratings}</div>;
+};
+
+const ItemCard = ({ name, price, url, rating, image }) => {
   const currency = "P";
+
+  useEffect(() => {
+    console.log(rating);
+  }, []);
+
   return (
     <Link to={url}>
       <div className="item-card">
@@ -13,10 +29,10 @@ const ItemCard = ({ name, description, price, url, image }) => {
             <BsCardImage />
           )}
         </div>
-        <div className="item-info">
-          <h3>{name}</h3>
-          <p>{description}</p>
-          <h3>{`${currency} ${price}`}</h3>
+        <div className="item-info container">
+          <p className="product-name-container">{name}</p>
+          <StarRatings rating={rating} />
+          <p className="product-price-container">{`${currency} ${price}`}</p>
         </div>
       </div>
     </Link>

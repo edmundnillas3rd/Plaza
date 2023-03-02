@@ -32,6 +32,7 @@ export default function ItemDisplay() {
               description={item.description}
               price={item.price}
               url={item.url}
+              rating={item.rating}
               image={urls[index]}
             />
           ))}
