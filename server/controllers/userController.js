@@ -45,9 +45,10 @@ exports.log_in = (req, res, next) => {
     if (err) throw err;
 
     if (!user) {
+      console.log("User not found!");
       res.json({ message: "Incorrect username or password!" });
     } else {
-      req.logIn(user, async (err) => {
+      req.logIn(user, (err) => {
         console.log(req.user);
         res.json({ id: req.user.id, user: req.user.name });
       });

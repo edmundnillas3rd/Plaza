@@ -35,8 +35,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({
     secret: "edmund",
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     cookie: {
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       secure: process.env.NODE_ENV === "production"
@@ -45,8 +45,6 @@ app.use(
 );
 
 app.use(passport.authenticate("session"));
-app.use(passport.initialize());
-app.use(passport.session());
 require("./utils/passportConfig")(passport);
 
 app.use(function (req, res, next) {
