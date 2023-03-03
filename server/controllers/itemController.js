@@ -70,7 +70,7 @@ exports.new_item = async (req, res, next) => {
 
   console.log(files);
 
-  const { seller, name, price, description, stock } = JSON.parse(
+  const { seller, name, price, description, stock, rating } = JSON.parse(
     req.body.itemData
   );
 
@@ -95,6 +95,7 @@ exports.new_item = async (req, res, next) => {
     price,
     description,
     stock,
+    rating,
     image: {
       urls: urlImagePaths
     }

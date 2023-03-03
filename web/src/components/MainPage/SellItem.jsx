@@ -12,6 +12,7 @@ export default function SellItem() {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [stock, setStock] = useState("");
+  const [rating, setRating] = useState(0);
 
   const [images, setImages] = useState([]);
 
@@ -44,7 +45,8 @@ export default function SellItem() {
       name,
       price,
       description,
-      stock
+      stock,
+      rating
     };
 
     formData.append("itemData", JSON.stringify(data));
@@ -111,6 +113,19 @@ export default function SellItem() {
             rows="10"
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
+        </div>
+        <div className="">
+          <label htmlFor="rating">Rating</label>
+          <input
+            name="rating"
+            id="rating"
+            type="text"
+            min="1"
+            max="5"
+            onChange={(e) => {
+              setRating(e.target.value);
+            }}
+          />
         </div>
         <div className=" ">
           <label htmlFor="images">Image</label>
