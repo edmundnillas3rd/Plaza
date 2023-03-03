@@ -8,9 +8,9 @@ module.exports = function (passport) {
   passport.use(
     new localStrategy(
       { usernameField: "email", passwordField: "password" },
-      (username, password, done) => {
+      (name, password, done) => {
         User.findOne(
-          { $or: [{ username: username }, { email: username }] },
+          { $or: [{ name: name }, { email: name }] },
           (err, user) => {
             if (err) throw err;
             if (!user) {
@@ -33,12 +33,17 @@ module.exports = function (passport) {
   );
 
   passport.serializeUser(function (user, done) {
-    done(null, user.id);
+    console.log("User id: ", user._id);
+    done(null, user._id);
   });
 
   passport.deserializeUser(function (id, done) {
     User.findById(id, function (err, user) {
-      done(err, user);
+      if (!err) {
+        done(null, user);
+      } else {
+        done(err, null);
+      }
     });
   });
 };
