@@ -30,7 +30,7 @@ export default function SignupForm() {
 
     signUp();
 
-    navigate(`${process.env.REACT_APP_BASE_URL}/login`);
+    navigate("/login");
   };
 
   return (

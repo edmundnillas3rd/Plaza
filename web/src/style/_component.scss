@@ -65,6 +65,12 @@
   }
 }
 
+.form-input-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+}
+
 .button-container {
   display: flex;
   flex-direction: column;
