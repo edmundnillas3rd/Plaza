@@ -23,7 +23,8 @@
     align-items: center;
     justify-content: flex-end;
 
-    a {
+    a,
+    li {
       font-weight: bolder;
     }
   }
@@ -69,10 +70,24 @@
   display: flex;
   justify-content: space-between;
   gap: 50px;
+
+  & > textarea {
+    resize: none;
+  }
 }
 
 .button-container {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.button-container > button {
+  border: none;
+  border-radius: 6px;
+  font-weight: bolder;
+  font-size: 1em;
+  background-color: $base-color;
+  color: $light-color;
+  padding: 8px 0;
 }

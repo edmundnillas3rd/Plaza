@@ -65,6 +65,7 @@ export default function Main() {
             <li>
               <Link to="/">Home</Link>
             </li>
+            <li>Products</li>
             <li>
               <Link to="/inventory/items">Sell</Link>
             </li>

@@ -27,15 +27,3 @@
     color: red;
   }
 }
-
-.login {
-  &.button-container > button {
-    border: none;
-    border-radius: 6px;
-    font-weight: bolder;
-    font-size: 1em;
-    background-color: $base-color;
-    color: $light-color;
-    padding: 8px 0;
-  }
-}

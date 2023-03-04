@@ -86,7 +86,7 @@ export default function LoginForm() {
             }}
           />
         </div>
-        <div className="login button-container ">
+        <div className="button-container ">
           <button type="submit">Log In</button>
           <p className="sub-heading">
             <p>Don't have an account?</p>

@@ -50,7 +50,6 @@ export default function SellItem() {
     };
 
     formData.append("itemData", JSON.stringify(data));
-    // formData.append("itemData", data);
 
     const response = await fetch(
       `${process.env.REACT_APP_BASE_URL}/inventory/items`,
@@ -68,16 +67,16 @@ export default function SellItem() {
   };
 
   return (
-    <div className=" ">
+    <div className="product-container">
       <form
-        className=""
+        className="product-form-container"
         action=""
         method="POST"
         onSubmit={addItem}
         encType="multipart/form-data"
       >
         <p>Enter the information about the new item</p>
-        <div className=" ">
+        <div className="form-input-container ">
           <label htmlFor="name">Name: </label>
           <input
             type="text"
@@ -86,7 +85,7 @@ export default function SellItem() {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-        <div className=" ">
+        <div className="form-input-container ">
           <label htmlFor="stock">Stock: </label>
           <input
             type="text"
@@ -95,7 +94,7 @@ export default function SellItem() {
             onChange={(e) => setStock(e.target.value)}
           />
         </div>
-        <div className=" ">
+        <div className="form-input-container ">
           <label htmlFor="price">Price: </label>
           <input
             type="text"
@@ -104,7 +103,7 @@ export default function SellItem() {
             onChange={(e) => setPrice(e.target.value)}
           />
         </div>
-        <div className=" ">
+        <div className="form-input-container ">
           <label htmlFor="description">Description</label>
           <textarea
             name="description"
@@ -114,7 +113,7 @@ export default function SellItem() {
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
-        <div className="">
+        <div className="form-input-container ">
           <label htmlFor="rating">Rating</label>
           <input
             name="rating"
@@ -140,28 +139,28 @@ export default function SellItem() {
             }}
           />
         </div>
-        <div className="">
-          <output>
-            {images.length !== 0
-              ? images.map((image, index) => (
-                  <div className="image" key={index}>
-                    <img src={`${URL.createObjectURL(image)}`} alt="item" />
-                    <span
-                      onClick={() => {
-                        setImages([
-                          ...images.slice(0, index),
-                          ...images.slice(index + 1)
-                        ]);
-                      }}
-                    >
-                      &times;
-                    </span>
-                  </div>
-                ))
-              : null}
-          </output>
+        <div className="image-display-container">
+          {images.length !== 0
+            ? images.map((image, index) => (
+                <div className="product-image-container" key={index}>
+                  <img src={`${URL.createObjectURL(image)}`} alt="item" />
+                  <span
+                    onClick={() => {
+                      setImages([
+                        ...images.slice(0, index),
+                        ...images.slice(index + 1)
+                      ]);
+                    }}
+                  >
+                    &times;
+                  </span>
+                </div>
+              ))
+            : null}
         </div>
-        <button>Add Item</button>
+        <div className="button-container">
+          <button>Add Item</button>
+        </div>
       </form>
     </div>
   );
