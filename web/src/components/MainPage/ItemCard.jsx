@@ -15,10 +15,6 @@ const StarRatings = ({ rating }) => {
 const ItemCard = ({ name, price, url, rating, image }) => {
   const currency = "P";
 
-  useEffect(() => {
-    console.log(rating);
-  }, []);
-
   return (
     <Link to={url}>
       <div className="item-card">
