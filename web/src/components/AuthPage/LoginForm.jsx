@@ -50,35 +50,46 @@ export default function LoginForm() {
   }
 
   return (
-    <div className=" ">
-      <form action="" method="POST" onSubmit={validateForms}>
+    <div className="login-container">
+      <form
+        className="login-form-container"
+        action=""
+        method="POST"
+        onSubmit={validateForms}
+      >
         {validationErrors.map((err, i) => (
           <p className="login-error" key={i}>
             {err}
           </p>
         ))}
-        <div className=" ">
+        <div className="form-input-container">
           <label htmlFor="email">Email: </label>
           <input
             type="email"
             name="email"
             id="email"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setValidationErrors([]);
+              setEmail(e.target.value);
+            }}
           />
         </div>
-        <div className=" ">
+        <div className="form-input-container">
           <label htmlFor="password">Password: </label>
           <input
             type="password"
             name="password"
             id="password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setValidationErrors([]);
+              setPassword(e.target.value);
+            }}
           />
         </div>
-        <div className="button-container ">
+        <div className="login button-container ">
           <button type="submit">Log In</button>
-          <p className=" sub-heading">
-            Don't have an account?
+          <p className="sub-heading">
+            <p>Don't have an account?</p>
             <Link to="/signup">Register here</Link>
           </p>
         </div>
