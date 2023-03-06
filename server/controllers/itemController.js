@@ -65,14 +65,28 @@ exports.index = async (req, res, next) => {
   );
 };
 
+exports.item_categories = async (req, res) => {
+  const categories = await Category.find();
+
+  if (categories === null) {
+    console.log("Categories not found");
+    return;
+  }
+
+  res.json({
+    categories
+  });
+};
+
 exports.new_item = async (req, res, next) => {
   const files = req.files;
 
   console.log(files);
 
-  const { seller, name, price, description, stock, rating } = JSON.parse(
-    req.body.itemData
-  );
+  const { seller, name, price, description, stock, category, rating } =
+    JSON.parse(req.body.itemData);
+
+  const categoryName = await Category.find({ name: category });
 
   const bucket = getStorage(firebaseApp).bucket();
 
@@ -96,6 +110,7 @@ exports.new_item = async (req, res, next) => {
     description,
     stock,
     rating,
+    categoryName,
     image: {
       urls: urlImagePaths
     }
