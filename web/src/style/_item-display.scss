@@ -1,13 +1,14 @@
-.item-display {
+.item-display-section {
   padding: 5vh 5vw;
+}
 
-  .item-category-header {
-    color: $base-color;
-    margin-bottom: 1.5rem;
-  }
+.item-category-header {
+  color: $base-color;
+  margin-bottom: 1.5rem;
+}
 
-  .item-lists-container {
-    display: flex;
-    gap: 2rem;
-  }
+.item-lists-container {
+  padding: 5vh 5vw;
+  display: flex;
+  gap: 2rem;
 }
