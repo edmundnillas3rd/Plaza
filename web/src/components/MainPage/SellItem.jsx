@@ -13,6 +13,8 @@ export default function SellItem() {
   const [description, setDescription] = useState("");
   const [stock, setStock] = useState("");
   const [rating, setRating] = useState(0);
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState("");
 
   const [images, setImages] = useState([]);
 
@@ -20,7 +22,24 @@ export default function SellItem() {
     if (!isLogin) {
       navigate("/login");
     }
+
+    getCategories();
   }, []);
+
+  const getCategories = async () => {
+    const response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/inventory/items`
+    );
+
+    if (!response.ok) {
+      console.log("categories not found!");
+      return;
+    }
+
+    const data = await response.json();
+
+    setCategories(data.categories);
+  };
 
   const addItem = async (e) => {
     e.preventDefault();
@@ -46,6 +65,7 @@ export default function SellItem() {
       price,
       description,
       stock,
+      category,
       rating
     };
 
@@ -113,18 +133,22 @@ export default function SellItem() {
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
+
         <div className="form-input-container ">
-          <label htmlFor="rating">Rating</label>
-          <input
-            name="rating"
-            id="rating"
-            type="text"
-            min="1"
-            max="5"
+          <label htmlFor="category">Category</label>
+          <select
+            name="category"
+            id="category"
             onChange={(e) => {
-              setRating(e.target.value);
+              setCategory(e.target.value);
             }}
-          />
+          >
+            <option value="">-- Please choose a category</option>
+            {categories !== undefined &&
+              categories.map((category) => (
+                <option value={`${category.name}`}>{category.name}</option>
+              ))}
+          </select>
         </div>
         <div className=" ">
           <label htmlFor="images">Image</label>
