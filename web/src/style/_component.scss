@@ -22,23 +22,6 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-
-    a,
-    li {
-      font-weight: bolder;
-    }
-  }
-
-  @media (orientation: portrait) {
-    .nav-bar {
-      display: flex;
-      justify-content: flex-end;
-      cursor: pointer;
-    }
-
-    ul {
-      display: none;
-    }
   }
 }
 
@@ -90,4 +73,16 @@
   background-color: $base-color;
   color: $light-color;
   padding: 8px 0;
+}
+
+@media (orientation: portrait) {
+  .nav-bar {
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+  }
+
+  ul {
+    display: none;
+  }
 }
