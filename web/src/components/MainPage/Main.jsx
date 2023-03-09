@@ -58,7 +58,7 @@ export default function Main() {
         <h3>Plaza</h3>
         <nav className="links-container">
           <div className="nav-bar">
-            <RxHamburgerMenu />
+            <RxHamburgerMenu size={30} />
           </div>
 
           <ul>
@@ -72,7 +72,7 @@ export default function Main() {
             <li>{isLogin ? <Profile /> : <Link to="/login">Log in</Link>}</li>
             <li>
               <Link to="/shopping-cart">
-                <AiOutlineShoppingCart />
+                <AiOutlineShoppingCart size={20} />
               </Link>
             </li>
           </ul>

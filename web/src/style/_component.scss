@@ -76,13 +76,15 @@
 }
 
 @media (orientation: portrait) {
-  .nav-bar {
-    display: flex;
-    justify-content: flex-end;
-    cursor: pointer;
-  }
+  .links-container {
+    & > ul {
+      display: none;
+    }
 
-  ul {
-    display: none;
+    .nav-bar {
+      display: flex;
+      justify-content: flex-end;
+      cursor: pointer;
+    }
   }
 }
