@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+const { getStorage } = require("firebase-admin/storage");
+
+const initializeFirebase = require("../utils/firebaseConfig");
+const firebaseApp = initializeFirebase();
+
 const itemSchema = new Schema(
   {
     name: { type: String, required: true },
@@ -10,7 +15,7 @@ const itemSchema = new Schema(
     rating: { type: Number, required: true },
     stock: { type: Number, required: true },
     reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
-    category: { type: Schema.Types.ObjectId, ref: "Category" },
+    category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
     image: {
       urls: [{ type: String }]
     }

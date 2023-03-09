@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BsCardImage } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
