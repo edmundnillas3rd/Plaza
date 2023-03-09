@@ -18,14 +18,43 @@ const User = require("../models/user");
 const Review = require("../models/review");
 const Category = require("../models/category");
 
+function createItemCards(items) {
+  const bucket = getStorage(firebaseApp).bucket();
+
+  const signedItems = items.map(async (item) => {
+    const { name, price, rating, category } = item;
+
+    const options = {
+      version: "v2", // defaults to 'v2' if missing.
+      action: "read",
+      expires: Date.now() + 1000 * 60 * 60 // one hour
+    };
+
+    const url = item.image.urls[0];
+    const [signedUrl] = await bucket.file(url).getSignedUrl(options);
+
+    const newItem = {
+      name,
+      price,
+      rating,
+      category,
+      signedUrl
+    };
+
+    return newItem;
+  });
+
+  return signedItems;
+}
+
 exports.index = async (req, res, next) => {
   async.parallel(
     {
-      updatedItems(callback) {
-        Item.deleteMany({ stock: 0 }).exec(callback);
-      },
       items(callback) {
-        Item.find({}).populate("seller", "username").exec(callback);
+        Item.find()
+          .populate("seller", "name")
+          .populate("category")
+          .exec(callback);
       }
     },
     (err, results) => {
@@ -37,30 +66,48 @@ exports.index = async (req, res, next) => {
         return next(err);
       }
 
-      const bucket = getStorage(firebaseApp).bucket();
+      const { items } = results;
 
-      const signedUrls = results.items.map(async (item) => {
-        const options = {
-          version: "v2", // defaults to 'v2' if missing.
-          action: "read",
-          expires: Date.now() + 1000 * 60 * 60 // one hour
-        };
+      const signedItems = createItemCards(items);
 
-        const url = item.image.urls[0];
-        const [signedUrl] = await bucket.file(url).getSignedUrl(options);
-
-        return signedUrl;
-      });
-
-      Promise.all(signedUrls).then(function (urls) {
-        console.log("Signed Url", urls);
+      Promise.all(signedItems).then(function (items) {
+        console.log("Signed Url", items);
 
         res.json({
-          error: err,
-          items: results.items,
-          urls
+          items
         });
       });
+
+      // const bucket = getStorage(firebaseApp).bucket();
+      // const signedUrls = results.items.map(async (item) => {
+      //   const options = {
+      //     version: "v2", // defaults to 'v2' if missing.
+      //     action: "read",
+      //     expires: Date.now() + 1000 * 60 * 60 // one hour
+      //   };
+
+      //   const url = item.image.urls[0];
+      //   const [signedUrl] = await bucket.file(url).getSignedUrl(options);
+
+      //   return signedUrl;
+      // });
+
+      // Promise.all(signedUrls).then(function (urls) {
+      //   console.log("Signed Url", urls);
+
+      //   console.log("Results", results);
+      //   console.log("Items to be sent", results.items);
+      //   console.log("Computers", results.computers);
+      //   console.log("Men's Fashion", results.mens);
+
+      //   res.json({
+      //     error: err,
+      //     general: results.items,
+      //     computers: results.computers,
+      //     mens: results.mens,
+      //     urls
+      //   });
+      // });
     }
   );
 };
