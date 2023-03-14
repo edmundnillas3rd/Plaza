@@ -13,7 +13,9 @@ export default function ItemDescription() {
   const { id } = useParams();
 
   const getItemDescription = async () => {
-    const response = await fetch(`${id}`);
+    const response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/inventory/items/${id}`
+    );
     const data = await response.json();
 
     setData(data);
