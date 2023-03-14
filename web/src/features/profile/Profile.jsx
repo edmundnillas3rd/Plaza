@@ -24,6 +24,7 @@ export default function Profile() {
     <div className="profile-container dropdown">
       <p>{username}</p>
       <div className="dropdown-options">
+        <button onClick={() => {}}>Settings</button>
         <button onClick={logout}>Logout</button>
       </div>
     </div>
