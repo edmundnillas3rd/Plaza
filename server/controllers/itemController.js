@@ -22,7 +22,7 @@ function createItemCards(items) {
   const bucket = getStorage(firebaseApp).bucket();
 
   const signedItems = items.map(async (item) => {
-    const { name, price, rating, category } = item;
+    const { name, price, rating, category, url } = item;
 
     const options = {
       version: "v2", // defaults to 'v2' if missing.
@@ -30,14 +30,15 @@ function createItemCards(items) {
       expires: Date.now() + 1000 * 60 * 60 // one hour
     };
 
-    const url = item.image.urls[0];
-    const [signedUrl] = await bucket.file(url).getSignedUrl(options);
+    const imageUrl = item.image.urls[0];
+    const [signedUrl] = await bucket.file(imageUrl).getSignedUrl(options);
 
     const newItem = {
       name,
       price,
       rating,
       category,
+      url,
       signedUrl
     };
 
@@ -130,8 +131,9 @@ exports.new_item = async (req, res, next) => {
 
   console.log(files);
 
-  const { seller, name, price, description, stock, category, rating } =
-    JSON.parse(req.body.itemData);
+  const { seller, name, price, description, stock, category } = JSON.parse(
+    req.body.itemData
+  );
 
   const categoryName = await Category.find({ name: category });
 
@@ -156,8 +158,7 @@ exports.new_item = async (req, res, next) => {
     price,
     description,
     stock,
-    rating,
-    categoryName,
+    category: categoryName[0]._id,
     image: {
       urls: urlImagePaths
     }

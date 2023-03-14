@@ -59,7 +59,7 @@ img {
     z-index: 1;
     color: $light-color;
     font-weight: bolder;
-    font-size: 30pt;
+    font-size: calc(1.5rem + 3vw);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,5 +76,11 @@ img {
   & > img {
     filter: brightness(0.4);
     height: 70vh;
+  }
+}
+
+@media (orientation: portrait) {
+  .hero-container {
+    display: none;
   }
 }

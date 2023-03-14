@@ -50,7 +50,7 @@ export default function ItemDisplay() {
   return (
     <div className="item-display">
       <div className="hero-container">
-        <p>Contains many selections</p>
+        <p>Shop Computer, Furnitures, and Clothing</p>
         <div className="hero-img-container">
           <img src={image} alt="hero" />
         </div>

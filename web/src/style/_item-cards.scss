@@ -1,8 +1,11 @@
 .item-card {
   $radius-size: 0.2rem;
 
+  display: flex;
+  flex-direction: column;
   box-shadow: 5px 5px 7px #57585a;
-  max-width: 15vw;
+  width: 15vw;
+  height: 59vh;
   border-radius: $radius-size;
 
   .image-container {
@@ -22,6 +25,7 @@
     flex-direction: column;
     gap: 0.5rem;
     font-size: 12pt;
+    height: 100%;
 
     .product-name-container {
       font-weight: 500;

@@ -12,9 +12,8 @@ export default function SellItem() {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [stock, setStock] = useState("");
-  const [rating, setRating] = useState(0);
-  const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]);
 
   const [images, setImages] = useState([]);
 
@@ -65,8 +64,7 @@ export default function SellItem() {
       price,
       description,
       stock,
-      category,
-      rating
+      category
     };
 
     formData.append("itemData", JSON.stringify(data));
@@ -140,6 +138,7 @@ export default function SellItem() {
             name="category"
             id="category"
             onChange={(e) => {
+              console.log(e.target.value);
               setCategory(e.target.value);
             }}
           >
