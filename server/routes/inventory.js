@@ -7,8 +7,8 @@ const item_catalog = require("../controllers/itemController");
 
 router.get("/", item_catalog.index);
 router.get("/items", item_catalog.item_categories);
-router.post("/items", upload.array("images"), item_catalog.new_item);
 router.get("/items/:id", item_catalog.item_detail);
+router.post("/items", upload.array("images"), item_catalog.new_item);
 router.post("/items/:id/reviews", item_catalog.item_review);
 
 module.exports = router;
