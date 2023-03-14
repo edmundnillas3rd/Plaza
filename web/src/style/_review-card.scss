@@ -1,0 +1,22 @@
+.review-card {
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: $light-color;
+  }
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: $base-color;
+  width: 45vw;
+  padding: 20px;
+  border-radius: 5px;
+
+  .review-description {
+    background-color: $light-color;
+    padding: 20px;
+    border-radius: 5px;
+  }
+}

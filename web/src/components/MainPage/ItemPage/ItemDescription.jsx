@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import LeftDescriptionPanel from "./LeftDescriptionPanel";
-import ReviewDisplay from "../ReviewDisplay";
+import ReviewDisplay from "./ReviewDisplay";
 import RightDescriptionPanel from "./RightDescriptionPanel";
 
 export default function ItemDescription() {
