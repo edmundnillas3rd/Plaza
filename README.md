@@ -1,3 +1,3 @@
 # Plaza
 
-An online auction web application for buying/selling of items
+An an ecommerce websites made with React, MongoDB, Firebase, and Redux
