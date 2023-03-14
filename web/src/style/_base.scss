@@ -41,28 +41,8 @@ a {
   color: $light-color;
 }
 
-a,
-li {
-  font-weight: bolder;
-  cursor: pointer;
-}
-
 main {
   flex-flow: column;
-}
-
-ul {
-  display: flex;
-  gap: 2rem;
-  padding: 14px 15%;
-}
-
-li {
-  list-style-type: none;
-
-  a {
-    color: $light-color;
-  }
 }
 
 img {
@@ -76,7 +56,7 @@ img {
   position: relative;
 
   & > p {
-    z-index: 10;
+    z-index: 1;
     color: $light-color;
     font-weight: bolder;
     font-size: 30pt;

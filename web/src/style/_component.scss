@@ -22,11 +22,19 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    gap: 2rem;
+    padding: 14px 15%;
+  }
+
+  & li {
+    list-style-type: none;
+    color: $light-color;
+    font-weight: bolder;
+    cursor: pointer;
   }
 }
 
 .dropdown {
-  color: $light-color;
   display: inline-block;
   position: relative;
 
@@ -41,11 +49,22 @@
   display: none;
   position: absolute;
   overflow: auto;
+  z-index: 10;
+  background-color: $base-color;
+  border-radius: 5px;
 
-  & button {
+  & > button {
+    background-color: transparent;
+    color: $light-color;
     border: none;
     font-size: calc(0.9rem + 0.1vw);
-    padding: 15px 30px;
+    width: 100%;
+    padding: 2vh 3vw;
+
+    &:hover {
+      color: $base-color;
+      background-color: $light-grey-color;
+    }
   }
 }
 
