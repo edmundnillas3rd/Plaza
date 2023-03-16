@@ -1,22 +1,27 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { cart } from "../../../features/cart/cartSlice";
 
 export default function RightDescriptionPanel({ data }) {
-  const [quantity, setQuantity] = useState(0);
-
   const { id } = useParams();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(data);
+  }, []);
 
   const addToCart = (e) => {
     const item = {
       id,
       name: data.item.name,
       description: data.item.description,
+      price: data.item.price,
       url: data.item.url,
-      quantity: Number.parseInt(quantity)
+      image: data.urls[0],
+      stock: data.item.stock,
+      quantity: 1
     };
 
     dispatch(cart.setItem(item));
@@ -35,12 +40,12 @@ export default function RightDescriptionPanel({ data }) {
         <button className="shopping-button add-cart-button" onClick={addToCart}>
           Add to Cart
         </button>
-        <button
+        {/* <button
           className="shopping-button add-wishlist-button"
           onClick={() => {}}
         >
           Add to Wishlist
-        </button>
+        </button> */}
       </div>
     </div>
   );

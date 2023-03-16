@@ -1,8 +1,51 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { cart } from "../cart/cartSlice";
-import ItemCard from "../../components/MainPage/ItemCard";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
+const CheckoutItemCard = ({ name, price, url, image, stock }) => {
+  const items = useSelector((state) => state.cart.items);
+  const dispatch = useDispatch();
+
+  return (
+    <div className="checkout-item-container container">
+      <Link to={url}>
+        <div className="item-container">
+          <div className="img-container">
+            <img src={image} alt="item" />
+          </div>
+          <div className="item-information-container">
+            <h3>{name}</h3>
+            <p>{price}</p>
+          </div>
+        </div>
+      </Link>
+      <div className="modify-item-container">
+        <div className="quantity-container">
+          <label for="quantity">Quantity:</label>
+          <input
+            type="number"
+            id="quantity"
+            name="quantity"
+            min="1"
+            max={stock}
+          />
+        </div>
+        <button
+          onClick={(e) => {
+            const index = items.findIndex((item) => item.name === name);
+            const result = items.filter((_, i) => i !== index);
+
+            dispatch(cart.setItem(result));
+          }}
+        >
+          Remove
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default function Cart() {
   const usernameID = useSelector((state) => state.user.id);
@@ -10,6 +53,10 @@ export default function Cart() {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(items);
+  }, []);
 
   const submitPurchase = () => {
     const order = {
@@ -29,21 +76,24 @@ export default function Cart() {
   };
 
   return (
-    <div className="container">
+    <div className="shopping-cart-container container">
       <h3>Shopping Cart</h3>
       <div className="item-display">
         {items !== undefined &&
-          items.map((item) => (
-            <ItemCard
-              key={item.id}
-              id={item.id}
+          items.map((item, index) => (
+            <CheckoutItemCard
+              key={index}
               name={item.name}
-              description={item.description}
+              price={item.price}
               url={item.url}
+              image={item.image}
+              stock={item.stock}
             />
           ))}
       </div>
-      <button onClick={submitPurchase}>Purchase</button>
+      <div className="button-container">
+        <button onClick={submitPurchase}>Checkout Purchase</button>
+      </div>
     </div>
   );
 }
