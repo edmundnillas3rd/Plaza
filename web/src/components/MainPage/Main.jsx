@@ -44,8 +44,8 @@ export default function Main() {
       dispatch(user.setID(foundUser.id));
       dispatch(user.setUser(foundUser.user));
 
-      if (foundUser.items !== undefined) {
-        dispatch(cart.setItem(foundUser.items));
+      if (foundUser.cart !== undefined) {
+        dispatch(cart.setItem(foundUser.cart));
       } else {
         dispatch(cart.setItem([]));
       }

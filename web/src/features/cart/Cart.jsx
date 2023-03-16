@@ -23,7 +23,7 @@ const CheckoutItemCard = ({ name, price, url, image, stock }) => {
       </Link>
       <div className="modify-item-container">
         <div className="quantity-container">
-          <label for="quantity">Quantity:</label>
+          <label htmlFor="quantity">Quantity:</label>
           <input
             type="number"
             id="quantity"

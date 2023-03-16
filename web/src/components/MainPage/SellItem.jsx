@@ -144,8 +144,10 @@ export default function SellItem() {
           >
             <option value="">-- Please choose a category</option>
             {categories !== undefined &&
-              categories.map((category) => (
-                <option value={`${category.name}`}>{category.name}</option>
+              categories.map((category, index) => (
+                <option key={index} value={`${category.name}`}>
+                  {category.name}
+                </option>
               ))}
           </select>
         </div>
