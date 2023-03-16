@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
+import { cart } from "../../features/cart/cartSlice";
 
 import { user as auth } from "../../features/profile/userSlice";
 

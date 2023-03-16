@@ -24,6 +24,10 @@ export const cartSlice = createSlice({
       } else {
         state.items = [...state.items, action.payload];
       }
+
+      const user = JSON.parse(localStorage.getItem("user"));
+      user.cart = state.items;
+      localStorage.setItem("user", JSON.stringify(user));
     },
     reset: (state) => {
       state.items = [];
