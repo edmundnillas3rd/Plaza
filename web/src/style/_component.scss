@@ -11,6 +11,10 @@
   display: none;
 }
 
+.show {
+  display: block;
+}
+
 .links-container {
   flex: 2;
 
@@ -37,16 +41,9 @@
 .dropdown {
   display: inline-block;
   position: relative;
-
-  &:hover {
-    & .dropdown-options {
-      display: block;
-    }
-  }
 }
 
 .dropdown-options {
-  display: none;
   position: absolute;
   overflow: auto;
   z-index: 10;

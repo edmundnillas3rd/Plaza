@@ -2,8 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { user } from "./userSlice";
 import { cart } from "../cart/cartSlice";
+import { useState } from "react";
 
 export default function Profile() {
+  const [show, setShow] = useState(false);
   const username = useSelector((state) => state.user.name);
 
   const dispatch = useDispatch();
@@ -21,9 +23,9 @@ export default function Profile() {
   };
 
   return (
-    <div className="profile-container dropdown">
+    <div className="profile-container dropdown" onClick={(e) => setShow(!show)}>
       <p>{username}</p>
-      <div className="dropdown-options">
+      <div className={`dropdown-options ${show ? "show" : "hide"}`}>
         <button onClick={() => {}}>Settings</button>
         <button onClick={logout}>Logout</button>
       </div>
