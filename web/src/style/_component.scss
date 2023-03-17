@@ -112,6 +112,10 @@
   display: flex;
 }
 
+.rating-0 {
+  filter: grayscale(100%);
+}
+
 .star-ratings-container {
   width: 1.5vw;
   height: 2vh;
@@ -119,4 +123,10 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 70%;
+}
+
+@media (orientation: portrait) {
+  .star-ratings-container {
+    width: 10vw;
+  }
 }
