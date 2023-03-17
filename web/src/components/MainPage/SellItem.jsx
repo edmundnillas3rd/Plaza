@@ -132,7 +132,7 @@ export default function SellItem() {
           ></textarea>
         </div>
 
-        <div className="form-input-container ">
+        <div className="form-input-container">
           <label htmlFor="category">Category</label>
           <select
             name="category"

@@ -67,8 +67,8 @@
 
 .form-input-container {
   display: flex;
-  justify-content: space-between;
-  gap: 50px;
+  flex-direction: column;
+  width: 30vw;
 
   & > textarea {
     resize: none;
@@ -88,10 +88,14 @@
   font-size: 1em;
   background-color: $base-color;
   color: $light-color;
-  padding: 8px 0;
+  padding: 8px;
 }
 
 @media (orientation: portrait) {
+  .form-input-container {
+    width: 70vw;
+  }
+
   .links-container {
     & > ul {
       display: none;
