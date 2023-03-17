@@ -2,17 +2,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  padding: 5vh 0;
 }
 
 .product-form-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
   padding: 20px;
   border: 1px solid $light-base-color;
   border-radius: 6px;
-  max-width: 35vw;
+  width: 35vw;
+  gap: 1rem;
 }
 
 .image-display-container {
@@ -22,6 +23,7 @@
   background-color: $light-grey-color;
   padding: 10px;
   border-radius: 6px;
+  width: 95%;
 }
 
 .product-image-container {
@@ -43,5 +45,11 @@
     align-items: center;
     width: 20px;
     height: 20px;
+  }
+}
+
+@media (orientation: portrait) {
+  .product-form-container {
+    width: 90vw;
   }
 }
