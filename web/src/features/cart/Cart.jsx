@@ -12,7 +12,7 @@ const CheckoutItemCard = ({ name, price, url, image, stock }) => {
     <div className="checkout-item-container container">
       <Link to={url}>
         <div className="item-container">
-          <div className="img-container">
+          <div className="image-container">
             <img src={image} alt="item" />
           </div>
           <div className="item-information-container">
