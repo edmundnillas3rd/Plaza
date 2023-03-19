@@ -1,6 +1,6 @@
-.item-card {
-  $radius-size: 0.2rem;
+$radius-size: 0.2rem;
 
+.item-card {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -17,29 +17,29 @@
       height: 240px;
     }
   }
+}
 
-  .item-info {
-    background: linear-gradient($light-color 85%, $light-grey-color);
-    border-radius: $radius-size;
-    color: $base-color;
-    flex-direction: column;
-    gap: 0.5rem;
-    font-size: 12pt;
+.item-info {
+  background: linear-gradient($light-color 85%, $light-grey-color);
+  border-radius: $radius-size;
+  color: $base-color;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 12pt;
 
-    .product-name-container {
-      font-weight: 500;
-    }
-
-    .product-price-container {
-      font-weight: bolder;
-    }
-
-    & > p {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+  & > p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
+}
+
+.product-name-container {
+  font-weight: 500;
+}
+
+.product-price-container {
+  font-weight: bolder;
 }
 
 @media (orientation: portrait) {
@@ -50,88 +50,4 @@
       height: 192px;
     }
   }
-}
-
-// Item Description Style
-
-.item-description-container {
-  gap: 2rem;
-}
-
-.image-display {
-  position: relative;
-
-  img {
-    height: 560px;
-  }
-}
-
-.image-carousel {
-  display: flex;
-
-  gap: 2rem;
-
-  background-color: #c2c5cc;
-  padding: 1rem;
-  border-radius: 5px;
-
-  .image-container {
-    position: relative;
-    width: 100px;
-    cursor: pointer;
-    border-radius: 4px;
-    padding: 0.1rem;
-
-    &:hover {
-      border: 1px solid $base-color;
-      padding: 0;
-    }
-
-    img {
-      height: 100px;
-    }
-  }
-}
-
-.top-container {
-  display: flex;
-  gap: 1.5rem;
-
-  .left-panel {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .right-panel {
-    width: 400px;
-    padding: 1rem;
-    display: inherit;
-    flex-direction: column;
-    gap: 2rem;
-    align-items: center;
-  }
-}
-
-.shopping-button {
-  display: block;
-  width: 250px;
-  margin: 0;
-  padding: 0.5rem;
-  box-sizing: border-box;
-  font-weight: bolder;
-  font-size: 100%;
-  border-radius: 8px;
-  border: none;
-}
-
-.add-cart-button {
-  background-color: $highlight-color;
-  color: $base-color;
-}
-
-.add-wishlist-button {
-  background-color: $base-color;
-  color: $light-color;
 }

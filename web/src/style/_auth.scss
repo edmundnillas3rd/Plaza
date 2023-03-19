@@ -29,3 +29,10 @@
     color: red;
   }
 }
+
+@media (orientation: portrait) {
+  .login-form-container,
+  .signup-form-container {
+    width: 90vw;
+  }
+}
