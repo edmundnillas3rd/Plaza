@@ -18,11 +18,14 @@ const User = require("../models/user");
 const Review = require("../models/review");
 const Category = require("../models/category");
 
+const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
+
 function createItemCards(items) {
   const bucket = getStorage(firebaseApp).bucket();
 
   const signedItems = items.map(async (item) => {
-    const { name, price, rating, category, url } = item;
+    const { _id, name, price, category, url } = item;
 
     const options = {
       version: "v2", // defaults to 'v2' if missing.
@@ -32,6 +35,16 @@ function createItemCards(items) {
 
     const imageUrl = item.image.urls[0];
     const [signedUrl] = await bucket.file(imageUrl).getSignedUrl(options);
+    const review = await Review.aggregate([
+      {
+        $group: { _id: "$item", avgRating: { $avg: "$rating" } }
+      },
+      {
+        $match: { _id: ObjectId(_id) }
+      }
+    ]);
+
+    const rating = review[0]?.avgRating === undefined ? 0 : review[0].avgRating;
 
     const newItem = {
       name,
@@ -78,37 +91,6 @@ exports.index = async (req, res, next) => {
           items
         });
       });
-
-      // const bucket = getStorage(firebaseApp).bucket();
-      // const signedUrls = results.items.map(async (item) => {
-      //   const options = {
-      //     version: "v2", // defaults to 'v2' if missing.
-      //     action: "read",
-      //     expires: Date.now() + 1000 * 60 * 60 // one hour
-      //   };
-
-      //   const url = item.image.urls[0];
-      //   const [signedUrl] = await bucket.file(url).getSignedUrl(options);
-
-      //   return signedUrl;
-      // });
-
-      // Promise.all(signedUrls).then(function (urls) {
-      //   console.log("Signed Url", urls);
-
-      //   console.log("Results", results);
-      //   console.log("Items to be sent", results.items);
-      //   console.log("Computers", results.computers);
-      //   console.log("Men's Fashion", results.mens);
-
-      //   res.json({
-      //     error: err,
-      //     general: results.items,
-      //     computers: results.computers,
-      //     mens: results.mens,
-      //     urls
-      //   });
-      // });
     }
   );
 };
