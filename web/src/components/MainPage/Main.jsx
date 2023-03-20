@@ -14,6 +14,7 @@ import SellItem from "./SellItem";
 import Cart from "../../features/cart/Cart";
 import LoginForm from "../AuthPage/LoginForm";
 import SignupForm from "../AuthPage/SignupForm";
+import { useState } from "react";
 
 const MainPage = () => {
   return (
@@ -29,9 +30,20 @@ const MainPage = () => {
 };
 
 export default function Main() {
+  const [dropdown, setDropdown] = useState(false);
+  const [categories, setCategories] = useState(null);
   const isLogin = useSelector((state) => state.user.isLogin);
 
   const dispatch = useDispatch();
+
+  const getItemCategories = async () => {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/inventory`);
+    const data = await response.json();
+
+    setCategories(data.categories);
+
+    console.log(data.categories);
+  };
 
   useEffect(() => {
     // localStorage.clear();
@@ -50,6 +62,8 @@ export default function Main() {
         dispatch(cart.setItem([]));
       }
     }
+
+    getItemCategories();
   }, []);
 
   return (
@@ -65,7 +79,16 @@ export default function Main() {
             <li>
               <Link to="/">Home</Link>
             </li>
-            <li>Products</li>
+            <li>
+              <div
+                className="dropdown"
+                onClick={(e) => {
+                  setDropdown(!dropdown);
+                }}
+              >
+                Products
+              </div>
+            </li>
             <li>
               <Link to="/inventory/items">Sell</Link>
             </li>
@@ -76,6 +99,23 @@ export default function Main() {
               </Link>
             </li>
           </ul>
+          <div className={`dropdown-pane ${dropdown ? "container" : "hide"}`}>
+            <div className="pane left-pane">
+              <h3>Categories</h3>
+            </div>
+            <div className="pane right-pane">
+              <ul>
+                {categories &&
+                  categories.map((category, index) => (
+                    <li key={index}>
+                      <Link to={`/inventory/${category.name}`}>
+                        {category.name}
+                      </Link>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          </div>
         </nav>
       </header>
       <main>

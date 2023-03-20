@@ -69,6 +69,9 @@ exports.index = async (req, res, next) => {
           .populate("seller", "name")
           .populate("category")
           .exec(callback);
+      },
+      categories(callback) {
+        Category.find().exec(callback);
       }
     },
     (err, results) => {
@@ -80,7 +83,7 @@ exports.index = async (req, res, next) => {
         return next(err);
       }
 
-      const { items } = results;
+      const { items, categories } = results;
 
       const signedItems = createItemCards(items);
 
@@ -88,7 +91,8 @@ exports.index = async (req, res, next) => {
         console.log("Signed Url", items);
 
         res.json({
-          items
+          items,
+          categories
         });
       });
     }
