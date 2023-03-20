@@ -9,7 +9,7 @@ export const StarRatings = ({ rating }) => {
     let remainingStars = 5 - rating;
     for (let i = 0; i < remainingStars; i++) {
       ratings.push(
-        <div className="star-ratings-container rating-0" key={i}></div>
+        <div className="star-ratings-container rating-0" key={i + 10}></div>
       );
     }
   }
