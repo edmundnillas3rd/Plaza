@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import ItemCard from "./ItemCard";
 
 import image from "../../assets/boxes.jpg";
@@ -33,20 +31,7 @@ const CategorySection = ({ header, items }) => {
   );
 };
 
-export default function ItemDisplay() {
-  const [data, setData] = useState(null);
-
-  const getItems = async () => {
-    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/inventory`);
-    const data = await response.json();
-
-    setData(data);
-  };
-
-  useEffect(() => {
-    getItems();
-  }, []);
-
+export default function ItemDisplay({ items }) {
   return (
     <div className="item-display">
       <div className="hero-container">
@@ -56,11 +41,11 @@ export default function ItemDisplay() {
         </div>
       </div>
       <div className="item-display-section">
-        {data !== null && (
+        {items !== null && (
           <>
-            <CategorySection header="General" items={data.items} />
-            <CategorySection header="Computers" items={data.items} />
-            <CategorySection header="Men's Fashion" items={data.items} />
+            <CategorySection header="General" items={items} />
+            <CategorySection header="Computers" items={items} />
+            <CategorySection header="Men's Fashion" items={items} />
           </>
         )}
       </div>

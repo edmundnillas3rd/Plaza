@@ -15,6 +15,17 @@
   gap: 1.5rem;
 }
 
+.item-category-container {
+  flex-direction: column;
+  padding: 2rem;
+  gap: 3rem;
+}
+
+.item-category-list {
+  gap: 1.5rem;
+  justify-content: center;
+}
+
 @media (orientation: portrait) {
   .item-lists-container {
     flex-flow: wrap;
