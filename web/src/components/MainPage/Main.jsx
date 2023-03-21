@@ -15,34 +15,22 @@ import Cart from "../../features/cart/Cart";
 import LoginForm from "../AuthPage/LoginForm";
 import SignupForm from "../AuthPage/SignupForm";
 import { useState } from "react";
-
-const MainPage = () => {
-  return (
-    <Routes>
-      <Route exact path="/" element={<ItemDisplay />} />
-      <Route exact path="/inventory/items" element={<SellItem />} />
-      <Route exact path="/inventory/items/:id" element={<ItemDescription />} />
-      <Route exact path="/login" element={<LoginForm />} />
-      <Route exact path="/signup" element={<SignupForm />} />
-      <Route exact path="/shopping-cart" element={<Cart />} />
-    </Routes>
-  );
-};
+import ItemCategoryDisplay from "./ItemCategoryDisplay";
 
 export default function Main() {
   const [dropdown, setDropdown] = useState(false);
   const [categories, setCategories] = useState(null);
+  const [items, setItems] = useState(null);
   const isLogin = useSelector((state) => state.user.isLogin);
 
   const dispatch = useDispatch();
 
-  const getItemCategories = async () => {
+  const getItemAndCategories = async () => {
     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/inventory`);
     const data = await response.json();
 
     setCategories(data.categories);
-
-    console.log(data.categories);
+    setItems(data.items);
   };
 
   useEffect(() => {
@@ -63,7 +51,7 @@ export default function Main() {
       }
     }
 
-    getItemCategories();
+    getItemAndCategories();
   }, []);
 
   return (
@@ -108,7 +96,9 @@ export default function Main() {
                 {categories &&
                   categories.map((category, index) => (
                     <li key={index}>
-                      <Link to={`/inventory/${category.name}`}>
+                      <Link
+                        to={`/inventory/categories/${category.name}/${category._id}`}
+                      >
                         {category.name}
                       </Link>
                     </li>
@@ -119,7 +109,18 @@ export default function Main() {
         </nav>
       </header>
       <main>
-        <MainPage />
+        <Routes>
+          <Route path="/" element={<ItemDisplay items={items} />} />
+          <Route path="/inventory/items" element={<SellItem />} />
+          <Route path="/inventory/items/:id" element={<ItemDescription />} />
+          <Route
+            path="/inventory/categories/:category_name/:category_id"
+            element={<ItemCategoryDisplay items={items} />}
+          />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/signup" element={<SignupForm />} />
+          <Route path="/shopping-cart" element={<Cart />} />
+        </Routes>
       </main>
     </>
   );
