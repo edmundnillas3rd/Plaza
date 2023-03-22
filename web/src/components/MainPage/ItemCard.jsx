@@ -15,7 +15,7 @@ const ItemCard = ({ name, price, url, rating, image }) => {
             <BsCardImage />
           )}
         </div>
-        <div className="item-info container">
+        <div className="item-info container column">
           <p className="product-name-container">{name}</p>
           <StarRatings rating={rating} />
           <p className="product-price-container">{`${currency} ${price}`}</p>

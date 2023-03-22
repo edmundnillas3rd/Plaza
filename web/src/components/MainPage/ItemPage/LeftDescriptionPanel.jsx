@@ -12,7 +12,7 @@ export default function LeftDescriptionPanel({ data }) {
   return (
     <div className="left-panel">
       <div className="image-display">
-        {<img src={data.urls[index]} alt="item" />}
+        <img src={data.urls[index]} alt="item" />
       </div>
       <div className="image-carousel">
         {data.urls.map((url, index) => (

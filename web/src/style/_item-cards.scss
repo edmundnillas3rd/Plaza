@@ -24,8 +24,8 @@ $radius-size: 0.2rem;
   border-radius: $radius-size;
   color: $base-color;
   flex-direction: column;
-  gap: 0.5rem;
   font-size: 12pt;
+  padding: 20px;
 
   & > p {
     white-space: nowrap;
@@ -49,5 +49,10 @@ $radius-size: 0.2rem;
     img {
       height: 192px;
     }
+  }
+
+  .item-info {
+    gap: 0.5rem;
+    padding: 10px;
   }
 }
