@@ -1,5 +1,5 @@
 .review-container {
-  padding: 0;
+  padding: 20px;
   flex-direction: column;
   gap: 2rem;
 }
@@ -10,6 +10,10 @@
 
   & .review-detail-container > label {
     font-weight: bolder;
+  }
+
+  & textarea {
+    width: 40vw;
   }
 }
 
@@ -55,7 +59,7 @@
   gap: 1rem;
 
   & > textarea {
-    width: 40vw;
+    width: 50vw;
     height: 90px;
     resize: none;
   }
@@ -65,6 +69,8 @@
   display: flex;
   justify-content: flex-end;
 
+  padding-top: 20px;
+
   .submit-review-button {
     border: none;
     background-color: $base-color;
@@ -73,5 +79,13 @@
     font-weight: bolder;
     padding: 0.6rem;
     border-radius: 5px;
+  }
+}
+
+@media (orientation: portrait) {
+  .review-form-container {
+    & textarea {
+      width: 90vw;
+    }
   }
 }

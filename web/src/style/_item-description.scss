@@ -1,12 +1,17 @@
 .item-description-container {
   gap: 2rem;
+  align-items: center;
+}
+
+.item-main-description {
+  width: 50vw;
 }
 
 .image-display {
-  position: relative;
+  width: 40vw;
 
-  img {
-    height: 560px;
+  & > img {
+    height: 400px;
   }
 }
 
@@ -14,14 +19,17 @@
   display: flex;
 
   gap: 2rem;
+  width: 40vw;
+  align-items: center;
 
   background-color: #c2c5cc;
   padding: 1rem;
   border-radius: 5px;
 
-  .image-container {
+  & > .image-container {
+    width: 20vw;
     position: relative;
-    width: 100px;
+    overflow: scroll;
     cursor: pointer;
     border-radius: 4px;
     padding: 0.1rem;
@@ -31,26 +39,27 @@
       padding: 0;
     }
 
-    img {
+    & > img {
       height: 100px;
     }
   }
 }
 
 .top-container {
+  padding: 20px;
   display: flex;
-  gap: 1.5rem;
+  justify-content: center;
 }
 
 .left-panel {
-  flex: 2;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1.5rem;
+  padding: 20px;
 }
 
 .right-panel {
-  width: 400px;
   padding: 1rem;
   display: inherit;
   flex-direction: column;
@@ -78,4 +87,26 @@
 .add-wishlist-button {
   background-color: $base-color;
   color: $light-color;
+}
+
+@media (orientation: portrait) {
+  .top-container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .image-display,
+  .image-carousel,
+  .item-main-description {
+    width: 90vw;
+  }
+
+  .image-carousel {
+    & > .image-container {
+      width: 90vw;
+      img {
+        height: 50px;
+      }
+    }
+  }
 }
