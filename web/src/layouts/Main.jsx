@@ -1,0 +1,72 @@
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Routes, Link } from "react-router-dom";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { RxHamburgerMenu } from "react-icons/rx";
+
+import Profile from "../features/profile/Profile";
+
+export default function Main({ categories, children }) {
+  const [dropdown, setDropdown] = useState(false);
+  const isLogin = useSelector((state) => state.user.isLogin);
+
+  return (
+    <>
+      <header>
+        <h3>Plaza</h3>
+        <nav className="links-container">
+          <div className="nav-bar">
+            <RxHamburgerMenu size={30} />
+          </div>
+
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <div
+                className="dropdown"
+                onClick={(e) => {
+                  setDropdown(!dropdown);
+                }}
+              >
+                Products
+              </div>
+            </li>
+            <li>
+              <Link to="/inventory/items">Sell</Link>
+            </li>
+            <li>{isLogin ? <Profile /> : <Link to="/login">Log in</Link>}</li>
+            <li>
+              <Link to="/shopping-cart">
+                <AiOutlineShoppingCart size={20} />
+              </Link>
+            </li>
+          </ul>
+          <div className={`dropdown-pane ${dropdown ? "container" : "hide"}`}>
+            <div className="pane left-pane">
+              <h3>Categories</h3>
+            </div>
+            <div className="pane right-pane">
+              <ul>
+                {categories &&
+                  categories.map((category, index) => (
+                    <li key={index}>
+                      <Link
+                        to={`/inventory/categories/${category.name}/${category._id}`}
+                      >
+                        {category.name}
+                      </Link>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <main>
+        <Routes>{children}</Routes>
+      </main>
+    </>
+  );
+}
