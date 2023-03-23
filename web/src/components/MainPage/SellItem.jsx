@@ -19,7 +19,7 @@ export default function SellItem() {
 
   useEffect(() => {
     if (!isLogin) {
-      navigate("/login");
+      navigate("/");
     }
 
     getCategories();
