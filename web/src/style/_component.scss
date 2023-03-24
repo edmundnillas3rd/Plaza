@@ -28,13 +28,23 @@
     gap: 2rem;
     padding: 14px 15%;
   }
+}
 
-  & li {
-    list-style-type: none;
-    color: $light-color;
-    font-weight: bolder;
-    cursor: pointer;
+.copyright-description-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  & > nav > li {
+    display: flex;
+    align-items: center;
   }
+}
+
+.copyrights-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .dropdown {

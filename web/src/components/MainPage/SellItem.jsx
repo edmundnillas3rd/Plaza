@@ -6,7 +6,6 @@ export default function SellItem() {
   const navigate = useNavigate();
 
   const userID = useSelector((state) => state.user.id);
-  const isLogin = useSelector((state) => state.user.isLogin);
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -18,10 +17,6 @@ export default function SellItem() {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    if (!isLogin) {
-      navigate("/");
-    }
-
     getCategories();
   }, []);
 

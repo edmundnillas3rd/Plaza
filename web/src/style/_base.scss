@@ -31,6 +31,14 @@ header {
   }
 }
 
+footer {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: $base-color;
+  color: $light-color;
+}
+
 body {
   font: 12pt "Poppins", sans-serif;
   background-color: $light-color;
@@ -50,6 +58,12 @@ img {
   object-position: top;
   width: 100%;
   display: block;
+}
+
+li {
+  list-style-type: none;
+  color: $light-color;
+  font-weight: bolder;
 }
 
 .hero-container {

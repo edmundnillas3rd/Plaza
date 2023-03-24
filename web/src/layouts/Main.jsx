@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Routes, Link } from "react-router-dom";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import {
+  AiOutlineShoppingCart,
+  AiOutlineCopyrightCircle,
+  AiFillGithub
+} from "react-icons/ai";
 import { RxHamburgerMenu } from "react-icons/rx";
 
 import Profile from "../features/profile/Profile";
@@ -64,9 +68,25 @@ export default function Main({ categories, children }) {
           </div>
         </nav>
       </header>
-      <main>
-        <Routes>{children}</Routes>
-      </main>
+      <main>{children}</main>
+      <footer>
+        <div className="copyright-description-container">
+          <div className="copyrights-container">
+            <AiOutlineCopyrightCircle />
+            {new Date().getFullYear()}
+          </div>
+
+          <p>Edmund Nillas III </p>
+
+          <nav>
+            <li>
+              <a href="https://github.com/edmundnillas3rd" target="_blank">
+                <AiFillGithub size={24} />
+              </a>
+            </li>
+          </nav>
+        </div>
+      </footer>
     </>
   );
 }
