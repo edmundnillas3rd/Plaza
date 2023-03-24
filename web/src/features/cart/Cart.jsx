@@ -50,17 +50,12 @@ const CheckoutItemCard = ({ name, price, url, image, stock }) => {
 export default function Cart() {
   const usernameID = useSelector((state) => state.user.id);
   const items = useSelector((state) => state.cart.items);
-  const isLogin = useSelector((state) => state.user.isLogin);
 
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLogin) {
-      navigate("/");
-    }
-
     console.log(items);
   }, []);
 

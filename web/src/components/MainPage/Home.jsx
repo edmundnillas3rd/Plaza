@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -17,16 +17,24 @@ import ItemCategoryDisplay from "./ItemCategoryDisplay";
 import Layout from "../../layouts/Main";
 
 const Main = ({ categories, items }) => {
+  const isLogin = useSelector((state) => state.user.isLogin);
+
   return (
     <Layout categories={categories}>
-      <Route path="/" element={<ItemDisplay items={items} />} />
-      <Route path="/inventory/items" element={<SellItem />} />
-      <Route path="/inventory/items/:id" element={<ItemDescription />} />
-      <Route
-        path="/inventory/categories/:category_name/:category_id"
-        element={<ItemCategoryDisplay items={items} />}
-      />
-      <Route path="/shopping-cart" element={<Cart />} />
+      <Routes>
+        <Route path="/" element={<ItemDisplay items={items} />} />
+        {isLogin && (
+          <>
+            <Route path="/inventory/items" element={<SellItem />} />
+            <Route path="/shopping-cart" element={<Cart />} />
+          </>
+        )}
+        <Route path="/inventory/items/:id" element={<ItemDescription />} />
+        <Route
+          path="/inventory/categories/:category_name/:category_id"
+          element={<ItemCategoryDisplay items={items} />}
+        />
+      </Routes>
     </Layout>
   );
 };
