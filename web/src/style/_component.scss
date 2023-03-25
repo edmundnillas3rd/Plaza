@@ -27,6 +27,10 @@
     justify-content: flex-end;
     gap: 2rem;
     padding: 14px 15%;
+
+    & > li {
+      cursor: pointer;
+    }
   }
 }
 
@@ -61,7 +65,45 @@
   flex-flow: row wrap;
   left: 0;
   z-index: 10;
+
+  transform: translateY(-0.45rem);
+  visibility: hidden;
+
+  animation: slideDown 300ms ease-in-out forwards;
+  transform-origin: top center;
   background-color: $base-color;
+
+  &.container {
+    visibility: visible;
+  }
+
+  &.hide {
+    animation: slideUp 300ms ease-in-out forwards;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(1);
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .pane {
