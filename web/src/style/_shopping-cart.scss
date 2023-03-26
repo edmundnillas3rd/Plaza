@@ -1,7 +1,9 @@
 .shopping-cart-container {
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 1rem;
+  height: 728px;
 
   & > .item-display {
     display: flex;
@@ -43,4 +45,47 @@
   & > button {
     border: none;
   }
+}
+
+.redirect-container {
+  gap: 0.5rem;
+  width: 40vw;
+  justify-content: center;
+  height: 50px;
+
+  & > button {
+    border-radius: 5px;
+    border: none;
+    width: 40vw;
+    padding: 2px;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+
+    & > a {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.login-button {
+  background-color: $base-color;
+
+  & > a {
+    color: $light-color;
+  }
+}
+
+.signup-button {
+  background-color: $highlight-color;
+  & > a {
+    color: $base-color;
+  }
+}
+
+.background-container {
+  width: 40vw;
 }

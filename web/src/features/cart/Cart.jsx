@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-
 import { cart } from "../cart/cartSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+
+import image from "../../assets/office-background.jpg";
 
 const CheckoutItemCard = ({ name, price, url, image, stock }) => {
   const items = useSelector((state) => state.cart.items);
@@ -50,6 +51,7 @@ const CheckoutItemCard = ({ name, price, url, image, stock }) => {
 export default function Cart() {
   const usernameID = useSelector((state) => state.user.id);
   const items = useSelector((state) => state.cart.items);
+  const isLogin = useSelector((state) => state.user.isLogin);
 
   const dispatch = useDispatch();
 
@@ -78,23 +80,46 @@ export default function Cart() {
 
   return (
     <div className="shopping-cart-container container">
-      <h3>Shopping Cart</h3>
-      <div className="item-display">
-        {items !== undefined &&
-          items.map((item, index) => (
-            <CheckoutItemCard
-              key={index}
-              name={item.name}
-              price={item.price}
-              url={item.url}
-              image={item.image}
-              stock={item.stock}
-            />
-          ))}
-      </div>
-      <div className="button-container">
-        <button onClick={submitPurchase}>Checkout Purchase</button>
-      </div>
+      <h3>
+        {items !== undefined && items.length !== 0
+          ? "Shopping Cart"
+          : "Your Cart is empty"}
+      </h3>
+
+      {isLogin ? (
+        <>
+          <div className="item-display">
+            {items !== undefined &&
+              items.map((item, index) => (
+                <CheckoutItemCard
+                  key={index}
+                  name={item.name}
+                  price={item.price}
+                  url={item.url}
+                  image={item.image}
+                  stock={item.stock}
+                />
+              ))}
+          </div>
+          <div className="button-container">
+            <button onClick={submitPurchase}>Checkout Purchase</button>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="background-container">
+            <img src={image} alt="office-background" />
+          </div>
+          <div className="redirect-container container">
+            <button className="login-button">
+              <Link to="/login">Login to your account</Link>
+            </button>
+            <button className="signup-button">
+              <Link to="/signup">Sign Up now</Link>
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 }
