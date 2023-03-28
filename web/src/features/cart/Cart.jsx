@@ -1,9 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { cart } from "../cart/cartSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import image from "../../assets/office-background.jpg";
+
+const getItemQuantity = (items, name) => {
+  const index = items.findIndex((item) => item.name === name);
+  return items[index].quantity;
+};
 
 const CheckoutItemCard = ({ name, price, url, image, stock }) => {
   const items = useSelector((state) => state.cart.items);
@@ -31,6 +36,15 @@ const CheckoutItemCard = ({ name, price, url, image, stock }) => {
             name="quantity"
             min="1"
             max={stock}
+            onChange={(e) => {
+              const index = items.findIndex((item) => item.name === name);
+              const item = {
+                ...items[index],
+                quantity: Number.parseInt(e.target.value)
+              };
+              dispatch(cart.setItem(item));
+            }}
+            value={`${getItemQuantity(items, name)}`}
           />
         </div>
         <button
@@ -53,6 +67,9 @@ export default function Cart() {
   const items = useSelector((state) => state.cart.items);
   const isLogin = useSelector((state) => state.user.isLogin);
 
+  const [submit, setSubmit] = useState(false);
+  const [amount, setAmount] = useState(0);
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -62,6 +79,19 @@ export default function Cart() {
   }, []);
 
   const submitPurchase = () => {
+    const totalSum = items.reduce(
+      (accumulator, currentValue) =>
+        accumulator + currentValue.price * currentValue.quantity,
+      0
+    );
+
+    if (amount < totalSum) {
+      console.log("Insufficient amount!");
+      console.log("Amount: ", amount);
+      console.log("Total Sum: ", totalSum);
+      return;
+    }
+
     const order = {
       user: usernameID,
       orders: items
@@ -102,7 +132,24 @@ export default function Cart() {
               ))}
           </div>
           <div className="button-container">
-            <button onClick={submitPurchase}>Checkout Purchase</button>
+            {submit ? (
+              <>
+                <label htmlFor="amount">Enter Amount: </label>
+                <input
+                  type="text"
+                  onChange={(e) => setAmount(Number.parseInt(e.target.value))}
+                />
+                <button onClick={submitPurchase}>Enter Amount</button>
+              </>
+            ) : (
+              <button
+                onClick={() => {
+                  setSubmit(true);
+                }}
+              >
+                Checkout Purchase
+              </button>
+            )}
           </div>
         </>
       ) : (

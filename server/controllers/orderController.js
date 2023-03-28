@@ -24,10 +24,13 @@ exports.cart = async (req, res, next) => {
     console.log(`New Order ${order}`);
 
     newOrders.forEach(async (o) => {
-      const updatedStocks = await Item.findByIdAndUpdate(o.item, {
+      const updatedItemStocks = await Item.findByIdAndUpdate(o.item, {
         $inc: { stock: -o.quantity }
       });
-      console.log(updatedStocks);
+
+      if (updatedItemStocks.stock <= 0) Item.findByIdAndRemove(o.item);
+
+      console.log(updatedItemStocks);
     });
   });
 };
