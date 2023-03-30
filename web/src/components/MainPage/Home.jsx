@@ -13,6 +13,7 @@ import Cart from "../../features/cart/Cart";
 import LoginForm from "../AuthPage/LoginForm";
 import SignupForm from "../AuthPage/SignupForm";
 import ItemCategoryDisplay from "./ItemCategoryDisplay";
+import ItemSearchDisplay from "./ItemSearchDisplay";
 
 import Layout from "../../layouts/Main";
 
@@ -29,6 +30,10 @@ const Main = ({ categories, items }) => {
         <Route
           path="/inventory/categories/:category_name/:category_id"
           element={<ItemCategoryDisplay items={items} />}
+        />
+        <Route
+          path="/inventory/items/search/:item_name"
+          element={<ItemSearchDisplay />}
         />
       </Routes>
     </Layout>
