@@ -112,6 +112,26 @@ exports.item_categories = async (req, res) => {
   });
 };
 
+exports.item_search = async (req, res) => {
+  const { item_name } = req.params;
+
+  const searchedItems = await Item.find({ name: item_name });
+
+  if (searchedItems === null) {
+    console.log("Searched item not found");
+    return;
+  }
+
+  const signedItems = createItemCards(searchedItems);
+
+  Promise.all(signedItems).then(function (items) {
+    console.log("Signed Url", items);
+    res.json({
+      items
+    });
+  });
+};
+
 exports.new_item = async (req, res, next) => {
   const files = req.files;
 

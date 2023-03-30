@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import {
   AiOutlineShoppingCart,
   AiOutlineCopyrightCircle,
-  AiFillGithub
+  AiFillGithub,
+  AiOutlineSearch
 } from "react-icons/ai";
 import { RxHamburgerMenu } from "react-icons/rx";
 
@@ -13,12 +14,26 @@ import Profile from "../features/profile/Profile";
 export default function Main({ categories, children }) {
   const [dropdown, setDropdown] = useState(false);
   const isLogin = useSelector((state) => state.user.isLogin);
+  const [item, setItem] = useState("");
 
   return (
     <>
       <header>
         <h3>Plaza</h3>
-        <nav className="links-container">
+        <div className="search-bar-container">
+          <input
+            type="text"
+            onChange={(e) => {
+              setItem(e.target.value);
+            }}
+          />
+          <div className="search-icon-container">
+            <Link to={`/inventory/items/search/${item}`}>
+              <AiOutlineSearch color="black" />
+            </Link>
+          </div>
+        </div>
+        <nav className="links-container container">
           <div className="nav-bar">
             <RxHamburgerMenu size={30} />
           </div>

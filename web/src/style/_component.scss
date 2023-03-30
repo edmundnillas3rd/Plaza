@@ -14,8 +14,28 @@
   display: block;
 }
 
+.search-bar-container {
+  display: flex;
+  align-items: center;
+
+  & > input {
+    width: calc(30vw + 2rem);
+  }
+
+  & > * {
+    padding: 5px;
+  }
+
+  & > .search-icon-container {
+    background-color: $highlight-color;
+  }
+}
+
 .links-container {
   flex: 2;
+
+  display: flex;
+  justify-content: center;
 
   .nav-bar {
     display: none;
@@ -25,7 +45,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 2rem;
+    gap: 1.5rem;
     padding: 14px 15%;
 
     & > li {
