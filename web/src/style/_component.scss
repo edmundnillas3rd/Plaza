@@ -32,11 +32,8 @@
 }
 
 .links-container {
-  flex: 2;
-
-  display: flex;
   justify-content: center;
-
+  align-items: center;
   .nav-bar {
     display: none;
   }
@@ -77,13 +74,14 @@
 }
 
 .dropdown-pane {
+  position: absolute;
+  top: 15%;
+  left: 0;
   border-top: 1px solid $light-base-color;
   border-bottom: 1px solid $light-base-color;
-  position: absolute;
   cursor: auto;
   width: 100%;
   flex-flow: row wrap;
-  left: 0;
   z-index: 10;
 
   transform: translateY(-0.45rem);
