@@ -24,8 +24,9 @@ export default function ItemSearchDisplay() {
   return (
     <div className="item-search-display-container container">
       {items &&
-        items.map((item) => (
+        items.map((item, index) => (
           <ItemCard
+            key={index}
             name={item.name}
             image={item.signedUrl}
             price={item.price}
