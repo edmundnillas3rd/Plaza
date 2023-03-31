@@ -24,7 +24,7 @@ const Main = ({ categories, items }) => {
     <Layout categories={categories}>
       <Routes>
         <Route path="/" element={<ItemDisplay items={items} />} />
-        {isLogin && <Route path="/inventory/items" element={<SellItem />} />}
+        <Route path="/inventory/items" element={<SellItem />} />
         <Route path="/inventory/items/:id" element={<ItemDescription />} />
         <Route path="/shopping-cart" element={<Cart />} />
         <Route
