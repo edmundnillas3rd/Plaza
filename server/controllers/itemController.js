@@ -115,12 +115,26 @@ exports.item_categories = async (req, res) => {
 exports.item_search = async (req, res) => {
   const { item_name } = req.params;
 
-  const searchedItems = await Item.find({ name: item_name });
+  const searchedItems = await Item.aggregate([
+    {
+      $search: {
+        index: "searchItems",
+        text: {
+          query: `{ name: \"${item_name}\" }`,
+          path: {
+            wildcard: "*"
+          }
+        }
+      }
+    }
+  ]);
 
-  if (searchedItems === null) {
+  if (searchedItems.length === 0) {
     console.log("Searched item not found");
     return;
   }
+
+  console.log("Found searched items", searchedItems);
 
   const signedItems = createItemCards(searchedItems);
 
