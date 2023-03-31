@@ -1,19 +1,14 @@
-import { BsCardImage } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { StarRatings } from "./StarRatings";
 
-const ItemCard = ({ name, price, url, rating, image }) => {
+const ItemCard = ({ name, price, url, rating, image, horizontal = false }) => {
   const currency = "P";
 
   return (
     <Link to={url}>
-      <div className="item-card">
+      <div className={`item-card ${horizontal && "horizontal"}`}>
         <div className="image-container">
-          {image !== undefined ? (
-            <img src={image} alt="item" />
-          ) : (
-            <BsCardImage />
-          )}
+          <img src={image} alt="item" />
         </div>
         <div className="item-info container column">
           <p className="product-name-container">{name}</p>

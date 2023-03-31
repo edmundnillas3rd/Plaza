@@ -70,7 +70,12 @@ export default function Main({ categories, children }) {
               <ul>
                 {categories &&
                   categories.map((category, index) => (
-                    <li key={index}>
+                    <li
+                      key={index}
+                      onClick={() => {
+                        setDropdown(false);
+                      }}
+                    >
                       <Link
                         to={`/inventory/categories/${category.name}/${category._id}`}
                       >

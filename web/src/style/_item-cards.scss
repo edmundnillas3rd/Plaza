@@ -8,10 +8,16 @@ $radius-size: 0.2rem;
   width: 10vw;
   border-radius: $radius-size;
 
-  .image-container {
-    position: relative;
-    border-bottom: 1px solid $light-grey-color;
+  & > * {
+    flex: 1;
+  }
 
+  &.horizontal {
+    width: 40vw;
+    flex-direction: row;
+  }
+
+  .image-container {
     img {
       border-radius: $radius-size;
       height: 240px;
@@ -41,6 +47,10 @@ $radius-size: 0.2rem;
 
     img {
       height: 192px;
+    }
+
+    &.horizontal {
+      width: 90vw;
     }
   }
 

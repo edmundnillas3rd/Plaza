@@ -22,7 +22,7 @@ export default function ItemSearchDisplay() {
   }, []);
 
   return (
-    <div>
+    <div className="item-search-display-container container">
       {items &&
         items.map((item) => (
           <ItemCard
@@ -31,6 +31,7 @@ export default function ItemSearchDisplay() {
             price={item.price}
             rating={item.rating}
             url={item.url}
+            horizontal
           />
         ))}
     </div>
