@@ -22,8 +22,8 @@ export default function ItemSearchDisplay() {
   }, []);
 
   return (
-    <div className="item-search-display-container container">
-      {items &&
+    <div className="item-search-display-container container column">
+      {items !== null ? (
         items.map((item, index) => (
           <ItemCard
             key={index}
@@ -34,7 +34,18 @@ export default function ItemSearchDisplay() {
             url={item.url}
             horizontal
           />
-        ))}
+        ))
+      ) : (
+        <>
+          <p>There are no items that match your search</p>
+          <div className="img-container">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/619/619015.png"
+              alt="desert-icon"
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 }
