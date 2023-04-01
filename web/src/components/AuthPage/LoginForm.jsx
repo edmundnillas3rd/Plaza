@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
-import { cart } from "../../features/cart/cartSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 import { user as auth } from "../../features/profile/userSlice";
 
@@ -12,6 +11,7 @@ export default function LoginForm() {
 
   const isLogin = useSelector((state) => state.user.isLogin);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const login = async () => {
@@ -47,7 +47,7 @@ export default function LoginForm() {
   };
 
   if (isLogin) {
-    return <Navigate to="/" replace />;
+    navigate("/");
   }
 
   return (

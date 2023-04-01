@@ -24,22 +24,19 @@ export default function Main({ categories, children }) {
       <header>
         <h3>Plaza</h3>
         <div className="search-bar-container">
-          <form
-            action=""
-            onSubmit={() => {
+          <input
+            type="text"
+            onChange={(e) => {
+              setItem(e.target.value);
+            }}
+          />
+          <button
+            onClick={() => {
               navigate(`/inventory/items/search/${item}`);
             }}
           >
-            <input
-              type="text"
-              onChange={(e) => {
-                setItem(e.target.value);
-              }}
-            />
-            <button>
-              <AiOutlineSearch size={16} />
-            </button>
-          </form>
+            <AiOutlineSearch size={16} />
+          </button>
         </div>
         <nav className="links-container container">
           <div className="nav-bar">
