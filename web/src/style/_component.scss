@@ -18,28 +18,24 @@
   display: flex;
   align-items: center;
 
-  & > form {
-    display: flex;
+  & > * {
+    padding: 0.5rem;
   }
 
   & > input {
     width: calc(30vw + 2rem);
-  }
-
-  & > form > input {
-    padding: 0 5px;
     border: none;
     border-radius: 10px 0 0 10px;
     width: 40vw;
   }
 
-  & > form > button {
+  & > button {
     display: flex;
     align-items: center;
-    padding: 10px 15px;
     background-color: $highlight-color;
     border: none;
     border-radius: 0 10px 10px 0;
+    height: 35px;
     cursor: pointer;
   }
 }
