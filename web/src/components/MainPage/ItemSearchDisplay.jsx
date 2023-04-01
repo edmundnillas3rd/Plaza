@@ -31,7 +31,7 @@ export default function ItemSearchDisplay() {
             image={item.signedUrl}
             price={item.price}
             rating={item.rating}
-            url={item.url}
+            url={`/inventory/items/${item._id}`}
             horizontal
           />
         ))
