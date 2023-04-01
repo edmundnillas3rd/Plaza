@@ -47,6 +47,7 @@ function createItemCards(items) {
     const rating = review[0]?.avgRating === undefined ? 0 : review[0].avgRating;
 
     const newItem = {
+      _id,
       name,
       price,
       rating,
