@@ -6,6 +6,7 @@ const logger = require("morgan");
 const cors = require("cors");
 const session = require("express-session");
 const passport = require("passport");
+const MongoStore = require("connect-mongo");
 
 const inventoryRouter = require("./routes/inventory");
 const userRouter = require("./routes/user");
@@ -40,7 +41,10 @@ app.use(
     cookie: {
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       secure: process.env.NODE_ENV === "production"
-    }
+    },
+    store: new MongoStore({
+      mongoUrl: process.env.MONGODB_URL
+    })
   })
 );
 
