@@ -59,6 +59,32 @@ export default function Main({ categories, children }) {
                 }}
               >
                 Products
+                <div
+                  className={`dropdown-pane ${dropdown ? "container" : "hide"}`}
+                >
+                  <div className="pane left-pane">
+                    <h3>Categories</h3>
+                  </div>
+                  <div className="pane right-pane">
+                    <ul>
+                      {categories &&
+                        categories.map((category, index) => (
+                          <li
+                            key={index}
+                            onClick={() => {
+                              setDropdown(false);
+                            }}
+                          >
+                            <Link
+                              to={`/inventory/categories/${category.name}/${category._id}`}
+                            >
+                              {category.name}
+                            </Link>
+                          </li>
+                        ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
             </li>
             <li>
@@ -71,30 +97,6 @@ export default function Main({ categories, children }) {
               </Link>
             </li>
           </ul>
-          <div className={`dropdown-pane ${dropdown ? "container" : "hide"}`}>
-            <div className="pane left-pane">
-              <h3>Categories</h3>
-            </div>
-            <div className="pane right-pane">
-              <ul>
-                {categories &&
-                  categories.map((category, index) => (
-                    <li
-                      key={index}
-                      onClick={() => {
-                        setDropdown(false);
-                      }}
-                    >
-                      <Link
-                        to={`/inventory/categories/${category.name}/${category._id}`}
-                      >
-                        {category.name}
-                      </Link>
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          </div>
         </nav>
       </header>
       <main>

@@ -82,19 +82,18 @@
 
 .dropdown {
   display: inline-block;
-  position: relative;
 }
 
 .dropdown-pane {
   position: absolute;
-  top: 7.5%;
-  left: 0;
   border-top: 1px solid $light-base-color;
   border-bottom: 1px solid $light-base-color;
   cursor: auto;
-  width: 100%;
   flex-flow: row wrap;
   z-index: 10;
+  left: 0;
+  top: 10%;
+  width: 100vw;
 
   transform: translateY(-0.45rem);
   visibility: hidden;
