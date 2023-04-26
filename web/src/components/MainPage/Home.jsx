@@ -21,9 +21,9 @@ const Main = ({ categories, items }) => {
   const isLogin = useSelector((state) => state.user.isLogin);
 
   return (
-    <Layout categories={categories}>
-      <Routes>
-        <Route path="/" element={<ItemDisplay items={items} />} />
+    <Routes>
+      <Route path="/" element={<Layout categories={categories} />}>
+        <Route index element={<ItemDisplay items={items} />} />
         <Route path="/inventory/items" element={<SellItem />} />
         <Route path="/inventory/items/:id" element={<ItemDescription />} />
         <Route path="/shopping-cart" element={<Cart />} />
@@ -35,8 +35,8 @@ const Main = ({ categories, items }) => {
           path="/inventory/items/search/:item_name"
           element={<ItemSearchDisplay />}
         />
-      </Routes>
-    </Layout>
+      </Route>
+    </Routes>
   );
 };
 
