@@ -142,6 +142,7 @@ export default function Cart() {
                 <button onClick={submitPurchase}>Enter Amount</button>
               </>
             ) : (
+              items.length !== 0 && 
               <button
                 onClick={() => {
                   setSubmit(true);
