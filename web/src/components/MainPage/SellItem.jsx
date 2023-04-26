@@ -136,7 +136,7 @@ const Form = () => {
             setCategory(e.target.value);
           }}
         >
-          <option value="">-- Please choose a category</option>
+          <option value="">-- Please choose a category --</option>
           {categories !== undefined &&
             categories.map((category, index) => (
               <option key={index} value={`${category.name}`}>
