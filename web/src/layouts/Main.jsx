@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import {
   AiOutlineShoppingCart,
   AiOutlineCopyrightCircle,
@@ -64,7 +64,7 @@ export default function Main({ categories, children }) {
             <li>
               <Link to="/inventory/items">Sell</Link>
             </li>
-            <li>{isLogin ? <Profile /> : <Link to="/login">Log in</Link>}</li>
+            <li>{isLogin ? <Profile /> : <Link to="/login">Login</Link>}</li>
             <li>
               <Link to="/shopping-cart">
                 <AiOutlineShoppingCart size={20} />
@@ -97,7 +97,9 @@ export default function Main({ categories, children }) {
           </div>
         </nav>
       </header>
-      <main>{children}</main>
+      <main>
+        <Outlet />
+      </main>
       <footer>
         <div className="copyright-description-container">
           <div className="copyrights-container">

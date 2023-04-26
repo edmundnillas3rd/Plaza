@@ -43,19 +43,22 @@
 .links-container {
   justify-content: center;
   align-items: center;
+  padding: 0 10px;
   .nav-bar {
     display: none;
   }
-
+  
   & > ul {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 1.5rem;
-    padding: 14px 15%;
+    gap: 2rem;
 
     & > li {
       cursor: pointer;
+      flex: 1;
+      // font-size: calc(0.5rem + 0.5vw);
+      inline-size: min-content;
     }
   }
 }
@@ -84,7 +87,7 @@
 
 .dropdown-pane {
   position: absolute;
-  top: 12%;
+  top: 7.5%;
   left: 0;
   border-top: 1px solid $light-base-color;
   border-bottom: 1px solid $light-base-color;
