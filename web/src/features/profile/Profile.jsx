@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export default function Profile() {
   const [show, setShow] = useState(false);
-  const username = useSelector((state) => state.user.name);
+  const username = useSelector(state => state.user.name);
 
   const dispatch = useDispatch();
 
@@ -24,8 +24,9 @@ export default function Profile() {
 
   return (
     <div className="profile-container dropdown" onClick={(e) => setShow(!show)}>
-      <p>{username}</p>
+      <button>Profile</button>
       <div className={`dropdown-options ${show ? "show" : "hide"}`}>
+        <button>{username}</button>
         <button onClick={() => {}}>Settings</button>
         <button onClick={logout}>Logout</button>
       </div>
