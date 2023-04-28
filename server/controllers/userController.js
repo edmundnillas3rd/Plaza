@@ -7,6 +7,12 @@ const bcrypt = require("bcryptjs");
 
 exports.index = (req, res, next) => {};
 
+exports.log_out = (req, res, next) => {
+  req.logout(function (err) {
+    if (err) throw err;
+  });
+};
+
 exports.sign_up = async (req, res, next) => {
   const { name, email, password } = req.body;
   const user = await User.findOne({
@@ -54,10 +60,4 @@ exports.log_in = (req, res, next) => {
       });
     }
   })(req, res, next);
-};
-
-exports.log_out = (req, res, next) => {
-  req.logout(function (err) {
-    if (err) throw err;
-  });
 };
