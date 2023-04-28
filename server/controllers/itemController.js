@@ -21,10 +21,57 @@ const Category = require("../models/category");
 const mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
 
-function createItemCards(items) {
+async function signItems(items) {
+  const signedItems = [];
   const bucket = getStorage(firebaseApp).bucket();
 
-  const signedItems = items.map(async (item) => {
+  // TODO (Edmund): It would be better to put this in a seperate 
+  // function for handling sending data for previewing a product
+  if (!Array.isArray(items)) {
+    const { _id, name, seller, price, description, stock, category, url } = items;
+    const options = {
+      version: "v2", // defaults to 'v2' if missing.
+      action: "read",
+      expires: Date.now() + 1000 * 60 * 60 // one hour
+    };
+
+    const signedUrls = [];
+    for (const url of items.image.urls) {
+      const [signedUrl] = await bucket.file(url).getSignedUrl(options);
+      signedUrls.push(await signedUrl);
+    }
+
+    const review = await Review.aggregate([
+      {
+        $group: { _id: "$item", avgRating: { $avg: "$rating" } }
+      },
+      {
+        $match: { _id: ObjectId(_id) }
+      }
+    ]);
+    const rating = review[0]?.avgRating === undefined ? 0 : review[0].avgRating;
+
+    const newItem = {
+      _id,
+      name,
+      seller,
+      price,
+      description,
+      stock,
+      category,
+      url,
+      signedUrls,
+      rating,
+    };
+
+    signedItems.push(await newItem);
+
+    return signedItems;
+  }
+
+  // TODO (Edmund): the same could be said for this loop for signing 
+  // the url of each products
+  for (const item of items) {
     const { _id, name, price, category, url } = item;
 
     const options = {
@@ -35,6 +82,7 @@ function createItemCards(items) {
 
     const imageUrl = item.image.urls[0];
     const [signedUrl] = await bucket.file(imageUrl).getSignedUrl(options);
+
     const review = await Review.aggregate([
       {
         $group: { _id: "$item", avgRating: { $avg: "$rating" } }
@@ -43,7 +91,6 @@ function createItemCards(items) {
         $match: { _id: ObjectId(_id) }
       }
     ]);
-
     const rating = review[0]?.avgRating === undefined ? 0 : review[0].avgRating;
 
     const newItem = {
@@ -56,59 +103,39 @@ function createItemCards(items) {
       signedUrl
     };
 
-    return newItem;
-  });
+    signedItems.push(await newItem);
+  }
 
   return signedItems;
 }
 
+// GET
 exports.index = async (req, res, next) => {
-  async.parallel(
-    {
-      items(callback) {
-        Item.find()
-          .populate("seller", "name")
-          .populate("category")
-          .exec(callback);
-      },
-      categories(callback) {
-        Category.find().exec(callback);
-      }
-    },
-    (err, results) => {
-      if (err) return console.error(err);
+  const items = await Item.find()
+    .populate("seller", "name")
+    .populate("category");
+  const categories = await Category.find();
 
-      if (!results.items) {
-        const err = new Error("Items not found");
-        err.status = 404;
-        return next(err);
-      }
+  if (!items || !categories) {
+    return;
+  }
 
-      const { items, categories } = results;
+  const signedItems = await signItems(items);
 
-      const signedItems = createItemCards(items);
-
-      Promise.all(signedItems).then(function (items) {
-        console.log("Signed Url", items);
-
-        res.json({
-          items,
-          categories
-        });
-      });
-    }
-  );
+  res.status(200).json({
+    items: signedItems,
+    categories
+  });
 };
 
 exports.item_categories = async (req, res) => {
   const categories = await Category.find();
 
   if (categories === null) {
-    console.log("Categories not found");
     return;
   }
 
-  res.json({
+  res.status(200).json({
     categories
   });
 };
@@ -131,30 +158,44 @@ exports.item_search = async (req, res) => {
   ]);
 
   if (searchedItems.length === 0) {
-    console.log("Searched item not found");
     return;
   }
 
-  console.log("Found searched items", searchedItems);
+  const signedItems = await signItems(searchedItems);
 
-  const signedItems = createItemCards(searchedItems);
-
-  Promise.all(signedItems).then(function (items) {
-    console.log("Signed Url", items);
-    res.json({
-      items
-    });
+  res.status(200).json({
+    items: signedItems
   });
 };
 
+exports.item_detail = async (req, res, next) => {
+  const { id } = req.params;
+
+  const item = await Item.findById(id).populate("seller", "name");
+
+  const reviews = await Review.find({ item: id })
+    .populate("user", "name")
+    .populate("item", "name");
+
+  if (!item || !reviews) {
+    return;
+  }
+
+  const [signedItem] = await signItems(item);
+
+  res.status(200).json({
+    item: signedItem,
+    urls: signedItem.signedUrls,
+    reviews
+  });
+};
+
+// POST
 exports.new_item = async (req, res, next) => {
   const files = req.files;
 
-  console.log(files);
-
-  const { seller, name, price, description, stock, category } = JSON.parse(
-    req.body.itemData
-  );
+  const { seller, name, price, description, stock, category } =
+    req.body.itemData;
 
   const categoryName = await Category.find({ name: category });
 
@@ -185,74 +226,7 @@ exports.new_item = async (req, res, next) => {
     }
   });
 
-  item.save(function (err) {
-    if (err) {
-      console.error(err);
-      return;
-    }
-
-    res.status(200).json({ message: "New Item added!" });
-
-    console.log(`New Item ${item}`);
-  });
-};
-
-exports.item_detail = async (req, res, next) => {
-  async.parallel(
-    {
-      item(callback) {
-        Item.findById(req.params.id).populate("seller", "name").exec(callback);
-      },
-      reviews(callback) {
-        Review.find({ item: req.params.id })
-          .populate("user", "name")
-          .populate("item", "name")
-          .exec(callback);
-      }
-    },
-    (err, results) => {
-      if (err) return next(err);
-
-      if (!results.item) {
-        const err = new Error("Item not found");
-        err.status = 404;
-        return next(err);
-      }
-
-      if (!results.reviews) {
-        const err = new Error("Reviews not found");
-        err.status = 404;
-        return next(err);
-      }
-
-      console.log(results.item);
-
-      const bucket = getStorage(firebaseApp).bucket();
-
-      const signedUrls = results.item.image.urls.map(async (url) => {
-        const options = {
-          version: "v2", // defaults to 'v2' if missing.
-          action: "read",
-          expires: Date.now() + 1000 * 60 * 60 // one hour
-        };
-
-        const [signedUrl] = await bucket.file(url).getSignedUrl(options);
-
-        return signedUrl;
-      });
-
-      Promise.all(signedUrls).then(function (urls) {
-        console.log("Signed Url", urls);
-
-        res.json({
-          error: err,
-          item: results.item,
-          reviews: results.reviews,
-          urls
-        });
-      });
-    }
-  );
+  res.status(200).json({ message: "New Item added!" });
 };
 
 exports.item_review = async (req, res, next) => {
@@ -265,16 +239,7 @@ exports.item_review = async (req, res, next) => {
     rating
   });
 
-  review.save(function (err) {
-    if (err) {
-      console.error(err);
-      return;
-    }
-
-    res.status(200).json({ message: "New Review added!" });
-
-    console.log(`New Item ${item}`);
-  });
+  res.status(200).json({ message: "New Review added!" });
 
   const foundItem = await Item.findByIdAndUpdate(item, {
     $push: { reviews: review }
