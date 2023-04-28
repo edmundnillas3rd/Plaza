@@ -34,9 +34,9 @@ export default function SignupForm() {
   };
 
   return (
-    <div className="signup-container">
+    <div className="form-container">
       <form
-        className="signup-form-container"
+        className="input-form-container"
         action=""
         method="POST"
         onSubmit={validateForms}

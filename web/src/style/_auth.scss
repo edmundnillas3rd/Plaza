@@ -1,5 +1,4 @@
-.login-container,
-.signup-container {
+.form-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,8 +14,7 @@
   }
 }
 
-.login-form-container,
-.signup-form-container {
+.input-form-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -31,8 +29,7 @@
 }
 
 @media (orientation: portrait) {
-  .login-form-container,
-  .signup-form-container {
+  .input-form-container {
     width: 90vw;
   }
 }
