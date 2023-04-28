@@ -51,9 +51,9 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="login-container">
+    <div className="form-container">
       <form
-        className="login-form-container"
+        className="input-form-container"
         action=""
         method="POST"
         onSubmit={validateForms}

@@ -3,14 +3,15 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function ReviewForm() {
-  const navigate = useNavigate();
   const [description, setDescription] = useState("");
   const [rating, setRating] = useState("");
+  const [review, setReview] = useState(null);
 
   const userID = useSelector((state) => state.user.id);
   const login = useSelector((state) => state.user.isLogin);
 
-  const [review, setReview] = useState(null);
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const addReview = async (e) => {
     e.preventDefault();
