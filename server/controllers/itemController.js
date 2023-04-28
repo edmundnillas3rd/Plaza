@@ -25,15 +25,17 @@ async function signItems(items) {
   const signedItems = [];
   const bucket = getStorage(firebaseApp).bucket();
 
-  // TODO (Edmund): It would be better to put this in a seperate 
+  const options = {
+    version: "v2", // defaults to 'v2' if missing.
+    action: "read",
+    expires: Date.now() + 1000 * 60 * 60 // one hour
+  };
+
+  // TODO (Edmund): It would be better to put this in a seperate
   // function for handling sending data for previewing a product
   if (!Array.isArray(items)) {
-    const { _id, name, seller, price, description, stock, category, url } = items;
-    const options = {
-      version: "v2", // defaults to 'v2' if missing.
-      action: "read",
-      expires: Date.now() + 1000 * 60 * 60 // one hour
-    };
+    const { _id, name, seller, price, description, stock, category, url } =
+      items;
 
     const signedUrls = [];
     for (const url of items.image.urls) {
@@ -61,7 +63,7 @@ async function signItems(items) {
       category,
       url,
       signedUrls,
-      rating,
+      rating
     };
 
     signedItems.push(await newItem);
@@ -69,16 +71,10 @@ async function signItems(items) {
     return signedItems;
   }
 
-  // TODO (Edmund): the same could be said for this loop for signing 
+  // TODO (Edmund): the same could be said for this loop for signing
   // the url of each products
   for (const item of items) {
     const { _id, name, price, category, url } = item;
-
-    const options = {
-      version: "v2", // defaults to 'v2' if missing.
-      action: "read",
-      expires: Date.now() + 1000 * 60 * 60 // one hour
-    };
 
     const imageUrl = item.image.urls[0];
     const [signedUrl] = await bucket.file(imageUrl).getSignedUrl(options);
