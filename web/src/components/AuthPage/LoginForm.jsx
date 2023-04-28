@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import { user as auth } from "../../features/profile/userSlice";
+import { setUser, loginUser } from "../../features/profile/userSlice";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -30,11 +30,12 @@ export default function LoginForm() {
     });
     const data = await response.json();
 
+    console.log(data);
+
     if (data.user !== undefined) {
-      dispatch(auth.setID(data.id));
-      dispatch(auth.setUser(data.user));
-      dispatch(auth.login());
-      localStorage.setItem("user", JSON.stringify(data));
+      dispatch(setUser(data.user));
+      dispatch(loginUser());
+      localStorage.setItem("user", JSON.stringify(data.user));
     } else {
       setValidationErrors([data.message]);
     }

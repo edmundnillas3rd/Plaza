@@ -48,7 +48,6 @@ export default function ItemSearchDisplay() {
   useEffect(() => {
     getSearchedItems();
 
-    console.log(items);
   }, [item_name]);
 
   return (
