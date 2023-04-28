@@ -13,6 +13,7 @@ import Profile from "../features/profile/Profile";
 
 export default function Main({ categories, children }) {
   const [dropdown, setDropdown] = useState(false);
+  const user = useSelector((state) => state.user.user);
   const isLogin = useSelector((state) => state.user.isLogin);
 
   const [item, setItem] = useState("");

@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Form = () => {
   const navigate = useNavigate();
 
-  const userID = useSelector((state) => state.user.id);
+  const user = useSelector((state) => state.user.user);
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -54,7 +54,7 @@ const Form = () => {
     });
 
     const data = {
-      seller: userID,
+      seller: user.id,
       name,
       price,
       description,
@@ -68,6 +68,9 @@ const Form = () => {
       `${process.env.REACT_APP_BASE_URL}/inventory/items`,
       {
         method: "POST",
+        headers: {
+          "Authorization": `Bearer ${user.token}`
+        },
         body: formData
       }
     );

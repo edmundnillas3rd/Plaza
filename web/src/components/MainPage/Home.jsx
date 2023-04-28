@@ -59,8 +59,10 @@ export default function Home() {
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
 
+      console.log(foundUser);
+
       dispatch(loginUser());
-      dispatch(setUser(foundUser.user));
+      dispatch(setUser(foundUser));
 
       if (foundUser.cart !== undefined) {
         dispatch(cart.setItem(foundUser.cart));
