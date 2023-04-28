@@ -1,15 +1,17 @@
-const express = require("express");
-const app = express();
 const passport = require("passport");
-const passportLocal = require("passport-local").Strategy;
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config({ path: "config.env" });
 
 exports.index = (req, res, next) => {};
 
 exports.log_out = (req, res, next) => {
   req.logout(function (err) {
     if (err) throw err;
+
+    console.log(req.user);
   });
 };
 
@@ -55,10 +57,24 @@ exports.log_in = (req, res, next) => {
       res.json({ message: "Incorrect username or password!" });
     } else {
       req.logIn(user, (err) => {
-        res.json({ user: {
-          id: req.user._id,
-          name: req.user.name
-        } });
+        jwt.sign({ user: req.user }, process.env.JWTSECRET, (err, token) => {
+          if (err) return res.json(err);
+
+          res.cookie("jwt", token, {
+            httpOnly: true,
+            sameSite: true,
+            signed: true,
+            secure: true
+          });
+
+          return res.json({
+            user: {
+              id: req.user._id,
+              name: req.user.name,
+              token
+            }
+          });
+        });
       });
     }
   })(req, res, next);

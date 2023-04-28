@@ -189,8 +189,9 @@ exports.item_detail = async (req, res, next) => {
 exports.new_item = async (req, res, next) => {
   const files = req.files;
 
-  const { seller, name, price, description, stock, category } =
-    req.body.itemData;
+  const { seller, name, price, description, stock, category } = JSON.parse(
+    req.body.itemData
+  );
 
   const categoryName = await Category.find({ name: category });
 
@@ -221,7 +222,12 @@ exports.new_item = async (req, res, next) => {
     }
   });
 
-  res.status(200).json({ message: "New Item added!" });
+  const newItem = await item.save();
+
+  if (newItem === item) {
+    res.status(200).json({ message: "New Item added!" });
+  }
+
 };
 
 exports.item_review = async (req, res, next) => {

@@ -7,6 +7,7 @@ const cors = require("cors");
 const session = require("express-session");
 const passport = require("passport");
 const MongoStore = require("connect-mongo");
+const jwt = require("jsonwebtoken");
 
 const inventoryRouter = require("./routes/inventory");
 const userRouter = require("./routes/user");
@@ -35,7 +36,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({
-    secret: "edmund",
+    secret: process.env.SESSIONSECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -49,7 +50,8 @@ app.use(
 );
 
 app.use(passport.authenticate("session"));
-require("./utils/passportConfig")(passport);
+const { passportConfig } = require("./utils/passportConfig");
+passportConfig(passport);
 
 app.use("/", userRouter);
 app.use("/inventory", inventoryRouter);
