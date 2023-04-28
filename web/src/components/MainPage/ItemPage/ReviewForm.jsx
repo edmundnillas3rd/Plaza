@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export default function ReviewForm() {
   const navigate = useNavigate();
-  const { id } = useParams();
   const [description, setDescription] = useState("");
   const [rating, setRating] = useState("");
 
@@ -22,7 +21,6 @@ export default function ReviewForm() {
 
     setReview({
       user: userID,
-      item: id,
       description,
       rating
     });

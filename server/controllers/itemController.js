@@ -225,18 +225,19 @@ exports.new_item = async (req, res, next) => {
 };
 
 exports.item_review = async (req, res, next) => {
-  const { user, item, description, rating } = req.body;
+  const { id } = req.params;
+  const { user, description, rating } = req.body;
 
   const review = await new Review({
     user,
-    item,
+    item: id,
     description,
     rating
   });
 
   res.status(200).json({ message: "New Review added!" });
 
-  const foundItem = await Item.findByIdAndUpdate(item, {
+  const foundItem = await Item.findByIdAndUpdate(id, {
     $push: { reviews: review }
   });
 };
