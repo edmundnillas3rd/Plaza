@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { Routes, Route } from "react-router-dom";
 
-import { user } from "../../features/profile/userSlice";
+import { setUser, loginUser } from "../../features/profile/userSlice";
 import { cart } from "../../features/cart/cartSlice";
 
 import ItemDisplay from "./ItemDisplay";
@@ -18,7 +18,6 @@ import ItemSearchDisplay from "./ItemSearchDisplay";
 import Layout from "../../layouts/Main";
 
 const Main = ({ categories, items }) => {
-
   return (
     <Routes>
       <Route path="/" element={<Layout categories={categories} />}>
@@ -60,9 +59,8 @@ export default function Home() {
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
 
-      dispatch(user.login());
-      dispatch(user.setID(foundUser.id));
-      dispatch(user.setUser(foundUser.user));
+      dispatch(loginUser());
+      dispatch(setUser(foundUser.user));
 
       if (foundUser.cart !== undefined) {
         dispatch(cart.setItem(foundUser.cart));
