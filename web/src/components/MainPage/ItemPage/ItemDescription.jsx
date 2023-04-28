@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import LeftDescriptionPanel from "./LeftDescriptionPanel";
@@ -8,7 +7,6 @@ import RightDescriptionPanel from "./RightDescriptionPanel";
 
 export default function ItemDescription() {
   const [data, setData] = useState(null);
-  const items = useSelector((state) => state.cart.items);
 
   const { id } = useParams();
 

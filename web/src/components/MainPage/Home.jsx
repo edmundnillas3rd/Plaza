@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -18,7 +18,6 @@ import ItemSearchDisplay from "./ItemSearchDisplay";
 import Layout from "../../layouts/Main";
 
 const Main = ({ categories, items }) => {
-  const isLogin = useSelector((state) => state.user.isLogin);
 
   return (
     <Routes>
