@@ -9,7 +9,7 @@ dotenv.config({ path: "config.env" });
 
 exports.index = async (req, res, next) => {};
 
-exports.cart = (req, res, next) => {
+exports.cart = async (req, res, next) => {
   const { user, orders } = req.body;
 
   const newOrders = orders.map((o) => ({
@@ -23,54 +23,42 @@ exports.cart = (req, res, next) => {
     orders: newOrders
   });
 
-  order.save(async (err) => {
-    if (err) {
-      console.error(err);
-      return;
+  await order.save();
+
+  res.status(200).json({ message: "New Order added!" });
+
+  newOrders.forEach(async (o) => {
+    const updatedItemStocks = await Item.findByIdAndUpdate(o.item, {
+      $inc: { stock: -o.quantity }
+    });
+
+    if (updatedItemStocks.stock <= 0) Item.findByIdAndRemove(o.item);
+  });
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "stmp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASSWORD
     }
+  });
 
-    res.status(200).json({ message: "New Order added!" });
+  const foundUser = await User.findById(user);
 
-    console.log(`New Order ${order}`);
+  const orderList = orders.reduce(
+    (acc, currentValue, currentIndex, array) =>
+      acc + `<li>${array[currentIndex].name}</li>\n`,
+    ""
+  );
 
-    newOrders.forEach(async (o) => {
-      const updatedItemStocks = await Item.findByIdAndUpdate(o.item, {
-        $inc: { stock: -o.quantity }
-      });
-
-      if (updatedItemStocks.stock <= 0) Item.findByIdAndRemove(o.item);
-
-      console.log(updatedItemStocks);
-    });
-
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      host: "stmp.gmail.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASSWORD
-      }
-    });
-
-    const foundUser = await User.findById(user);
-
-    console.log("Found user: ", foundUser);
-
-    const orderList = orders.reduce(
-      (acc, currentValue, currentIndex) =>
-        acc + `<li>${orders[currentIndex].name}</li>\n`,
-      ""
-    );
-
-    console.log(orderList);
-
-    let message = {
-      from: process.env.GMAIL_USER,
-      to: foundUser.email,
-      subject: "Plaza Order Receipt",
-      html: `
+  let message = {
+    from: process.env.GMAIL_USER,
+    to: foundUser.email,
+    subject: "Plaza Order Receipt",
+    html: `
           <h3>This is your order</h3>
           <br>
           <p>Orders:</p>
@@ -78,8 +66,7 @@ exports.cart = (req, res, next) => {
             ${orderList}
           </ul>
         `
-    };
+  };
 
-    transporter.sendMail(message);
-  });
+  transporter.sendMail(message);
 };
