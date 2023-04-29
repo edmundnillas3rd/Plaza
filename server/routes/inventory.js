@@ -2,9 +2,11 @@ var express = require("express");
 var router = express.Router();
 const multer = require("multer");
 const upload = multer({ dest: "images/" });
+const passport = require("passport");
 
 const item_catalog = require("../controllers/itemController");
-const { authenticate } = require("../utils/passportConfig");
+
+const authenticate = passport.authenticate("jwt", { session: false });
 
 // GET
 router.get("/", item_catalog.index);

@@ -1,25 +1,33 @@
-const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
+const JwtStrategy = require("passport-jwt").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
 const bcrypt = require("bcryptjs");
-const jwtCookieComboStrategy = require("passport-jwt-cookiecombo");
-const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 
 const dotenv = require("dotenv");
 dotenv.config({ path: "config.env" });
 
-function passportConfig(passport) {
+module.exports = function (passport) {
+  let opts = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: process.env.JWTSECRET
+  };
+
   passport.use(
-    new jwtCookieComboStrategy(
-      {
-        secretOrPublicKey: process.env.JWTSECRET,
-        passReqToCallback: false
-      },
-      (payload, done) => {
-        return done(null, payload.user, {});
-      }
-    )
+    new JwtStrategy(opts, function (jwt_payload, done) {
+      User.findOne({ id: jwt_payload.sub }, function (err, user) {
+        if (err) {
+          return done(err, false);
+        }
+
+        if (user) {
+          return done(null, user);
+        } else {
+          return done(null, false);
+        }
+      });
+    })
   );
 
   passport.use(
@@ -62,41 +70,4 @@ function passportConfig(passport) {
       }
     });
   });
-}
-
-const authenticate = (req, res, next) => {
-  const authToken = req.header("authorization");
-  const token = authToken.split(" ")[1];
-
-  const reqHeader = {
-    headers: {
-      authorization: token
-    },
-    get: function (key) {
-      return this.headers[key];
-    }
-  };
-
-  passport.authenticate(
-    "jwt-cookiecombo",
-    { session: false },
-    (err, user, info) => {
-      if (err) return console.warn(err);
-
-      user.from = "header";
-      jwt.verify(token, process.env.JWTSECRET, (error, decode) => {
-        if (error) {
-          console.error(error);
-          next();
-        } else {
-          next();
-        }
-      });
-    }
-  )(reqHeader, res, next);
-};
-
-module.exports = {
-  passportConfig,
-  authenticate
 };

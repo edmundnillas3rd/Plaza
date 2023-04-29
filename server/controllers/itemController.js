@@ -187,6 +187,10 @@ exports.item_detail = async (req, res, next) => {
 
 // POST
 exports.new_item = async (req, res, next) => {
+  if (!req.isAuthenticated()) res.status(401).json({
+    message: "Not Authenticated"
+  });
+
   const files = req.files;
 
   const { seller, name, price, description, stock, category } = JSON.parse(
@@ -227,7 +231,6 @@ exports.new_item = async (req, res, next) => {
   if (newItem === item) {
     res.status(200).json({ message: "New Item added!" });
   }
-
 };
 
 exports.item_review = async (req, res, next) => {
