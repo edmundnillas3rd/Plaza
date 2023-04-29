@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -7,10 +6,6 @@ import { cart } from "../../../features/cart/cartSlice";
 export default function RightDescriptionPanel({ data }) {
   const { id } = useParams();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log(data);
-  }, []);
 
   const addToCart = (e) => {
     const item = {

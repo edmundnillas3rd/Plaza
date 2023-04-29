@@ -30,8 +30,6 @@ export default function LoginForm() {
     });
     const data = await response.json();
 
-    console.log(data);
-
     if (data.user !== undefined) {
       dispatch(setUser(data.user));
       dispatch(loginUser());

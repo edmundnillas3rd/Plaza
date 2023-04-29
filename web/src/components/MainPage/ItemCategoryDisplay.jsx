@@ -1,13 +1,8 @@
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ItemCard from "./ItemCard";
 
 export default function ItemCategoryDisplay({ items }) {
-  const { category_name, category_id } = useParams();
-
-  useEffect(() => {
-    console.log(category_name, category_id, items);
-  }, []);
+  const { category_name } = useParams();
 
   return (
     <div className="item-category-container container">
