@@ -59,8 +59,6 @@ export default function Home() {
     if (loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
 
-      console.log(foundUser);
-
       dispatch(loginUser());
       dispatch(setUser(foundUser));
 

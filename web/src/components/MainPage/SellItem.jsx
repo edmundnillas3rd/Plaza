@@ -25,11 +25,6 @@ const Form = () => {
       `${process.env.REACT_APP_BASE_URL}/inventory/items`
     );
 
-    if (!response.ok) {
-      console.log("categories not found!");
-      return;
-    }
-
     const data = await response.json();
 
     setCategories(data.categories);
@@ -75,11 +70,8 @@ const Form = () => {
       }
     );
 
-    if (response.ok) {
-      console.log("Item added successfully!");
-    }
-
-    navigate("/");
+    if (response.ok)
+      navigate("/");
   };
 
   return (
