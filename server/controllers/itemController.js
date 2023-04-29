@@ -187,9 +187,12 @@ exports.item_detail = async (req, res, next) => {
 
 // POST
 exports.new_item = async (req, res, next) => {
-  if (!req.isAuthenticated()) res.status(401).json({
-    message: "Not Authenticated"
-  });
+  if (!req.isAuthenticated()) {
+    res.status(401).json({
+      message: "Not Authenticated"
+    });
+    return;
+  }
 
   const files = req.files;
 
@@ -234,6 +237,13 @@ exports.new_item = async (req, res, next) => {
 };
 
 exports.item_review = async (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.status(401).json({
+      message: "Not Authenticated"
+    });
+    return;
+  }
+
   const { id } = req.params;
   const { user, description, rating } = req.body;
 

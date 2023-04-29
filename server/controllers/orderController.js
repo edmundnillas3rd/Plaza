@@ -10,6 +10,13 @@ dotenv.config({ path: "config.env" });
 exports.index = async (req, res, next) => {};
 
 exports.cart = async (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    res.status(401).json({
+      message: "Not Authenticated"
+    });
+    return;
+  }
+
   const { user, orders } = req.body;
 
   const newOrders = orders.map((o) => ({
