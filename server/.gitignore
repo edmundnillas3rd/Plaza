@@ -3,9 +3,6 @@
 
 # misc
 /images/
-config.env
-<<<<<<< HEAD
-=======
-/images/
->>>>>>> 7e84cf44348e323e3647bde8124ea082119443bf
-plaza-54500-firebase-adminsdk-6bnu9-b7f577be7b.json
+/config.env
+/plaza-54500-firebase-adminsdk-6bnu9-b7f577be7b.json
+.vscode

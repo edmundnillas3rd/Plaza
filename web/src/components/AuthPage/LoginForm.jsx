@@ -45,6 +45,8 @@ export default function LoginForm() {
     e.preventDefault();
 
     login();
+
+    navigate("/");
   };
 
   if (isLogin) {

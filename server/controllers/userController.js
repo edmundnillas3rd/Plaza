@@ -57,23 +57,17 @@ exports.log_in = (req, res, next) => {
       res.json({ message: "Incorrect username or password!" });
     } else {
       req.logIn(user, (err) => {
-        jwt.sign({ user: req.user }, process.env.JWTSECRET, (err, token) => {
-          if (err) return res.json(err);
+        if (err) console.error(err);
 
-          res.cookie("jwt", token, {
-            httpOnly: true,
-            sameSite: true,
-            signed: true,
-            secure: true
-          });
+        const token = jwt.sign({id: user._id}, process.env.JWTSECRET);
+        res.header(token)
 
-          return res.json({
-            user: {
-              id: req.user._id,
-              name: req.user.name,
-              token
-            }
-          });
+        res.status(200).json({
+          user: {
+            id: user._id,
+            name: user.name,
+            token
+          }
         });
       });
     }

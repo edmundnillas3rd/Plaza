@@ -7,7 +7,6 @@ const cors = require("cors");
 const session = require("express-session");
 const passport = require("passport");
 const MongoStore = require("connect-mongo");
-const jwt = require("jsonwebtoken");
 
 const inventoryRouter = require("./routes/inventory");
 const userRouter = require("./routes/user");
@@ -50,8 +49,7 @@ app.use(
 );
 
 app.use(passport.authenticate("session"));
-const { passportConfig } = require("./utils/passportConfig");
-passportConfig(passport);
+require("./utils/passportConfig")(passport);
 
 app.use("/", userRouter);
 app.use("/inventory", inventoryRouter);
