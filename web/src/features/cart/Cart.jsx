@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { cart } from "../cart/cartSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import image from "../../assets/office-background.jpg";
 
@@ -66,6 +66,7 @@ export default function Cart() {
   const usernameID = useSelector((state) => state.user.id);
   const items = useSelector((state) => state.cart.items);
   const isLogin = useSelector((state) => state.user.isLogin);
+  const user = useSelector((state) => state.user.user);
 
   const [submit, setSubmit] = useState(false);
   const [amount, setAmount] = useState(0);
@@ -74,10 +75,6 @@ export default function Cart() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(items);
-  }, []);
-
   const submitPurchase = () => {
     const totalSum = items.reduce(
       (accumulator, currentValue) =>
@@ -85,12 +82,7 @@ export default function Cart() {
       0
     );
 
-    if (amount < totalSum) {
-      console.log("Insufficient amount!");
-      console.log("Amount: ", amount);
-      console.log("Total Sum: ", totalSum);
-      return;
-    }
+    if (amount < totalSum) return;
 
     const order = {
       user: usernameID,
@@ -100,7 +92,8 @@ export default function Cart() {
     fetch(`${process.env.REACT_APP_BASE_URL}/orders/cart`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${user.token}`
       },
       body: JSON.stringify(order)
     });
@@ -142,14 +135,15 @@ export default function Cart() {
                 <button onClick={submitPurchase}>Enter Amount</button>
               </>
             ) : (
-              items.length !== 0 && 
-              <button
-                onClick={() => {
-                  setSubmit(true);
-                }}
-              >
-                Checkout Purchase
-              </button>
+              items.length !== 0 && (
+                <button
+                  onClick={() => {
+                    setSubmit(true);
+                  }}
+                >
+                  Checkout Purchase
+                </button>
+              )
             )}
           </div>
         </>
