@@ -5,7 +5,7 @@ const user_controller = require("../controllers/userController");
 
 // GET
 router.get("/", user_controller.index);
-router.get("/logout", passport.authenticate("jwt", { session: false }),user_controller.log_out);
+router.get("/logout", passport.authenticate("jwt", { session: false }), user_controller.log_out);
 
 // POST
 router.post("/signup", user_controller.sign_up);

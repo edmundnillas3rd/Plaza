@@ -11,7 +11,9 @@ exports.log_out = (req, res, next) => {
   req.logout(function (err) {
     if (err) throw err;
 
-    console.log(req.user);
+    res.status(200).json({
+      message: "User successfully log out"
+    });
   });
 };
 
@@ -59,8 +61,8 @@ exports.log_in = (req, res, next) => {
       req.logIn(user, (err) => {
         if (err) console.error(err);
 
-        const token = jwt.sign({id: user._id}, process.env.JWTSECRET);
-        res.header(token)
+        const token = jwt.sign({ id: user._id }, process.env.JWTSECRET);
+        res.header(token);
 
         res.status(200).json({
           user: {
