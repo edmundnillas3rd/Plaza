@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
 import { setUser, logoutUser } from "./userSlice";
 import { cart } from "../cart/cartSlice";
-import { useState } from "react";
 
 export default function Profile() {
   const [show, setShow] = useState(false);
@@ -13,7 +13,11 @@ export default function Profile() {
   const logout = (e) => {
     e.preventDefault();
 
-    fetch(`${process.env.REACT_APP_BASE_URL}/logout`);
+    fetch(`${process.env.REACT_APP_BASE_URL}/logout`, {
+      headers: {
+        "Authorization": `Bearer ${user.token}`
+      }
+    });
 
     dispatch(setUser(null));
     dispatch(logoutUser());
