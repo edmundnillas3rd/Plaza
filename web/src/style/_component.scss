@@ -44,20 +44,19 @@
     visibility: visible;
   }
 
-  &.hide {
-    animation: slideUp 300ms ease-in-out forwards;
+  &.slide-out-top {
+    animation: slideUp 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
   }
 }
 
 @keyframes slideUp {
   0% {
-    opacity: 1;
     transform: translateY(0);
+    opacity: 1;
   }
-
   100% {
+    transform: translateY(-1000px);
     opacity: 0;
-    transform: translateY(1);
   }
 }
 
