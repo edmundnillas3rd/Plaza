@@ -60,7 +60,9 @@ export default function Main({ categories, children }) {
               >
                 Products
                 <div
-                  className={`dropdown-pane ${dropdown ? "container" : "hide"}`}
+                  className={`dropdown-pane ${
+                    dropdown ? "container" : "container slide-out-top"
+                  }`}
                 >
                   <div className="pane left-pane">
                     <h3>Categories</h3>
