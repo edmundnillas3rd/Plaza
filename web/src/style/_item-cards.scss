@@ -17,7 +17,7 @@ $radius-size: 0.2rem;
     flex-direction: row;
   }
 
-  .image-container {
+  & > .image-container {
     img {
       border-radius: $radius-size;
       height: 240px;
@@ -29,7 +29,13 @@ $radius-size: 0.2rem;
   border-radius: $radius-size;
   flex-direction: column;
   padding: 20px;
-  font-size: calc(0.5rem + 0.5vw);
+
+  & > p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: calc(0.5rem + 0.5vw);
+  }
 }
 
 .product-name-container {
