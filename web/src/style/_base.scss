@@ -8,41 +8,6 @@
   margin: 0;
   padding: 0;
 }
-
-header {
-  display: flex;
-  background-color: $base-color;
-  color: $light-color;
-  align-items: center;
-  justify-content: space-around;
-  padding: 15px 20px;
-  gap: 1.5rem;
-
-  & > h3 {
-    display: flex;
-    justify-content: center;
-    font-weight: bolder;
-  }
-
-  & > * {
-    flex: 1;
-  }
-
-  @media (orientation: portrait) {
-    & {
-      padding: 0.7rem;
-    }
-  }
-}
-
-footer {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  background-color: $base-color;
-  color: $light-color;
-}
-
 body {
   font: 12pt "Poppins", sans-serif;
   background-color: $light-color;

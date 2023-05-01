@@ -13,7 +13,6 @@ import Profile from "../features/profile/Profile";
 
 export default function Main({ categories, children }) {
   const [dropdown, setDropdown] = useState(false);
-  const user = useSelector((state) => state.user.user);
   const isLogin = useSelector((state) => state.user.isLogin);
 
   const [item, setItem] = useState("");
@@ -22,9 +21,9 @@ export default function Main({ categories, children }) {
 
   return (
     <>
-      <header>
+      <header className="main-header container">
         <h3>Plaza</h3>
-        <div className="search-bar-container">
+        <div className="search-bar-container container">
           <form
             action=""
             method="GET"
@@ -103,7 +102,7 @@ export default function Main({ categories, children }) {
       <main>
         <Outlet />
       </main>
-      <footer>
+      <footer className="main-footer">
         <div className="copyright-description-container">
           <div className="copyrights-container">
             <AiOutlineCopyrightCircle />
