@@ -60,8 +60,8 @@ export default function Main({ categories, children }) {
               >
                 Products
                 <div
-                  className={`dropdown-pane ${
-                    dropdown ? "container" : "container slide-out-top"
+                  className={`dropdown-pane container ${
+                    dropdown ? "slide-out-bottom" : " slide-out-top"
                   }`}
                 >
                   <div className="pane left-pane">

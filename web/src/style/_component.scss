@@ -36,12 +36,15 @@
   transform: translateY(-0.45rem);
   visibility: hidden;
 
-  animation: slideDown 300ms ease-in-out forwards;
   transform-origin: top center;
   background-color: $base-color;
 
   &.container {
     visibility: visible;
+  }
+
+  &.slide-out-bottom {
+    animation: slideDown 0.1s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
   }
 
   &.slide-out-top {
@@ -69,46 +72,6 @@
   100% {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-.pane {
-  display: flex;
-  padding: 35px;
-  flex: 1;
-}
-
-.left-pane {
-  justify-content: flex-start;
-
-  & > h3 {
-    font-size: calc(1.5rem + 0.5vw);
-  }
-}
-
-.right-pane {
-  & > ul {
-    flex: 2;
-    display: flex;
-    flex-flow: column wrap;
-    gap: 10px;
-
-    & > li {
-      flex: 1;
-      padding: 8px;
-      width: fit-content;
-      transition: 0.4s;
-      background: linear-gradient($highlight-color, $highlight-color);
-      background-repeat: no-repeat;
-      background-size: 0 100%;
-    }
-
-    & > li:hover {
-      background-size: 100% 100%;
-      a {
-        color: $base-color;
-      }
-    }
   }
 }
 
