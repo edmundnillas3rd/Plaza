@@ -36,9 +36,9 @@ export default function ReviewForm() {
   };
 
   return (
-    <div className="container review-form-container">
+    <div className="review-form-container container ">
       <form action="" method="POST" onSubmit={addReview}>
-        <div className="review-detail-container">
+        <div className=" review-detail-container container column ">
           <label htmlFor="description">Add a review for this item</label>
           <textarea
             name="description"
@@ -49,7 +49,7 @@ export default function ReviewForm() {
           ></textarea>
         </div>
 
-        <div className="container review-form-rating">
+        <div className="review-form-rating container ">
           <input
             type="radio"
             name="rating"
@@ -101,7 +101,7 @@ export default function ReviewForm() {
           />
           <label htmlFor="1"></label>
         </div>
-        <div className="submit-button-container">
+        <div className="submit-button-container container">
           <button type="submit" className="submit-review-button">
             Submit
           </button>

@@ -6,7 +6,7 @@ const ItemCard = ({ name, price, url, rating, image, horizontal = false }) => {
 
   return (
     <Link to={url}>
-      <div className={`item-card ${horizontal && "horizontal"}`}>
+      <div className={`item-card container column ${horizontal && "horizontal"}`}>
         <div className="image-container">
           <img src={image} alt="item" />
         </div>

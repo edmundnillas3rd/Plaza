@@ -3,7 +3,7 @@ import { StarRatings } from "../StarRatings";
 
 export default function ReviewDisplay({ reviews }) {
   return (
-    <div className="container review-container">
+    <div className="container column review-container">
       <ReviewForm />
       <h3>Reviews:</h3>
       {reviews.map((review, i) => (

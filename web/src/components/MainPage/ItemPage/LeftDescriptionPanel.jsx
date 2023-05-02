@@ -10,11 +10,11 @@ export default function LeftDescriptionPanel({ data }) {
   };
 
   return (
-    <div className="left-panel">
+    <div className="left-panel container column">
       <div className="image-display">
         <img src={data.urls[index]} alt="item" />
       </div>
-      <div className="image-carousel">
+      <div className="image-carousel container">
         {data.urls.map((url, index) => (
           <div
             className="image-container"

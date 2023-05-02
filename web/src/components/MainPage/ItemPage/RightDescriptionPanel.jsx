@@ -23,7 +23,7 @@ export default function RightDescriptionPanel({ data }) {
   };
 
   return (
-    <div className="right-panel">
+    <div className="right-panel container column">
       <div>
         <p>Name: {data.item.name}</p>
         <p>Seller: {data.item.seller.name}</p>
