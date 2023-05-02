@@ -4,11 +4,11 @@ import image from "../../assets/boxes.jpg";
 
 const CategorySection = ({ header, items }) => {
   return (
-    <>
+    <div className="category-section container column">
       <div className="item-category-header">
         <h3>{header}</h3>
       </div>
-      <div className="item-lists-container">
+      <div className="item-lists-container container">
         {items &&
           items.map((item, index) => {
             if (header === item.category.name || header === "General") {
@@ -27,7 +27,7 @@ const CategorySection = ({ header, items }) => {
             return null;
           })}
       </div>
-    </>
+    </div>
   );
 };
 
@@ -40,7 +40,7 @@ export default function ItemDisplay({ items }) {
           <img src={image} alt="hero" />
         </div>
       </div>
-      <div className="item-display-section">
+      <div className="item-display-section container column">
         {items !== null && (
           <>
             <CategorySection header="General" items={items} />

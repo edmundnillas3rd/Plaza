@@ -1,8 +1,10 @@
 .item-display-section {
   padding: 5vh 5vw;
-  display: flex;
-  flex-direction: column;
   gap: 1.5rem;
+}
+
+.category-section {
+  gap: 0.5rem;
 }
 
 .item-category-header {
@@ -10,9 +12,8 @@
 }
 
 .item-lists-container {
-  padding: 1vh 1vw;
-  display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .item-category-container {
