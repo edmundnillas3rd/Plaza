@@ -76,7 +76,7 @@ const Form = () => {
 
   return (
     <form
-      className="product-form-container"
+      className="product-form-container container column"
       action=""
       method="POST"
       onSubmit={addItem}

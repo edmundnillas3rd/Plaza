@@ -1,14 +1,10 @@
 .product-container {
-  display: flex;
-  justify-content: center;
   align-items: center;
   padding: 5vh 0;
   gap: 1.5rem;
 }
 
 .product-form-container {
-  display: flex;
-  flex-direction: column;
   padding: 20px;
   border: 1px solid $light-base-color;
   border-radius: 6px;
