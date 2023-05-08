@@ -2,6 +2,8 @@ import ItemCard from "./ItemCard";
 
 import image from "../../assets/boxes.jpg";
 
+import Loader from "../Loader";
+
 const CategorySection = ({ header, items }) => {
   return (
     <div className="category-section container column">
@@ -31,24 +33,26 @@ const CategorySection = ({ header, items }) => {
   );
 };
 
-export default function ItemDisplay({ items }) {
+export default function ItemDisplay({ categories, items }) {
   return (
     <div className="item-display">
-      <div className="hero-container">
-        <p>Shop Computer, Furnitures, and Clothing</p>
-        <div className="hero-img-container">
-          <img src={image} alt="hero" />
-        </div>
-      </div>
-      <div className="item-display-section container column">
-        {items !== null && (
-          <>
+      {items !== null ? (
+        <>
+          <div className="hero-container">
+            <p>Shop Computer, Furnitures, and Clothing</p>
+            <div className="hero-img-container">
+              <img src={image} alt="hero" />
+            </div>
+          </div>
+          <div className="item-display-section container column">
             <CategorySection header="General" items={items} />
-            <CategorySection header="Computers" items={items} />
-            <CategorySection header="Men's Fashion" items={items} />
-          </>
-        )}
-      </div>
+            <CategorySection header={categories[1].name} items={items} />
+            <CategorySection header={categories[2].name} items={items} />
+          </div>
+        </>
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 }

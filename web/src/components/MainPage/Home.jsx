@@ -21,7 +21,10 @@ const Main = ({ categories, items }) => {
   return (
     <Routes>
       <Route path="/" element={<Layout categories={categories} />}>
-        <Route index element={<ItemDisplay items={items} />} />
+        <Route
+          index
+          element={<ItemDisplay categories={categories} items={items} />}
+        />
         <Route path="/inventory/items" element={<SellItem />} />
         <Route path="/inventory/items/:id" element={<ItemDescription />} />
         <Route path="/shopping-cart" element={<Cart />} />
@@ -41,13 +44,16 @@ const Main = ({ categories, items }) => {
 export default function Home() {
   const [categories, setCategories] = useState(null);
   const [items, setItems] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
   const getItemAndCategories = async () => {
+    setLoading(true);
     const response = await fetch(`${process.env.REACT_APP_BASE_URL}/inventory`);
     const data = await response.json();
 
     setCategories(data.categories);
     setItems(data.items);
+    setLoading(false);
   };
 
   const dispatch = useDispatch();
