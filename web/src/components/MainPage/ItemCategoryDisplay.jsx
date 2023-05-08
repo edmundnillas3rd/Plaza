@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import ItemCard from "./ItemCard";
+import Loader from "../Loader"
 
 export default function ItemCategoryDisplay({ items }) {
   const { category_name } = useParams();
@@ -8,7 +9,7 @@ export default function ItemCategoryDisplay({ items }) {
     <div className="item-category-container container column">
       <h3>{category_name}</h3>
       <div className="item-category-list container">
-        {items &&
+        {!items ? <Loader/> :
           items.map((item, index) =>
             item.category.name === category_name ? (
               <ItemCard
