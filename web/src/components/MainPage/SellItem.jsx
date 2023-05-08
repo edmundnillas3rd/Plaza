@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
+import Loader from "../Loader";
+
 const Form = () => {
   const navigate = useNavigate();
 
@@ -15,6 +17,8 @@ const Form = () => {
   const [categories, setCategories] = useState([]);
 
   const [images, setImages] = useState([]);
+
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     getCategories();
@@ -31,6 +35,7 @@ const Form = () => {
   };
 
   const addItem = async (e) => {
+    setLoading(true);
     e.preventDefault();
 
     if (
@@ -64,14 +69,16 @@ const Form = () => {
       {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${user.token}`
+          Authorization: `Bearer ${user.token}`
         },
         body: formData
       }
     );
 
-    if (response.ok)
+    if (response.ok) {
+      setLoading(false);
       navigate("/");
+    }
   };
 
   return (
@@ -173,7 +180,9 @@ const Form = () => {
           : null}
       </div>
       <div className="button-container">
-        <button>Add Item</button>
+        <button disabled={isLoading}>
+          {isLoading ? <Loader /> : "Add Item"}
+        </button>
       </div>
     </form>
   );
@@ -181,7 +190,6 @@ const Form = () => {
 
 export default function SellItem() {
   const isLogin = useSelector((state) => state.user.isLogin);
-
   return (
     <div className="product-container container column">
       {isLogin ? (

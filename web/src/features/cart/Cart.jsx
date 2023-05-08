@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import image from "../../assets/office-background.jpg";
+import Loader from "../../components/Loader";
 
 const getItemQuantity = (items, name) => {
   const index = items.findIndex((item) => item.name === name);
@@ -70,12 +71,14 @@ export default function Cart() {
 
   const [submit, setSubmit] = useState(false);
   const [amount, setAmount] = useState(0);
+  const [isLoading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const submitPurchase = () => {
+  const submitPurchase = async () => {
+    setLoading(true);
     const totalSum = items.reduce(
       (accumulator, currentValue) =>
         accumulator + currentValue.price * currentValue.quantity,
@@ -89,16 +92,18 @@ export default function Cart() {
       orders: items
     };
 
-    fetch(`${process.env.REACT_APP_BASE_URL}/orders/cart`, {
+    await fetch(`${process.env.REACT_APP_BASE_URL}/orders/cart`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${user.token}`
+        Authorization: `Bearer ${user.token}`
       },
       body: JSON.stringify(order)
     });
     dispatch(cart.reset());
     navigate("/");
+
+    setLoading(false);
   };
 
   return (
@@ -112,7 +117,7 @@ export default function Cart() {
       {isLogin ? (
         <>
           <div className="item-display">
-            {items !== undefined &&
+            {items !== undefined && !isLoading ? (
               items.map((item, index) => (
                 <CheckoutItemCard
                   key={index}
@@ -122,7 +127,10 @@ export default function Cart() {
                   image={item.image}
                   stock={item.stock}
                 />
-              ))}
+              ))
+            ) : (
+              <Loader />
+            )}
           </div>
           <div className="button-container">
             {submit ? (
@@ -141,7 +149,7 @@ export default function Cart() {
                     setSubmit(true);
                   }}
                 >
-                  Checkout Purchase
+                  {isLoading ? <Loader /> : "Checkout Purchase"}
                 </button>
               )
             )}

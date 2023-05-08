@@ -4,19 +4,23 @@ import { useParams } from "react-router-dom";
 import LeftDescriptionPanel from "./LeftDescriptionPanel";
 import ReviewDisplay from "./ReviewDisplay";
 import RightDescriptionPanel from "./RightDescriptionPanel";
+import Loader from "../../Loader"
 
 export default function ItemDescription() {
   const [data, setData] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
   const { id } = useParams();
 
   const getItemDescription = async () => {
+    setLoading(true);
     const response = await fetch(
       `${process.env.REACT_APP_BASE_URL}/inventory/items/${id}`
     );
     const data = await response.json();
 
     setData(data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -25,19 +29,23 @@ export default function ItemDescription() {
 
   return (
     <div className="item-description-container container column">
-      {data && (
-        <>
-          <div className="top-container">
-            <LeftDescriptionPanel data={data} />
-            <RightDescriptionPanel data={data} />
-          </div>
-          <div className="item-main-description">
-            <h3>Description:</h3>
-            <p>&emsp;&emsp;{data.item.description}</p>
-          </div>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        data && (
+          <>
+            <div className="top-container">
+              <LeftDescriptionPanel data={data} />
+              <RightDescriptionPanel data={data} />
+            </div>
+            <div className="item-main-description">
+              <h3>Description:</h3>
+              <p>&emsp;&emsp;{data.item.description}</p>
+            </div>
 
-          <ReviewDisplay reviews={data.reviews} />
-        </>
+            <ReviewDisplay reviews={data.reviews} />
+          </>
+        )
       )}
     </div>
   );
