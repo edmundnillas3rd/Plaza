@@ -45,41 +45,46 @@
   transform-origin: top center;
   background-color: $base-color;
 
+  transition: 0.5s ease-out;
+
   &.container {
     visibility: visible;
   }
 
   &.slide-out-bottom {
-    animation: slideDown 0.1s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-  }
-
-  &.slide-out-top {
-    animation: slideUp 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-  }
-}
-
-@keyframes slideUp {
-  0% {
-    transform: translateY(0);
     opacity: 1;
+    transform: translateY(0);
   }
-  100% {
+  
+  &.slide-out-top {
+    // animation: slideUp 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
     transform: translateY(-1000px);
     opacity: 0;
   }
 }
 
-@keyframes slideDown {
-  0% {
-    opacity: 0;
-    transform: translateY(1);
-  }
+// @keyframes slideUp {
+//   0% {
+//     transform: translateY(0);
+//     opacity: 1;
+//   }
+//   100% {
+//     transform: translateY(-1000px);
+//     opacity: 0;
+//   }
+// }
 
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+// @keyframes slideDown {
+//   0% {
+//     opacity: 0;
+//     transform: translateY(1);
+//   }
+
+//   100% {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+// }
 
 .dropdown-options {
   position: absolute;

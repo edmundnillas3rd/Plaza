@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import {
@@ -18,6 +18,12 @@ export default function Main({ categories, children }) {
   const [item, setItem] = useState("");
 
   const navigate = useNavigate();
+
+  const [className, setClassName] = useState("");
+
+  useEffect(() => {
+    setClassName(dropdown ? "slide-out-bottom" : "slide-out-top");
+  }, [dropdown]);
 
   return (
     <>
