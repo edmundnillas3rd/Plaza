@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.padded-md {
+  padding: 20px;
+}
+
+.center-content {
+  justify-content: center;
+  align-items: center;
+}
+
+.one-gap {
+  gap: 1.5rem;
+}
+
+.xxsm {
+  width: 25px;
+  height: 25px;
+}
+
+.xsm {
+  width: 50px;
+  height: 50px;
+}
+
+.sm {
+  width: 100px;
+  height: 100px;
+}
+
+.md {
+  width: 200px;
+  height: 200px;
+}
+
+.justify {
+  justify-content: center;
+}
+
+.align {
+  align-items: center;
+}
+
+.flex {
+  flex: 1;
+}
