@@ -1,17 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { IconContext } from "react-icons";
+import { RouterProvider } from "react-router-dom";
 
-import store from "./app/store";
-import { Provider } from "react-redux";
-
-import App from "./App";
+import router from "./router/router";
+import "./style/styles.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
-    <IconContext.Provider value={{ className: "react-icons" }}>
-      <App />
-    </IconContext.Provider>
-  </Provider>
+  <IconContext.Provider value={{ className: "react-icons" }}>
+    <RouterProvider router={router} />
+  </IconContext.Provider>
 );
