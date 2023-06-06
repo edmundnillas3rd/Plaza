@@ -1,0 +1,37 @@
+.header {
+  padding: 10px;
+}
+
+.navbar {
+  & > ul > li > a {
+    padding: 20px;
+  }
+}
+
+.search-bar-container {
+  height: 40px;
+
+  & > input {
+    width: 25vw;
+    padding: 10px;
+    border-top: 1px solid #24242436;
+    border-left: 1px solid #24242436;
+    border-bottom: 1px solid #24242436;
+    border-right: none;
+    border-radius: 10px 0 0 10px;
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  & > button {
+    padding: 0 10px;
+    background: transparent;
+    border-left: none;
+    border-right: 1px solid #24242436;
+    border-top: 1px solid #24242436;
+    border-bottom: 1px solid #24242436;
+    border-radius: 0 10px 10px 0;
+  }
+}
