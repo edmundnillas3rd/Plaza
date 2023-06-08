@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
+import { FaAngleRight } from "react-icons/fa";
 
 import image from "../assets/images/plaza-logo.png";
 
@@ -18,12 +19,15 @@ export default function Navbar() {
           placeholder="Search"
         />
         <button className="container center-content" type="submit">
-          <AiOutlineSearch color="#24242436" size={20}/>
+          <AiOutlineSearch color="#24242436" size={20} />
         </button>
       </form>
       <nav className="navbar container align">
         <ul className="container one-gap flex">
-          <li>Category</li>
+          <li className="container align cursor-pointer">
+            <FaAngleRight />
+            Category
+          </li>
           <li>
             <Link>Sell</Link>
           </li>
