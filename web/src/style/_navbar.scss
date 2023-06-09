@@ -3,6 +3,12 @@
   & a {
     font-weight: bold;
     color: $black-md;
+    transition: opacity ease-in 0.2s;
+  }
+
+  & li:hover,
+  & a:hover {
+    opacity: 70%;
   }
 
   & > ul > li a {
@@ -35,5 +41,24 @@
     border-top: 1px solid $black-md-20;
     border-bottom: 1px solid $black-md-20;
     border-radius: 0 $circular-border $circular-border 0;
+  }
+}
+
+.drawer-container {
+  display: none
+}
+
+@media screen and (max-width: 900px) {
+  .header {
+    justify-content: space-between;
+  }
+  
+  .navbar,
+  .search-bar-container {
+    display: none;
+  }
+
+  .drawer-container {
+    display: flex;
   }
 }
