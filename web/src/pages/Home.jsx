@@ -1,10 +1,18 @@
 export default function Home() {
   return (
-    <div className="img-banner">
-      <img
-        src="https://images.unsplash.com/photo-1513672494107-cd9d848a383e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=869&q=80"
-        alt="boxes"
-      />
+    <div className="banner-container">
+      <div className="banner-content container column gap-md">
+        <div className="container column gap-sm">
+          <h1 className="banner-header">Plaza</h1>
+          <p className="banner-paragraph">
+            Discover the ultimate online shopping destination, offering a
+            diverse selection of high-quality products for all your needs.
+          </p>
+        </div>
+        <div className="banner-button">
+          <button>Learn More</button>
+        </div>
+      </div>
     </div>
   );
 }

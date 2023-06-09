@@ -7,7 +7,7 @@ import image from "../assets/images/plaza-logo.png";
 export default function Navbar() {
   return (
     <div className="header container align padded-md">
-      <div className="container center-content one-gap">
+      <div className="container center-content gap-sm">
         <img className="xxsm" src={image} alt="plaza-logo" />
         <h2>Plaza</h2>
       </div>
@@ -23,7 +23,7 @@ export default function Navbar() {
         </button>
       </form>
       <nav className="navbar container align">
-        <ul className="container one-gap flex">
+        <ul className="container gap-sm flex">
           <li className="container align cursor-pointer">
             <FaAngleRight />
             Category
