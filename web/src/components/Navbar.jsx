@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaAngleRight } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 import image from "../assets/images/plaza-logo.png";
 
@@ -33,6 +34,9 @@ export default function Navbar() {
           </li>
         </ul>
       </nav>
+      <div className="drawer-container container center-content cursor-pointer">
+        <GiHamburgerMenu />
+      </div>
     </div>
   );
 }
