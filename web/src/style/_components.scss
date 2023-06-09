@@ -1,6 +1,10 @@
 .container {
   display: flex;
   justify-content: space-around;
+
+  &.column {
+    flex-direction: column;
+  }
 }
 
 .padded-md {
@@ -12,8 +16,12 @@
   align-items: center;
 }
 
-.one-gap {
+.gap-sm {
   gap: 1.5rem;
+}
+
+.gap-md {
+  gap: 2rem;
 }
 
 .xxsm {
