@@ -6,7 +6,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   padding: 150px 0;
-
+  
   & .banner-button {
     margin-top: 33px;
   }
@@ -24,6 +24,10 @@
 }
 
 .banner-content {
+  & p, & h1 {
+    color: $white-md;
+  }
+  
   backdrop-filter: brightness(35%);
   padding: 80px 40px;
   color: $white-md;
@@ -39,4 +43,8 @@
   max-width: 700px;
   font-size: 20px;
   font-weight: normal;
+}
+
+.category-section {
+  color: $black-md;
 }
