@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 
+import StarRating from "./StarRating";
+
 function ItemCard({ name, image, price, rating }) {
   return (
     <div className="item-card container column">
       <img src={image} alt={name} />
-      <div className="container">
-        <h3>{name}</h3>
-        <p className="pricetag-header">{price}</p>
+      <div className="product-description">
+        <div className="container">
+          <h3 className="product-name">{name}</h3>
+          <p className="product-pricetag">{price}</p>
+        </div>
+        <StarRating readOnly ratingValue={rating}/>
       </div>
-      <p>{rating}</p>
     </div>
   );
 }

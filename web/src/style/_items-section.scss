@@ -10,12 +10,30 @@
 .item-card {
   box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
   height: 400px;
-  width: 25vw;
+  width: 15vw;
   border-radius: 10px;
   background-position: center;
 
-  & .pricetag-header {
+  & > .product-description {
+    padding: 10px;
+
+    & > .container {
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+  }
+
+  
+  & h3 {
+    text-align: left;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  & .product-pricetag {
     opacity: 80%;
   }
 }
-
