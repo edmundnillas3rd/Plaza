@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const RatingDisplay = ({ index, off = false }) => {
   return (
-    <button key={index} className={`${ !off ? "on" : "off"}`}>
+    <button key={index} className={`${ !off ? "on" : "off no-hover"}`}>
       <span className="star">&#9733;</span>
     </button>
   );
