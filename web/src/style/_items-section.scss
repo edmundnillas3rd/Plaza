@@ -1,0 +1,21 @@
+.items-section {
+  justify-content: flex-start;
+  padding: 40px 30px;
+}
+
+.items-list-container {
+  flex-wrap: wrap;
+}
+
+.item-card {
+  box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
+  height: 400px;
+  width: 25vw;
+  border-radius: 10px;
+  background-position: center;
+
+  & .pricetag-header {
+    opacity: 80%;
+  }
+}
+

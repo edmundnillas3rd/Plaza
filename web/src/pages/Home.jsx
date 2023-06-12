@@ -1,4 +1,5 @@
 import Categories from "../components/Categories";
+import Items from "../components/Items";
 
 export default function Home() {
   return (
@@ -20,6 +21,10 @@ export default function Home() {
       <div className="category-section container column gap-sm pt">
         <h1>Shop our top categories</h1>
         <Categories />
+      </div>
+      <div className="items-section container column gap-sm">
+        <h1>Todays Best Deals for you!</h1>
+        <Items />
       </div>
     </>
   );

@@ -2,6 +2,8 @@
 /node_modules/
 
 # misc
+/.pnp.*
+/.yarn/
 /images/
 /config.env
 /plaza-54500-firebase-adminsdk-6bnu9-b7f577be7b.json
