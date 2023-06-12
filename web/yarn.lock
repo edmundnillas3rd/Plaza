@@ -3457,6 +3457,8 @@ __metadata:
     "@testing-library/jest-dom": ^5.16.5
     "@testing-library/react": ^13.4.0
     "@testing-library/user-event": ^13.5.0
+    eslint-config-airbnb: ^19.0.4
+    eslint-config-react-app: ^7.0.1
     react: ^18.2.0
     react-dom: ^18.2.0
     react-icons: ^4.7.1
@@ -4381,9 +4383,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001464, caniuse-lite@npm:^1.0.30001489":
-  version: 1.0.30001499
-  resolution: "caniuse-lite@npm:1.0.30001499"
-  checksum: 3ff07cb04f5a3b93e01f6bc87dbf8e6c704b72c1389930b1ebd0527ee0bf23dfdd7129d147b439616dc17384b516519cda965f62f8c02c73aadf0339dcf2dc73
+  version: 1.0.30001502
+  resolution: "caniuse-lite@npm:1.0.30001502"
+  checksum: 801a9fd4b635082a976a2a0238c59e106f37238f93afddb504b88fa434d521cd9c600d8d9f305a0f4611c0b53c6d6c164e81ee38f0130ff46636c3b280195a0c
   languageName: node
   linkType: hard
 
@@ -4689,7 +4691,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"confusing-browser-globals@npm:^1.0.11":
+"confusing-browser-globals@npm:^1.0.10, confusing-browser-globals@npm:^1.0.11":
   version: 1.0.11
   resolution: "confusing-browser-globals@npm:1.0.11"
   checksum: 3afc635abd37e566477f610e7978b15753f0e84025c25d49236f1f14d480117185516bdd40d2a2167e6bed8048641a9854964b9c067e3dcdfa6b5d0ad3c3a5ef
@@ -5761,6 +5763,38 @@ __metadata:
     escodegen: bin/escodegen.js
     esgenerate: bin/esgenerate.js
   checksum: 5aa6b2966fafe0545e4e77936300cc94ad57cfe4dc4ebff9950492eaba83eef634503f12d7e3cbd644ecc1bab388ad0e92b06fd32222c9281a75d1cf02ec6cef
+  languageName: node
+  linkType: hard
+
+"eslint-config-airbnb-base@npm:^15.0.0":
+  version: 15.0.0
+  resolution: "eslint-config-airbnb-base@npm:15.0.0"
+  dependencies:
+    confusing-browser-globals: ^1.0.10
+    object.assign: ^4.1.2
+    object.entries: ^1.1.5
+    semver: ^6.3.0
+  peerDependencies:
+    eslint: ^7.32.0 || ^8.2.0
+    eslint-plugin-import: ^2.25.2
+  checksum: 38626bad2ce2859fccac86b30cd2b86c9b7d8d71d458331860861dc05290a5b198bded2f4fb89efcb9046ec48f8ab4c4fb00365ba8916f27b172671da28b93ea
+  languageName: node
+  linkType: hard
+
+"eslint-config-airbnb@npm:^19.0.4":
+  version: 19.0.4
+  resolution: "eslint-config-airbnb@npm:19.0.4"
+  dependencies:
+    eslint-config-airbnb-base: ^15.0.0
+    object.assign: ^4.1.2
+    object.entries: ^1.1.5
+  peerDependencies:
+    eslint: ^7.32.0 || ^8.2.0
+    eslint-plugin-import: ^2.25.3
+    eslint-plugin-jsx-a11y: ^6.5.1
+    eslint-plugin-react: ^7.28.0
+    eslint-plugin-react-hooks: ^4.3.0
+  checksum: 253178689c3c80eef2567e3aaf0612e18973bc9cf51d9be36074b5dd58210e8b6942200a424bcccbb81ac884e41303479ab09f251a2a97addc2de61efdc9576c
   languageName: node
   linkType: hard
 
@@ -9290,7 +9324,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object.assign@npm:^4.1.3, object.assign@npm:^4.1.4":
+"object.assign@npm:^4.1.2, object.assign@npm:^4.1.3, object.assign@npm:^4.1.4":
   version: 4.1.4
   resolution: "object.assign@npm:4.1.4"
   dependencies:
@@ -9302,7 +9336,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object.entries@npm:^1.1.6":
+"object.entries@npm:^1.1.5, object.entries@npm:^1.1.6":
   version: 1.1.6
   resolution: "object.entries@npm:1.1.6"
   dependencies:
