@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const RatingDisplay = ({ index, off = false }) => {
   return (
-    <button key={index} className={`${ !off ? "on" : "off no-hover"}`}>
+    <button key={index} className={`${!off ? "on" : "off no-hover"}`}>
       <span className="star">&#9733;</span>
     </button>
   );
@@ -38,9 +38,14 @@ export default function StarRating({ readOnly = false, ratingValue }) {
       {[...Array(5)].map((star, index) => {
         index += 1;
         return readOnly ? (
-          <RatingDisplay index={index} rating={rating} off={index > ratingValue}/>
+          <RatingDisplay
+            key={index}
+            index={index}
+            rating={rating}
+            off={index > ratingValue}
+          />
         ) : (
-          <Rating index={index} rating={rating} />
+          <Rating key={index} index={index} rating={rating} />
         );
       })}
     </div>

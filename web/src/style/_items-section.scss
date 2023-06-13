@@ -4,7 +4,9 @@
 }
 
 .items-list-container {
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
 }
 
 .item-card {
@@ -35,5 +37,21 @@
 
   & .product-pricetag {
     opacity: 80%;
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .items-section {
+    padding: 30px 10px;
+  }
+
+  .items-list-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .item-card {
+    width: 45vw;
   }
 }
