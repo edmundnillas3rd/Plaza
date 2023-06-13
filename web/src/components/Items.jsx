@@ -2,18 +2,20 @@ import { useEffect, useState } from "react";
 
 import StarRating from "./StarRating";
 
-function ItemCard({ name, image, price, rating }) {
+function ItemCard({ id, name, image, price, rating }) {
   return (
-    <div className="item-card container column">
-      <img src={image} alt={name} />
-      <div className="product-description">
-        <div className="container">
-          <h3 className="product-name">{name}</h3>
-          <p className="product-pricetag">{price}</p>
+    <a href={`/products/item/${id}`}>
+      <div className="item-card container column">
+        <img src={image} alt={name} />
+        <div className="product-description">
+          <div className="container">
+            <h3 className="product-name">{name}</h3>
+            <p className="product-pricetag">{price}</p>
+          </div>
+          <StarRating readOnly ratingValue={rating} />
         </div>
-        <StarRating readOnly ratingValue={rating}/>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -29,11 +31,12 @@ export default function Items() {
   }, []);
 
   return (
-    <div className="items-list-container container gap-sm">
+    <div className="items-list-container">
       {items &&
         items.map((item, index) => (
           <ItemCard
             key={index}
+            id={item._id}
             name={item.name}
             image={item.signedUrl}
             category={item.category.name}
