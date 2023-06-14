@@ -180,7 +180,6 @@ exports.item_detail = async (req, res, next) => {
 
   res.status(200).json({
     item: signedItem,
-    urls: signedItem.signedUrls,
     reviews
   });
 };

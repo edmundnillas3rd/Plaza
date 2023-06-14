@@ -8,6 +8,37 @@
   }
 }
 
+.text-center {
+  text-align: center;
+}
+
+.brand-yellow {
+  color: $theme-yellow;
+}
+
+.brand-orange {
+  color: $theme-orange;
+}
+
+.underline {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.section {
+  display: flex;
+  color: $black-md;
+  justify-content: flex-start;
+  padding: 20px;
+  border-radius: $semicirc-border;
+  background-color: $white-md;
+  width: 80vw;
+}
+
+.padded-sm {
+  padding: 10px;
+}
+
 .padded-md {
   padding: 20px;
 }
@@ -15,6 +46,10 @@
 .center-content {
   justify-content: center;
   align-items: center;
+}
+
+.gap-half {
+  gap: 0.5rem;
 }
 
 .gap-sm {
@@ -55,6 +90,18 @@
 
 .flex {
   flex: 1;
+}
+
+.flex-2 {
+  flex: 2;
+}
+
+.opacity-65 {
+  opacity: 65%;
+}
+
+.mt {
+  margin-top: 20px;
 }
 
 .cursor-pointer {

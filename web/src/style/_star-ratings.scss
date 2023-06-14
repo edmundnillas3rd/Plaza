@@ -6,11 +6,11 @@
     cursor: pointer;
 
     &.on {
-      color: rgb(255, 187, 0);
+      color: $theme-yellow;
     }
 
     &.off {
-      color: rgba(255, 187, 0, 0.432);
+      color: $theme-yellow-80;
 
       &.no-hover {
         cursor: default;
