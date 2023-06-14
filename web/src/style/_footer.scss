@@ -1,0 +1,21 @@
+.section-item {
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+    color: $theme-orange;
+  }
+}
+
+.payment-image-container {
+  height: 1.825rem;
+  box-shadow: 0 1px 1px rgba(0,0,0,.2);
+  padding: 0.25rem;
+
+  & > img {
+    object-position: center;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
