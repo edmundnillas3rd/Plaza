@@ -1,6 +1,7 @@
 .product-page-container {
   background-color: $grey-sm;
   padding: 20px 0;
+  align-items: center;
 }
 
 .image-previewer-container {
@@ -32,11 +33,6 @@
   }
 }
 
-.product-information-container,
-.product-subinfo-container {
-  justify-content: unset;
-}
-
 .label-section-container {
   display: flex;
   align-items: center;
@@ -50,11 +46,12 @@
 .quantity-container {
   justify-content: unset;
 
-  & > input, & > button {
+  & > input,
+  & > button {
     border: 1px solid $grey-md-80;
     background-color: $grey-sm;
   }
-  
+
   & > input {
     width: 70px;
   }
@@ -64,7 +61,7 @@
   display: flex;
   justify-content: flex-start;
 
-  & > button {
+  & button {
     padding: 10px;
     border-radius: $semicirc-border;
     cursor: pointer;
