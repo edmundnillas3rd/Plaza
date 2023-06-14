@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import ProductSubinfo from "../components/Product/ProductSubinfo";
+import ProductRatings from "../components/Product/ProductRatings";
 
 const ImageDisplay = ({ urls }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -40,7 +42,7 @@ const ImageDisplay = ({ urls }) => {
 export default function Product() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [reviews, setReviews] = useState([]);
+  const [ratings, setRatings] = useState([]);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_BASE_URL}/inventory/items/${id}`)
@@ -49,12 +51,12 @@ export default function Product() {
         const { item, reviews } = data;
 
         setProduct(item);
-        setReviews(reviews);
+        setRatings(reviews);
       });
   }, []);
 
   return (
-    <div className="product-page-container container">
+    <div className="product-page-container container column gap-sm">
       {/* Header Content */}
       <div className="product-header-container section gap-md">
         {product && (
@@ -62,6 +64,7 @@ export default function Product() {
             <ImageDisplay urls={product.signedUrls} />
             <ProductSubinfo
               name={product.name}
+              seller={product.seller.name}
               description={product.description}
               rating={product.rating}
               stock={product.stock}
@@ -69,6 +72,10 @@ export default function Product() {
             />
           </>
         )}
+      </div>
+      <div className="section container column gap-md">
+        <h3>Product Ratings</h3>
+        {ratings && <ProductRatings reviews={ratings} />}
       </div>
     </div>
   );

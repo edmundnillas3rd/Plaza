@@ -80,6 +80,10 @@
   height: 200px;
 }
 
+.reset-justify {
+  justify-content: unset;
+}
+
 .justify {
   justify-content: center;
 }
@@ -98,6 +102,18 @@
 
 .opacity-65 {
   opacity: 65%;
+}
+
+.opacity-20 {
+  opacity: 20%;
+}
+
+.mb {
+  margin-bottom: 20px;
+}
+
+.mt-sm {
+  margin-top: 15px;
 }
 
 .mt {
