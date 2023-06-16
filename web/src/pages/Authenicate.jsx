@@ -19,7 +19,7 @@ export default function Authenticate() {
     }
 
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_BASE_URL}/login`, {
+    fetch(`${import.meta.env.VITE_BASE_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

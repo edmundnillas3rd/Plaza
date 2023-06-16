@@ -23,7 +23,7 @@ export default function Items() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BASE_URL}/inventory`)
+    fetch(`${import.meta.env.VITE_BASE_URL}/inventory`)
       .then((response) => response.json())
       .then((data) => {
         setItems(data.items);

@@ -45,7 +45,7 @@ export default function Product() {
   const [ratings, setRatings] = useState([]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BASE_URL}/inventory/items/${id}`)
+    fetch(`${import.meta.env.VITE_BASE_URL}/inventory/items/${id}`)
       .then((response) => response.json())
       .then((data) => {
         const { item, reviews } = data;

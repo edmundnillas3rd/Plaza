@@ -19,7 +19,7 @@ export default function Categories() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BASE_URL}/inventory/items/categories`)
+    fetch(`${import.meta.env.VITE_BASE_URL}/inventory/items/categories`)
       .then((response) => response.json())
       .then((data) => {
         setCategories(data.categories);
