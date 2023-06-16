@@ -3,6 +3,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { FaAngleRight } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 
+import Profile from "../features/Profile/Profile";
 import image from "../assets/images/plaza-logo.png";
 
 export default function Navbar() {
@@ -24,13 +25,16 @@ export default function Navbar() {
         </button>
       </form>
       <nav className="navbar container align">
-        <ul className="container gap-sm flex">
+        <ul className="container align gap-sm flex">
           <li className="container align cursor-pointer">
             <FaAngleRight />
             Category
           </li>
           <li>
             <Link>Sell</Link>
+          </li>
+          <li>
+            <Profile/>
           </li>
         </ul>
       </nav>

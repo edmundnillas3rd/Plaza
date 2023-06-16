@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { IconContext } from "react-icons";
 import { RouterProvider } from "react-router-dom";
+import { Provider } from "react-redux";
 
 import store from "./app/store";
 import router from "./router/router";

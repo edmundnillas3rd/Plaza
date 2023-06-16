@@ -12,6 +12,10 @@
   width: 75%;
 }
 
+.width-full {
+  width: 100%;
+}
+
 .text-center {
   text-align: center;
 }
@@ -86,6 +90,10 @@
 
 .reset-justify {
   justify-content: unset;
+}
+
+.flex-end {
+  justify-content: flex-end;
 }
 
 .justify {
