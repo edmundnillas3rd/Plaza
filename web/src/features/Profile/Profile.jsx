@@ -23,7 +23,7 @@ export default function Profile() {
   };
 
   const onLogoutHandler = () => {
-    fetch(`${process.env.REACT_APP_BASE_URL}/logout`, {
+    fetch(`${import.meta.env.VITE_BASE_URL}/logout`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
