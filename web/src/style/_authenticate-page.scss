@@ -11,11 +11,34 @@
   border: none;
   font-weight: bold;
   font-size: 14px;
-  transition: opacity 0.3s ease-in;
   cursor: pointer;
+}
 
-  &:hover {
-    opacity: 80%;
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown-content {
+  margin-top: 100px;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+
+  & button {
+    float: none;
+    padding: 10px 10px;
+    border-radius: $semicirc-border;
+    border: 1px solid $grey-md-80;
+    background-color: $white-md;
+    color: $black-md;
+    font-weight: bold;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }
 
@@ -42,7 +65,6 @@
     background-color: $theme-orange;
     color: $white-md;
   }
-  
 }
 
 .error-message-container {

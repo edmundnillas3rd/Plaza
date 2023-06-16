@@ -6,8 +6,7 @@
     transition: opacity ease-in 0.2s;
   }
 
-  & li:hover,
-  & a:hover {
+  & li.nav-item:hover {
     opacity: 70%;
   }
 

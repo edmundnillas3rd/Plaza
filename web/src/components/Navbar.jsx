@@ -26,15 +26,15 @@ export default function Navbar() {
       </form>
       <nav className="navbar container align">
         <ul className="container align gap-sm flex">
-          <li className="container align cursor-pointer">
+          <li className="nav-item container align cursor-pointer">
             <FaAngleRight />
             Category
           </li>
-          <li>
+          <li className="nav-item">
             <Link>Sell</Link>
           </li>
           <li>
-            <Profile/>
+            <Profile />
           </li>
         </ul>
       </nav>
