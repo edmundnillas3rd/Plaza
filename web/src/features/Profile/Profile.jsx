@@ -3,22 +3,39 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { resetUser } from "../Profile/userSlice";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useEffect } from "react";
 
 export default function Profile() {
   const user = useSelector((state) => state.user.username);
   const token = useSelector((state) => state.user.token);
 
   const [show, setShow] = useState(false);
+  const inputRef = useRef();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const isUserLogin = () => {
+  useEffect(() => {
+    const handler = (e) => {
+      if (inputRef.current && !inputRef.current.contains(e.target)) {
+        setShow(false);
+      }
+    };
+
+    window.addEventListener("click", handler);
+
+    return () => {
+      window.removeEventListener("click", handler);
+    };
+  });
+
+  const onInputClick = (e) => {
     if (!!!user) {
       navigate("/auth");
       return;
     }
+
     setShow(!show);
   };
 
@@ -38,7 +55,8 @@ export default function Profile() {
     <div className="dropdown container reset-justfiy column">
       <button
         className="profile-container dropbtn container reset-justify align gap-half padded-sm"
-        onClick={isUserLogin}
+        ref={inputRef}
+        onClick={onInputClick}
       >
         <MdOutlineAccountCircle size={24} />
         <p>{!!user ? user : "Account"}</p>
