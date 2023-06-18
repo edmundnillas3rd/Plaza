@@ -58,7 +58,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="dropdown container reset-justfiy column">
+    <div className="dropdown container reset-justfiy align column">
       <button
         className="profile-container dropbtn container reset-justify align gap-half padded-sm"
         ref={inputRef}
