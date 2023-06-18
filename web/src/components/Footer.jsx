@@ -19,7 +19,7 @@ export default function Footer() {
       <div className="container justify">
         <hr className="mt-lg mb text-center width-75 opacity-20" />
       </div>
-      <div className="container gap-sm mb">
+      <div className="container wrap gap-sm mb">
         <FooterSection title="CUSTOMER SERVICE">
           <li>
             <span className="section-item opacity-65">Help Centre</span>

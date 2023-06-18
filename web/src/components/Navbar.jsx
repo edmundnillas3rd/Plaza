@@ -31,7 +31,7 @@ export default function Navbar() {
             Category
           </li>
           <li className="nav-item">
-            <Link>Sell</Link>
+            <Link to="/vendor">Start Selling</Link>
           </li>
           <li>
             <Profile />
