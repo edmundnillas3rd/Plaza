@@ -1,10 +1,10 @@
-import { MdOutlineAccountCircle } from "react-icons/md";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { resetUser } from "../Profile/userSlice";
-import { useRef, useState } from "react";
-import { useEffect } from "react";
+import { MdOutlineAccountCircle } from "react-icons/md";
+
+import { setUser, resetUser } from "../Profile/userSlice";
 
 export default function Profile() {
   const user = useSelector((state) => state.user.username);
@@ -15,6 +15,12 @@ export default function Profile() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+
+    if (!!userData) dispatch(setUser(userData));
+  }, []);
 
   useEffect(() => {
     const handler = (e) => {
