@@ -9,10 +9,10 @@ import image from "../assets/images/plaza-logo.png";
 export default function Navbar() {
   return (
     <div className="header container align padded-md">
-      <div className="container center-content gap-sm">
+      <Link to="/" className="container center-content gap-sm">
         <img className="xxsm" src={image} alt="plaza-logo" />
         <h2>Plaza</h2>
-      </div>
+      </Link>
       <form className="search-bar-container container" method="get">
         <input
           type="text"
