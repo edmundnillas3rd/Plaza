@@ -4,6 +4,8 @@ import Layout from "../layouts/Main";
 import Authenticate from "../pages/Authenicate";
 import Home from "../pages/Home";
 import Product from "../pages/Product";
+import Register from "../pages/Register";
+import Vendor from "../pages/Vendor";
 
 const router = createBrowserRouter([
   {
@@ -14,12 +16,20 @@ const router = createBrowserRouter([
       {
         path: "products/item/:id",
         element: <Product />
+      },
+      {
+        path: "vendor",
+        element: <Vendor />
       }
     ]
   },
   {
     path: "/auth",
     element: <Authenticate />
+  },
+  {
+    path: "/register",
+    element: <Register />
   }
 ]);
 

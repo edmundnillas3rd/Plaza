@@ -1,0 +1,15 @@
+.vendor-page-container {
+  background-color: $grey-md-80;
+}
+
+.vendor-register-prompt {
+  padding: 200px;
+
+  & > a {
+    border-radius: $semicirc-border;
+    padding: 10px;
+    border: none;
+    color: $white-md;
+    background: $theme-orange;
+  }
+}

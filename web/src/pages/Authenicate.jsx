@@ -12,11 +12,10 @@ export default function Authenticate() {
   const dispatch = useDispatch();
 
   const onSubmitHandler = (e) => {
-
     const user = {
       email,
       password
-    }
+    };
 
     e.preventDefault();
     fetch(`${import.meta.env.VITE_BASE_URL}/login`, {
@@ -34,6 +33,7 @@ export default function Authenticate() {
         }
 
         dispatch(setUser(data.user));
+        localStorage.setItem("user", JSON.stringify(data.user));
         navigate("/");
       });
   };
@@ -43,14 +43,14 @@ export default function Authenticate() {
 
     setErrorMessage("");
     setEmail(e.target.value);
-  }
+  };
 
   const onPasswordChange = (e) => {
     e.preventDefault();
 
     setErrorMessage("");
     setPassword(e.target.value);
-  }
+  };
 
   return (
     <div
@@ -85,7 +85,7 @@ export default function Authenticate() {
           </div>
           <div className="container mt reset-justify align gap-sm">
             <p className="opacity-65">New to Plaza?</p>
-            <Link to="/register-user">Register Here</Link>
+            <Link to="/register">Register Here</Link>
           </div>
         </form>
       </div>
