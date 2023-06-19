@@ -126,7 +126,7 @@ exports.index = async (req, res, next) => {
 exports.item_categories = async (req, res) => {
   const categories = await Category.find();
 
-  if (categories === null) {
+  if (!!!categories) {
     res.status(404).end();
   }
 

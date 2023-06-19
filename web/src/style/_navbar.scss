@@ -6,8 +6,8 @@
     transition: opacity ease-in 0.2s;
   }
 
-  & li.nav-item:hover {
-    opacity: 70%;
+  & .nav-item:hover > * {
+    color: $theme-orange;
   }
 
   & > ul > li a {
@@ -41,6 +41,34 @@
     border-bottom: 1px solid $black-md-20;
     border-radius: 0 $circular-border $circular-border 0;
   }
+}
+
+.mega-menu {
+  float: left;
+  overflow: hidden;
+
+  & button {
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+  }
+}
+
+.mega-menu-header {
+  padding: 20px 10px;
+  background-color: $theme-yellow;
+  color: $black-md;
+}
+
+.mega-menu-content {
+  margin-top: 20px;
+  background-color: $white-md;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
 }
 
 .drawer-container {
