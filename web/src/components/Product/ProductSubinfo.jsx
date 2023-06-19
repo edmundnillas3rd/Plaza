@@ -29,9 +29,9 @@ export default function ProductSubinfo({
   const [quantity, setQuantity] = useState(1);
 
   return (
-    <div className="product-information-container reset-justify container column flex gap-half">
+    <div className="product-information-container  container column flex gap-half">
       <h2>{name}</h2>
-      <div className="product-subinfo-container reset-justify container gap-sm">
+      <div className="product-subinfo-container  container gap-sm">
         <div className="container center-content gap-half">
           <p className="brand-orange">{rating}</p>
           <StarRating readOnly ratingValue={rating} />
@@ -85,7 +85,7 @@ export default function ProductSubinfo({
           </div>
         </LabelInfo>
         <div className="buy-button-container gap-half">
-          <button className="add-cart-container reset-justify container gap-half align">
+          <button className="add-cart-container  container gap-half align">
             <AiOutlineShoppingCart size={16}/> Add to Cart
           </button>
           <button className="buy-now-container">Buy Now</button>

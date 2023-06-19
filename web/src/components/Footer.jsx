@@ -6,7 +6,7 @@ import {
 
 function FooterSection({ title, children }) {
   return (
-    <ul className="customer-service-section container reset-justify column gap-half padded-sm">
+    <ul className="customer-service-section container  column gap-half padded-sm">
       <h5 className="mb-sm">{title}</h5>
       {children}
     </ul>
@@ -94,16 +94,16 @@ export default function Footer() {
         </FooterSection>
         <FooterSection title="FOLLOW US">
           <li>
-            <div className="section-item container reset-justify justify align gap-half">
+            <div className="section-item container  justify align gap-half">
               <AiFillFacebook />
               <p className="flex opacity-65">Facebook</p>
             </div>
           </li>
-          <div className="section-item container reset-justify justify align gap-half">
+          <div className="section-item container  justify align gap-half">
             <AiFillInstagram />
             <p className="flex opacity-65">Instagram</p>
           </div>
-          <div className="section-item container reset-justify justify align gap-half">
+          <div className="section-item container  justify align gap-half">
             <AiFillTwitterCircle />
             <p className="flex opacity-65">Twitter</p>
           </div>

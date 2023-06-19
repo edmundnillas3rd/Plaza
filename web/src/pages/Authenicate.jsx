@@ -54,13 +54,13 @@ export default function Authenticate() {
 
   return (
     <div
-      className="authenticate-page-container container reset-justify padded-md flex-end"
+      className="authenticate-page-container container  padded-md flex-end"
       style={{
         backgroundImage:
           "url(https://img.freepik.com/free-vector/hand-painted-watercolor-abstract-watercolor-background_23-2149014143.jpg?w=740&t=st=1686875341~exp=1686875941~hmac=435f371184d10b9d7d41b53281bf077d4a7d2f61ba737f35dca7979d42197155)"
       }}
     >
-      <div className="authentication-form-container container reset-justfiy column section padded-md">
+      <div className="authentication-form-container container  column section padded-md">
         <h2 className="mb">Login</h2>
         {errorMessage && (
           <p className="error-message-container mb">{errorMessage}</p>
@@ -83,7 +83,7 @@ export default function Authenticate() {
             />
             <button type="submit">Log In</button>
           </div>
-          <div className="container mt reset-justify align gap-sm">
+          <div className="container mt  align gap-sm">
             <p className="opacity-65">New to Plaza?</p>
             <Link to="/register">Register Here</Link>
           </div>
