@@ -27,7 +27,7 @@ export default function Categories() {
   }, []);
 
   return (
-    <div className="category-list-container container gap-sm">
+    <div className="category-list-container container space-around gap-sm">
       {categories &&
         categories.map((category, index) => (
           <CategoryItem
