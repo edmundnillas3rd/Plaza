@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaAngleRight } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useEffect, useState, useRef  } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import Profile from "../features/Profile/Profile";
 import image from "../assets/images/plaza-logo.png";
@@ -68,11 +68,18 @@ export default function Navbar() {
             {show && !!categories && (
               <div className="mega-menu-content">
                 <div className="mega-menu-header">
-                  <h3>Categories</h3>
+                  <h3 className="category-header">Categories</h3>
                 </div>
-                <div className="container  wrap">
+                <div className="category-container padded-md">
                   {categories.map((category, index) => (
-                    <Link key={index} to={`/products/item/${category._id}`}>
+                    <Link
+                      key={index}
+                      to={`/products/item/${category._id}`}
+                      className="container align gap-half"
+                    >
+                      <div className="icon-category-container xsm">
+                        <img src={category.iconUrl} alt="icon" />
+                      </div>
                       {category.name}
                     </Link>
                   ))}
