@@ -65,7 +65,7 @@ export default function Profile() {
         onClick={onInputClick}
       >
         <MdOutlineAccountCircle size={24} />
-        <p>{!!user ? user : "Account"}</p>
+        {!!user ? user : "Account"}
       </button>
 
       {show && (
