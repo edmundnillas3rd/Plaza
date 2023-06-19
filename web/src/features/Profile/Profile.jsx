@@ -58,9 +58,9 @@ export default function Profile() {
   };
 
   return (
-    <div className="dropdown container reset-justfiy align column">
+    <div className="dropdown container align column">
       <button
-        className="profile-container dropbtn container reset-justify align gap-half padded-sm"
+        className="profile-container dropbtn container align gap-half padded-sm"
         ref={inputRef}
         onClick={onInputClick}
       >
@@ -69,7 +69,7 @@ export default function Profile() {
       </button>
 
       {show && (
-        <div className="dropdown-content container reset-justify column">
+        <div className="dropdown-content container  column">
           <button onClick={onLogoutHandler}>Logout</button>
         </div>
       )}

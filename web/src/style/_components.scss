@@ -1,6 +1,5 @@
 .container {
   display: flex;
-  justify-content: space-around;
   color: $black-md;
 
   &.column {
@@ -92,8 +91,8 @@
   height: 200px;
 }
 
-.reset-justify {
-  justify-content: unset;
+.space-around {
+  justify-content: space-around;
 }
 
 .flex-end {

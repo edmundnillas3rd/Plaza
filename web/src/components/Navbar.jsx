@@ -36,7 +36,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="header container align padded-md">
+    <div className="header container space-around align padded-md">
       <Link to="/" className="container center-content gap-sm">
         <img className="xxsm" src={image} alt="plaza-logo" />
         <h2>Plaza</h2>
@@ -70,7 +70,7 @@ export default function Navbar() {
                 <div className="mega-menu-header">
                   <h3>Categories</h3>
                 </div>
-                <div className="container reset-justify wrap">
+                <div className="container  wrap">
                   {categories.map((category, index) => (
                     <Link key={index} to={`/products/item/${category._id}`}>
                       {category.name}
