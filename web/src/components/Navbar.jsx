@@ -10,6 +10,9 @@ import image from "../assets/images/plaza-logo.png";
 export default function Navbar() {
   const [categories, setCategories] = useState(null);
 
+  const [displayNav, setDisplayNav] = useState(false);
+  const navRef = useRef();
+
   const [show, setShow] = useState(false);
   const inputRef = useRef();
 
@@ -18,10 +21,13 @@ export default function Navbar() {
       if (inputRef.current && !inputRef.current.contains(e.target)) {
         setShow(false);
       }
+
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setDisplayNav(false);
+      }
     };
 
     window.addEventListener("click", handler);
-
     return () => {
       window.removeEventListener("click", handler);
     };
@@ -34,6 +40,10 @@ export default function Navbar() {
         setCategories(data.categories);
       });
   }, []);
+
+  const openSidenav = (e) => {
+    setDisplayNav(!displayNav);
+  };
 
   return (
     <div className="header container space-around align padded-md">
@@ -95,8 +105,31 @@ export default function Navbar() {
           </li>
         </ul>
       </nav>
-      <div className="drawer-container container center-content cursor-pointer">
+      <div
+        className="drawer-container container center-content cursor-pointer"
+        onClick={openSidenav}
+        ref={navRef}
+      >
         <GiHamburgerMenu />
+      </div>
+      <div
+        className="sidenav container column gap-half"
+        style={{
+          width: `${displayNav ? "250px" : "0"}`
+        }}
+      >
+        <span
+          className="mt"
+          onClick={(e) => {
+            setDisplayNav(false);
+          }}
+        >
+          &times;
+        </span>
+        <div className="sidenav-links-container mt container column padded-md gap-sm">
+          <Link to="/">Home</Link>
+          <Link to="/vendor">Start Selling</Link>
+        </div>
       </div>
     </div>
   );
