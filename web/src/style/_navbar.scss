@@ -76,6 +76,31 @@
   grid-template-columns: repeat(2, 1fr);
 }
 
+.sidenav {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: $white-md;
+  overflow-x: hidden;
+  transition: 0.5s;
+
+  & span {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    cursor: pointer;
+  }
+}
+
+.sidenav-links-container {
+  & a {
+    color: $black-md;
+  }
+}
+
 .drawer-container {
   display: none
 }
