@@ -12,20 +12,3 @@
     color: $black-md;
   }
 }
-
-.register-input-container {
-  & > input {
-    flex: 1;
-    border: 1px solid $grey-md-80;
-    border-radius: $semicirc-border;
-    padding: 8px 7px;
-  }
-
-  & > button[type="submit"] {
-    padding: 10px;
-    border-radius: $semicirc-border;
-    border: none;
-    background-color: $theme-orange;
-    color: $white-md;
-  }
-}
