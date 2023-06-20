@@ -74,13 +74,13 @@ export default function Register() {
           "url(https://img.freepik.com/free-vector/hand-painted-watercolor-abstract-watercolor-background_23-2149014143.jpg?w=740&t=st=1686875341~exp=1686875941~hmac=435f371184d10b9d7d41b53281bf077d4a7d2f61ba737f35dca7979d42197155)"
       }}
     >
-      <div className="register-form-container container  column section padded-md">
+      <div className="form-container container  column section padded-md">
         <h2 className="mb">Register</h2>
         {errorMessage && (
           <p className="error-message-container mb">{errorMessage}</p>
         )}
         <form onSubmit={onSubmitHandler} method="POST">
-          <div className="register-input-container container column gap-half width-100 justify-reset">
+          <div className="form-input-container container column gap-half width-100 justify-reset">
             <input
               type="text"
               name="name"

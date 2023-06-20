@@ -1,0 +1,84 @@
+.form-input-container {
+  &.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 20px;
+  }
+
+  & input {
+    flex: 1;
+    border: 1px solid $grey-md-80;
+    border-radius: $semicirc-border;
+    padding: 8px 7px;
+  }
+
+  & select {
+    padding: 10px;
+    background-color: transparent;
+    border: 1px solid $black-md-20;
+    border-radius: $semicirc-border;
+    color: $black-md;
+  }
+
+  & textarea {
+    border: 1px solid $black-md-20;
+  }
+
+  & button[type="submit"] {
+    padding: 10px;
+    border-radius: $semicirc-border;
+    border: none;
+    background-color: $theme-orange;
+    color: $white-md;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+}
+
+.form-container {
+  width: 450px;
+
+  & a {
+    color: $black-md;
+  }
+}
+
+.image-preview-container {
+  display: flex;
+  overflow-x: scroll;
+  gap: 5px;
+  border-radius: $semicirc-border;
+  border: 1px solid $black-md-20;
+
+  & > .image-container {
+    position: relative;
+    $size: 64px;
+    width: $size;
+    height: $size;
+
+    & > span {
+      cursor: pointer;
+      background-color: $white-md;
+      padding: 2px;
+      border-radius: $semicirc-border;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}
+
+.error-message-container {
+  color: $theme-orange;
+}
+
+@media screen and (max-width: 900px) {
+  .form-input-container {
+    &.grid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}
