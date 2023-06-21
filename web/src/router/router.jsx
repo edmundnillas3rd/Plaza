@@ -5,6 +5,7 @@ import Authenticate from "../pages/Authenicate";
 import Home from "../pages/Home";
 import Product from "../pages/Product";
 import Register from "../pages/Register";
+import Search from "../pages/Search";
 import Vendor from "../pages/Vendor";
 
 const router = createBrowserRouter([
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "vendor",
         element: <Vendor />
+      },
+      {
+        path: "products/item/search/:item_name",
+        element: <Search />
       }
     ]
   },

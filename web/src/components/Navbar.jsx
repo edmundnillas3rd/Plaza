@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaAngleRight } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -9,6 +9,7 @@ import image from "../assets/images/plaza-logo.png";
 
 export default function Navbar() {
   const [categories, setCategories] = useState(null);
+  const [name, setName] = useState("");
 
   const [displayNav, setDisplayNav] = useState(false);
   const navRef = useRef();
@@ -16,7 +17,15 @@ export default function Navbar() {
   const [show, setShow] = useState(false);
   const inputRef = useRef();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
+    fetch(`${import.meta.env.VITE_BASE_URL}/inventory/items/categories`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCategories(data.categories);
+      });
+
     const handler = (e) => {
       if (inputRef.current && !inputRef.current.contains(e.target)) {
         setShow(false);
@@ -40,13 +49,10 @@ export default function Navbar() {
     };
   }, []);
 
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_BASE_URL}/inventory/items/categories`)
-      .then((response) => response.json())
-      .then((data) => {
-        setCategories(data.categories);
-      });
-  }, []);
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    navigate(`/products/item/search/${name}`);
+  };
 
   const openSidenav = (e) => {
     setDisplayNav(!displayNav);
@@ -58,12 +64,20 @@ export default function Navbar() {
         <img className="xxsm" src={image} alt="plaza-logo" />
         <h2>Plaza</h2>
       </Link>
-      <form className="search-bar-container container" method="get">
+      <form
+        className="search-bar-container container"
+        method="GET"
+        onSubmit={onSubmitHandler}
+      >
         <input
           type="text"
           name="search-item"
           id="search-item"
           placeholder="Search"
+          onChange={e => {
+            e.preventDefault();
+            setName(e.target.value);
+          }}
         />
         <button className="container center-content" type="submit">
           <AiOutlineSearch color="#24242436" size={20} />
