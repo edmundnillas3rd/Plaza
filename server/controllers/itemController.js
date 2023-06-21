@@ -152,10 +152,6 @@ exports.item_search = async (req, res) => {
     }
   ]);
 
-  if (searchedItems.length === 0) {
-    return;
-  }
-
   const signedItems = await signItems(searchedItems);
 
   res.status(200).json({
