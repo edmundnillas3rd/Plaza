@@ -29,12 +29,17 @@ export default function Profile() {
       }
     };
 
-    window.addEventListener("click", handler);
+    const onResizeHandler = (e) => {
+      setShow(false);
+    };
 
+    window.addEventListener("click", handler);
+    window.addEventListener("resize", onResizeHandler);
     return () => {
       window.removeEventListener("click", handler);
+      window.removeEventListener("resize", onResizeHandler);
     };
-  });
+  }, []);
 
   const onInputClick = (e) => {
     if (!!!user) {

@@ -27,11 +27,18 @@ export default function Navbar() {
       }
     };
 
+    const onResizeHandler = (e) => {
+      setShow(false);
+      setDisplayNav(false);
+    };
+
     window.addEventListener("click", handler);
+    window.addEventListener("resize", onResizeHandler);
     return () => {
       window.removeEventListener("click", handler);
+      window.removeEventListener("resize", onResizeHandler);
     };
-  });
+  }, []);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BASE_URL}/inventory/items/categories`)
