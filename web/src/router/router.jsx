@@ -7,6 +7,7 @@ import Product from "../pages/Product";
 import Register from "../pages/Register";
 import Search from "../pages/Search";
 import Vendor from "../pages/Vendor";
+import Cart from "../features/Cart/Cart";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "vendor",
         element: <Vendor />
+      },
+      {
+        path: "cart",
+        element: <Cart />
       },
       {
         path: "products/item/search/:item_name",

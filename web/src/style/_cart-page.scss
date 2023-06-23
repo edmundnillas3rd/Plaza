@@ -1,0 +1,25 @@
+.cart-page {
+    & button { 
+        border: none;        
+        color: $white-md;
+        background-color: $theme-orange;
+        border-radius: $semicirc-border;
+        cursor: pointer;
+    }
+}
+
+.shopping-card {
+    border: 1px solid $grey-md-80;
+
+    & > a {
+        color: $black-md;
+    }
+
+    & > button {
+        margin-left: auto;
+        border: none;
+        font-size: 16px;
+        background-color: transparent;
+        cursor: pointer;
+    }
+}

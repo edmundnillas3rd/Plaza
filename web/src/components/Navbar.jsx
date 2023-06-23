@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
 import { FaAngleRight } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect, useState, useRef } from "react";
@@ -74,7 +74,7 @@ export default function Navbar() {
           name="search-item"
           id="search-item"
           placeholder="Search"
-          onChange={e => {
+          onChange={(e) => {
             e.preventDefault();
             setName(e.target.value);
           }}
@@ -123,6 +123,11 @@ export default function Navbar() {
           </li>
           <li className="nav-item">
             <Profile />
+          </li>
+          <li className="nav-item container center-content cursor-pointer">
+            <Link to="/cart">
+              <AiOutlineShoppingCart />
+            </Link>
           </li>
         </ul>
       </nav>

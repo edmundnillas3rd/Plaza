@@ -162,7 +162,9 @@ exports.item_search = async (req, res) => {
 exports.item_detail = async (req, res, next) => {
   const { id } = req.params;
 
-  const item = await Item.findById(id).populate("seller", "name");
+  const item = await Item.findById(id)
+    .populate("seller", "name")
+    .populate("category");
 
   const reviews = await Review.find({ item: id })
     .populate("user", "name")
