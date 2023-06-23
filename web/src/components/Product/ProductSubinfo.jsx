@@ -1,11 +1,20 @@
 import { useState } from "react";
-import StarRating from "../../components/StarRating";
 
 import {
   AiOutlineMinus,
   AiOutlinePlus,
   AiOutlineShoppingCart
 } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  appendItem,
+  updateItem,
+  removeItem
+} from "../../features/Cart/cartSlice";
+
+import StarRating from "../../components/StarRating";
 
 function LabelInfo({ title, children }) {
   return (
@@ -19,7 +28,9 @@ function LabelInfo({ title, children }) {
 }
 
 export default function ProductSubinfo({
+  id,
   name,
+  image,
   description,
   rating,
   seller,
@@ -27,6 +38,24 @@ export default function ProductSubinfo({
   price
 }) {
   const [quantity, setQuantity] = useState(1);
+  const cart = useSelector((state) => state.cart.contents);
+
+  const dispatch = useDispatch();
+  // const navigate = useNavigate();
+
+  const addToCartHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      appendItem({
+        id,
+        name,
+        image: image[0],
+        quantity,
+        stock,
+        price
+      })
+    );
+  };
 
   return (
     <div className="product-information-container  container column flex gap-half">
@@ -44,7 +73,7 @@ export default function ProductSubinfo({
       </div>
       <h3 className="brand-orange">{price}</h3>
       <div className="product-labelinfo-container gap-half mt">
-      <LabelInfo title="Seller">
+        <LabelInfo title="Seller">
           <p>{seller}</p>
         </LabelInfo>
         <LabelInfo title="Description">
@@ -55,7 +84,10 @@ export default function ProductSubinfo({
             <button
               className="container center-content padded-sm"
               onClick={(e) => {
-                if (quantity <= 0) return;
+                if (quantity < 1) {
+                  setQuantity(1);
+                  return;
+                }
                 setQuantity(quantity - 1);
               }}
             >
@@ -65,7 +97,7 @@ export default function ProductSubinfo({
               className="text-center"
               type="text"
               inputMode="numeric"
-              pattern="\d"
+              pattern="\d+"
               value={quantity}
               min="1"
               max={stock}
@@ -76,7 +108,11 @@ export default function ProductSubinfo({
             <button
               className="container center-content padded-sm"
               onClick={(e) => {
-                if (quantity > stock) return;
+                if (quantity >= stock) {
+                  setQuantity(stock);
+                  return;
+                }
+
                 setQuantity(quantity + 1);
               }}
             >
@@ -85,8 +121,11 @@ export default function ProductSubinfo({
           </div>
         </LabelInfo>
         <div className="buy-button-container gap-half">
-          <button className="add-cart-container  container gap-half align">
-            <AiOutlineShoppingCart size={16}/> Add to Cart
+          <button
+            className="add-cart-container  container gap-half align"
+            onClick={addToCartHandler}
+          >
+            <AiOutlineShoppingCart size={16} /> Add to Cart
           </button>
           <button className="buy-now-container">Buy Now</button>
         </div>

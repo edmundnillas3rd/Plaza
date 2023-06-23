@@ -63,7 +63,10 @@ export default function Product() {
           <>
             <ImageDisplay urls={product.signedUrls} />
             <ProductSubinfo
+              id={product._id}
               name={product.name}
+              image={product.signedUrls}
+              category={product.category.name}
               seller={product.seller.name}
               description={product.description}
               rating={product.rating}

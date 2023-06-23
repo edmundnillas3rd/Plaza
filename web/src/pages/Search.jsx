@@ -16,7 +16,6 @@ export default function Search() {
       .then((response) => response.json())
       .then((data) => {
         setItems(data.items);
-        console.log(!!!items)
         setLoading(false);
       });
   }, [item_name]);
@@ -31,7 +30,7 @@ export default function Search() {
           </span>
           `
         </h3>
-        {!loading && items.length === 0 && (<div>New Items found</div>)}
+        {!loading && items.length === 0 && (<div>No Items found</div>)}
         {!loading && items.length !== 0 && (
           items.map((item, index) => (
             <ItemCard
