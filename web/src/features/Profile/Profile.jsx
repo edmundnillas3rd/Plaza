@@ -55,11 +55,11 @@ export default function Profile() {
       headers: {
         Authorization: `Bearer ${token}`
       }
+    }).then((response) => {
+      dispatch(resetUser());
+      setShow(false);
+      localStorage.clear();
     });
-
-    dispatch(resetUser());
-    setShow(false);
-    localStorage.clear();
   };
 
   return (
