@@ -5,14 +5,9 @@ import {
   AiOutlinePlus,
   AiOutlineShoppingCart
 } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import {
-  appendItem,
-  updateItem,
-  removeItem
-} from "../../features/Cart/cartSlice";
+import { appendItem } from "../../features/Cart/cartSlice";
 
 import StarRating from "../../components/StarRating";
 
@@ -38,23 +33,21 @@ export default function ProductSubinfo({
   price
 }) {
   const [quantity, setQuantity] = useState(1);
-  const cart = useSelector((state) => state.cart.contents);
 
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
 
   const addToCartHandler = (e) => {
+    const item = {
+      id,
+      name,
+      image: image[0],
+      price,
+      quantity,
+      stock
+    };
+
     e.preventDefault();
-    dispatch(
-      appendItem({
-        id,
-        name,
-        image: image[0],
-        quantity,
-        stock,
-        price
-      })
-    );
+    dispatch(appendItem(item));
   };
 
   return (

@@ -7,6 +7,24 @@
   }
 }
 
+.button-orange-theme {
+  border: none;
+  color: $white-md;
+  background-color: $theme-orange;
+  border-radius: $semicirc-border;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.button-white-theme {
+  border: 1px solid $grey-md-80;
+  color: $black-md;
+  background-color: $white-md;
+  border-radius: $semicirc-border;
+  cursor: pointer;
+  padding: 10px;
+}
+
 .width-75 {
   width: 75%;
 }
