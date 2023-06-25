@@ -4,11 +4,16 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
-import { updateItem, removeItem } from "./cartSlice";
+import {
+  updateItem,
+  removeItem,
+  getTotalAmount,
+  appendItem
+} from "./cartSlice";
+import ModalPopup from "../../components/Cart/ModalPopup";
 
 function ShoppingCard({ id, name, image, price, stock, qty }) {
   const [quantity, setQuantity] = useState(qty);
-  const cart = useSelector((state) => state.cart.contents);
 
   const dispatch = useDispatch();
 
@@ -35,10 +40,11 @@ function ShoppingCard({ id, name, image, price, stock, qty }) {
         quantity: value
       })
     );
+    dispatch(getTotalAmount());
   };
 
   return (
-    <div className="shopping-card container gap-md align flex padded-sm">
+    <div className="shopping-card container gap-md align flex padded-sm width-full">
       <div className="container sm">
         <img src={image} alt={name} />
       </div>
@@ -88,24 +94,44 @@ function ShoppingCard({ id, name, image, price, stock, qty }) {
 }
 
 export default function Cart() {
+  const [show, setShow] = useState(false);
+
   const user = useSelector((state) => state.user.username);
   const cart = useSelector((state) => state.cart.contents);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!!!user) {
       navigate("/auth");
     }
+
+    const retrieveCart = localStorage.getItem("cart");
+
+    if (!!retrieveCart) {
+      dispatch(appendItem(JSON.parse(retrieveCart)));
+    }
+
+    dispatch(getTotalAmount());
   }, []);
 
   return (
     <div className="cart-page container center-content padded-md">
+      {show && (
+        <ModalPopup
+          callbackFn={(e) => {
+            setShow(false);
+          }}
+        />
+      )}
+
       <div className="section container center-content gap-md column">
         {!!!cart.length ? (
           <>
             <h3>You cart is empty</h3>
-            <button className="padded-sm"
+            <button
+              className="padded-sm"
               onClick={(e) => {
                 e.preventDefault();
                 navigate("/");
@@ -115,17 +141,27 @@ export default function Cart() {
             </button>
           </>
         ) : (
-          cart.map((item, index) => (
-            <ShoppingCard
-              key={index}
-              id={item.id}
-              name={item.name}
-              image={item.image}
-              price={item.price}
-              stock={item.stock}
-              qty={item.quantity}
-            />
-          ))
+          <>
+            {cart.map((item, index) => (
+              <ShoppingCard
+                key={index}
+                id={item.id}
+                name={item.name}
+                image={item.image}
+                price={item.price}
+                stock={item.stock}
+                qty={item.quantity}
+              />
+            ))}
+            <button
+              className="button-orange-theme"
+              onClick={(e) => {
+                setShow(true);
+              }}
+            >
+              Checkout
+            </button>
+          </>
         )}
       </div>
     </div>
