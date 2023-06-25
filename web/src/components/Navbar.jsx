@@ -1,8 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
-import { AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
+import {
+  AiOutlineSearch,
+  AiOutlineShoppingCart,
+  AiFillCaretDown
+} from "react-icons/ai";
 import { FaAngleRight } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect, useState, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { resetUser } from "../features/Profile/userSlice";
 
 import Profile from "../features/Profile/Profile";
 import image from "../assets/images/plaza-logo.png";
@@ -11,13 +18,20 @@ export default function Navbar() {
   const [categories, setCategories] = useState(null);
   const [name, setName] = useState("");
 
-  const [displayNav, setDisplayNav] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef();
+
+  const [displayNav, setShowNav] = useState(false);
   const navRef = useRef();
 
   const [show, setShow] = useState(false);
   const inputRef = useRef();
 
+  const user = useSelector((state) => state.user.username);
+  const token = useSelector((state) => state.user.token);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BASE_URL}/inventory/items/categories`)
@@ -31,14 +45,18 @@ export default function Navbar() {
         setShow(false);
       }
 
-      if (navRef.current && !navRef.current.contains(e.target)) {
-        setDisplayNav(false);
+      if (navRef.current && !navRef.current.contains(e.target) && displayNav) {
+        setShowNav(false);
+      }
+
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setShowDropdown(false);
       }
     };
 
     const onResizeHandler = (e) => {
       setShow(false);
-      setDisplayNav(false);
+      setShowNav(false);
     };
 
     window.addEventListener("click", handler);
@@ -55,12 +73,25 @@ export default function Navbar() {
   };
 
   const openSidenav = (e) => {
-    setDisplayNav(!displayNav);
+    setShowNav(!displayNav);
+  };
+
+  const onLogoutHandler = (e) => {
+    e.preventDefault();
+
+    fetch(`${import.meta.env.VITE_BASE_URL}/logout`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((response) => {
+      dispatch(resetUser());
+      localStorage.clear();
+    });
   };
 
   return (
     <div className="header container space-around align padded-md">
-      <Link to="/" className="container center-content gap-sm">
+      <Link to="/" className="logo-link container center-content gap-sm">
         <img className="xxsm" src={image} alt="plaza-logo" />
         <h2>Plaza</h2>
       </Link>
@@ -133,13 +164,14 @@ export default function Navbar() {
       </nav>
       <div
         className="drawer-container container center-content cursor-pointer"
-        onClick={openSidenav}
         ref={navRef}
+        onClick={openSidenav}
       >
         <GiHamburgerMenu />
       </div>
       <div
         className="sidenav container column gap-half"
+        ref={navRef}
         style={{
           width: `${displayNav ? "250px" : "0"}`
         }}
@@ -147,7 +179,7 @@ export default function Navbar() {
         <span
           className="mt"
           onClick={(e) => {
-            setDisplayNav(false);
+            setShowNav(false);
           }}
         >
           &times;
@@ -155,6 +187,30 @@ export default function Navbar() {
         <div className="sidenav-links-container mt container column padded-md gap-sm">
           <Link to="/">Home</Link>
           <Link to="/vendor">Start Selling</Link>
+          <div
+            className="sidenav-dropdown-button"
+            ref={dropdownRef}
+            onClick={(e) => {
+              setShowDropdown(!showDropdown);
+              if (!!!user) navigate("/auth");
+            }}
+          >
+            <div className="container gap-half cursor-pointer">
+              {!!user ? (
+                <>
+                  <p>{user}</p>
+                  <AiFillCaretDown />
+                </>
+              ) : (
+                "Profile"
+              )}
+            </div>
+          </div>
+          {showDropdown && (
+            <div className="sidenav-dropdown-content container">
+              {!!user && <button onClick={onLogoutHandler}>Logout</button>}
+            </div>
+          )}
         </div>
       </div>
     </div>

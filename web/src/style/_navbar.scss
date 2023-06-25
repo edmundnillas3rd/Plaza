@@ -79,6 +79,7 @@
 
 .sidenav {
   height: 100%;
+  z-index: 2;
   position: fixed;
   top: 0;
   right: 0;
@@ -102,11 +103,31 @@
   }
 }
 
+.sidenav-dropdown-content {
+  & button {
+    cursor: pointer;
+    color: $grey-md;
+    padding-left: 20px;
+    text-align: start;
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+  }
+}
+
 .drawer-container {
   display: none;
 }
 
 @media screen and (max-width: 900px) {
+
+  .logo-link {
+    h2 {
+      display: none;
+    }
+  }
+
   .header {
     justify-content: space-between;
   }
@@ -117,5 +138,14 @@
 
   .drawer-container {
     display: flex;
+  }
+
+  .search-bar-container {
+    padding: 0 40px;
+    width: 100%;
+
+    & > input { 
+      flex: 1;
+    }
   }
 }
