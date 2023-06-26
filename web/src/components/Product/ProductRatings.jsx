@@ -5,13 +5,13 @@ export default function ProductRatings({ reviews }) {
     <div className="reviews-container mb">
       {reviews &&
         reviews.map((review, index) => (
-          <div key={index} className="review-card">
+          <div key={index} className="review-card mb">
             <p>{review.user.name}</p>
-            <StarRating readOnly ratingValue={review.rating} />
+            <StarRating readOnly value={review.rating} />
             <p className="mt">{review.description}</p>
+            <hr className="mt-sm opacity-20" />
           </div>
         ))}
-      <hr className="mt-sm opacity-20"/>
     </div>
   );
 }

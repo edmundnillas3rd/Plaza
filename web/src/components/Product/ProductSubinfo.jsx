@@ -56,7 +56,7 @@ export default function ProductSubinfo({
       <div className="product-subinfo-container  container gap-sm">
         <div className="container center-content gap-half">
           <p className="brand-orange">{rating}</p>
-          <StarRating readOnly ratingValue={rating} />
+          <StarRating readOnly value={rating} />
         </div>{" "}
         <span className="opacity-65">|</span>
         <p>

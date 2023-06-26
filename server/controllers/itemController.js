@@ -50,7 +50,8 @@ async function signItems(items) {
         $match: { _id: ObjectId(_id) }
       }
     ]);
-    const rating = review[0]?.avgRating === undefined ? 0 : review[0].avgRating;
+    const rating =
+      review[0]?.avgRating === undefined ? 0 : review[0].avgRating.toFixed(1);
 
     const newItem = {
       _id,
@@ -86,7 +87,8 @@ async function signItems(items) {
         $match: { _id: ObjectId(_id) }
       }
     ]);
-    const rating = review[0]?.avgRating === undefined ? 0 : review[0].avgRating;
+    const rating =
+      review[0]?.avgRating === undefined ? 0 : review[0].avgRating.toFixed(1);
 
     const newItem = {
       _id,
@@ -263,6 +265,8 @@ exports.item_review = async (req, res, next) => {
     description,
     rating
   });
+
+  await review.save();
 
   res.status(200).json({ message: "New Review added!" });
 
