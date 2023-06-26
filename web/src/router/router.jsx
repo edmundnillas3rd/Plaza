@@ -7,6 +7,7 @@ import Product from "../pages/Product";
 import Register from "../pages/Register";
 import Search from "../pages/Search";
 import Vendor from "../pages/Vendor";
+import Filter from "../pages/Filter";
 import Cart from "../features/Cart/Cart";
 
 const router = createBrowserRouter([
@@ -16,16 +17,20 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       {
-        path: "products/item/:id",
-        element: <Product />
-      },
-      {
         path: "vendor",
         element: <Vendor />
       },
       {
         path: "cart",
         element: <Cart />
+      },
+      {
+        path: "products/item/:id",
+        element: <Product />
+      },
+      {
+        path: "products/item/category/:category_id",
+        element: <Filter />
       },
       {
         path: "products/item/search/:item_name",

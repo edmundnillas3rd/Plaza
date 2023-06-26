@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function CategoryItem({ id, name, imageUrl }) {
   return (
-    <a href={`/items/categories/${id}`}>
+    <Link to={`/products/item/category/${id}`}>
       <div className="category-item container column center-content" style={{
         backgroundImage: `url(${imageUrl})`
       }}>
@@ -11,7 +12,7 @@ function CategoryItem({ id, name, imageUrl }) {
           <h3>{name}</h3>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }
 
@@ -32,6 +33,7 @@ export default function Categories() {
         categories.map((category, index) => (
           <CategoryItem
             key={index}
+            id={category?._id}
             name={category?.name}
             imageUrl={category?.imageUrl}
           />
