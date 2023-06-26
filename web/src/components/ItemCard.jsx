@@ -5,11 +5,9 @@ export default function ItemCard({ id, name, image, price, rating }) {
     <a href={`/products/item/${id}`}>
       <div className="item-card container column">
         <img src={image} alt={name} />
-        <div className="product-description">
-          <div className="container">
-            <h3 className="product-name">{name}</h3>
-            <p className="product-pricetag">{price}</p>
-          </div>
+        <div className="product-description container column gap-half">
+          <div className="product-name">{name}</div>
+          <div className="product-pricetag brand-orange">{price}</div>
           <StarRating readOnly ratingValue={rating} />
         </div>
       </div>
