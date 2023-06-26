@@ -18,6 +18,9 @@ export default function Navbar() {
   const [categories, setCategories] = useState(null);
   const [name, setName] = useState("");
 
+  const [showCategoryDropdown, setCategoryDropdown] = useState(false);
+  const categoryDropdownRef = useRef();
+
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef();
 
@@ -51,6 +54,13 @@ export default function Navbar() {
 
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setShowDropdown(false);
+      }
+
+      if (
+        categoryDropdownRef.current &&
+        !categoryDropdownRef.current.contains(e.target)
+      ) {
+        setCategoryDropdown(false);
       }
     };
 
@@ -209,6 +219,29 @@ export default function Navbar() {
           {showDropdown && (
             <div className="sidenav-dropdown-content container">
               {!!user && <button onClick={onLogoutHandler}>Logout</button>}
+            </div>
+          )}
+          <div
+            className="sidenav-dropdown-button cursor-pointer"
+            ref={categoryDropdownRef}
+            onClick={(e) => {
+              setCategoryDropdown(!showCategoryDropdown);
+            }}
+          >
+            <div className="container gap-half">
+              <p>Categories</p>
+              <AiFillCaretDown />
+            </div>
+          </div>
+          {showCategoryDropdown && (
+            <div className="sidenav-dropdown-content cursor-pointer container column gap-half opacity-65">
+              {categories &&
+                categories.map((category, index) => (
+                  <Link
+                    key={index}
+                    to={`/products/item/category/${category._id}`}
+                  >{category.name}</Link>
+                ))}
             </div>
           )}
         </div>

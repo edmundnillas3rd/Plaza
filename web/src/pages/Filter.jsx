@@ -17,7 +17,7 @@ export default function Filter() {
       .then((data) => {
         setItems(data.items);
       });
-  }, []);
+  }, [category_id]);
 
   return (
     <div className="container padded-md">
