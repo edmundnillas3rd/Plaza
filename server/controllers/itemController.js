@@ -135,6 +135,19 @@ exports.item_categories = async (req, res) => {
   });
 };
 
+exports.item_filter_categories = async (req, res) => {
+  const { category_id } = req.params;
+  const items = await Item.find({
+    category: category_id
+  }).populate("category", "name");
+
+  const signedItems = await signItems(items);
+
+  res.status(200).json({
+    items: signedItems
+  });
+};
+
 exports.item_search = async (req, res) => {
   const { item_name } = req.params;
 
@@ -244,7 +257,7 @@ exports.item_review = async (req, res, next) => {
   const { id } = req.params;
   const { user, description, rating } = req.body;
 
-  const review = await new Review({
+  const review = new Review({
     user,
     item: id,
     description,

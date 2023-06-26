@@ -11,6 +11,7 @@ const authenticate = passport.authenticate("jwt", { session: false });
 // GET
 router.get("/", item_catalog.index);
 router.get("/items/categories", item_catalog.item_categories);
+router.get("/items/categories/:category_id", item_catalog.item_filter_categories);
 router.get("/items/search/:item_name", item_catalog.item_search);
 router.get("/items/:id", item_catalog.item_detail);
 
