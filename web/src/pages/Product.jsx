@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import ProductSubinfo from "../components/Product/ProductSubinfo";
 import ProductRatings from "../components/Product/ProductRatings";
+import ReviewFormModal from "../components/ReviewFormModal";
 
 const ImageDisplay = ({ urls }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -43,6 +44,7 @@ export default function Product() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [ratings, setRatings] = useState([]);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BASE_URL}/inventory/items/${id}`)
@@ -77,9 +79,26 @@ export default function Product() {
         )}
       </div>
       <div className="section container column gap-md">
-        <h3>Product Ratings</h3>
+        <div className="container align space-between">
+          <h3>Product Ratings</h3>
+          <button
+            className="button-orange-theme"
+            onClick={(e) => {
+              setShow(true);
+            }}
+          >
+            Submit Review
+          </button>
+        </div>
         {ratings && <ProductRatings reviews={ratings} />}
       </div>
+      {show && (
+        <ReviewFormModal
+          callbackFn={(e) => {
+            setShow(false);
+          }}
+        />
+      )}
     </div>
   );
 }

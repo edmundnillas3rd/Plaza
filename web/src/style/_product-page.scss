@@ -24,6 +24,13 @@
   height: 96px;
 }
 
+.review-form-modal {
+  position: fixed;
+  z-index: 2;
+  background-color: $white-md;
+  width: 90%;
+}
+
 @media screen and (max-width: 900px) {
   .product-header-container {
     flex-direction: column;

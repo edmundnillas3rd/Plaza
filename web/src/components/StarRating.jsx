@@ -1,51 +1,45 @@
 import { useEffect, useState } from "react";
 
-const RatingDisplay = ({ index, off = false }) => {
+const RatingDisplay = ({ off = false }) => {
   return (
-    <button key={index} className={`${!off ? "on" : "off no-hover"}`}>
+    <button className={`${!off ? "on" : "off no-hover"}`}>
       <span className="star">&#9733;</span>
     </button>
   );
 };
 
-const Rating = ({ index, count }) => {
-  const [hover, setHover] = useState(0);
-
-  return (
-    <button
-      key={index}
-      className={index <= (hover || count) ? "on" : "off"}
-      onClick={() => {
-        setRating(index);
-      }}
-      onMouseEnter={() => setHover(index)}
-      onMoustLeave={() => setHover(count)}
-    >
-      <span className="star">&#9733;</span>
-    </button>
-  );
-};
-
-export default function StarRating({ readOnly = false, ratingValue }) {
-  const [rating, setRating] = useState(0);
+export default function StarRating({ readOnly = null, value, callbackFn }) {
+  const [rating, setRating] = useState(null);
+  const [hover, setHover] = useState(null);
 
   useEffect(() => {
-    setRating(!!readOnly && ratingValue);
+    setRating(!!readOnly && value);
   }, []);
 
   return (
     <div className="star-rating">
-      {[...Array(5)].map((star, index) => {
-        index += 1;
+      {[...Array(5)].map((star, i) => {
+        const ratingValue = i + 1;
         return readOnly ? (
           <RatingDisplay
-            key={index}
-            index={index}
-            rating={rating}
-            off={index > ratingValue}
+            key={i}
+            index={i}
+            rating={ratingValue}
+            off={i > value - 1}
           />
         ) : (
-          <Rating key={index} index={index} rating={rating} />
+          <button
+            key={i}
+            className={ratingValue <= (hover || rating) ? "on" : "off"}
+            onClick={() => {
+              callbackFn(ratingValue);
+              setRating(ratingValue);
+            }}
+            onMouseEnter={() => setHover(ratingValue)}
+            onMouseLeave={() => setHover(null)}
+          >
+            <span className="star">&#9733;</span>
+          </button>
         );
       })}
     </div>

@@ -8,7 +8,7 @@ export default function ItemCard({ id, name, image, price, rating }) {
         <div className="product-description container column gap-half">
           <div className="product-name">{name}</div>
           <div className="product-pricetag brand-orange">{price}</div>
-          <StarRating readOnly ratingValue={rating} />
+          <StarRating readOnly value={rating} />
         </div>
       </div>
     </a>
