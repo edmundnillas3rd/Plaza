@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { appendItem } from "../../features/Cart/cartSlice";
 
 import StarRating from "../../components/StarRating";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function LabelInfo({ title, children }) {
   return (
@@ -35,6 +36,7 @@ export default function ProductSubinfo({
   const [quantity, setQuantity] = useState(1);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const addToCartHandler = (e) => {
     const item = {
@@ -48,6 +50,21 @@ export default function ProductSubinfo({
 
     e.preventDefault();
     dispatch(appendItem(item));
+  };
+
+  const immediateBuyHandler = (e) => {
+    const item = {
+      id,
+      name,
+      image: image[0],
+      price,
+      quantity,
+      stock
+    };
+
+    e.preventDefault();
+    dispatch(appendItem(item));
+    navigate("/cart");
   };
 
   return (
@@ -120,7 +137,9 @@ export default function ProductSubinfo({
           >
             <AiOutlineShoppingCart size={16} /> Add to Cart
           </button>
-          <button className="buy-now-container">Buy Now</button>
+          <button className="buy-now-container" onClick={immediateBuyHandler}>
+            Buy Now
+          </button>
         </div>
       </div>
     </div>
