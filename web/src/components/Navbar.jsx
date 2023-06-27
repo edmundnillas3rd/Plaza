@@ -146,7 +146,7 @@ export default function Navbar() {
                   {categories.map((category, index) => (
                     <Link
                       key={index}
-                      to={`/products/item/${category._id}`}
+                      to={`/products/item/category/${category._id}`}
                       className="container align gap-half"
                     >
                       <div className="icon-category-container xsm">
