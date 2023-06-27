@@ -3,13 +3,20 @@
 }
 
 .vendor-register-prompt {
-  padding: 200px;
-
+  padding: 200px 0;
+  
   & > a {
     border-radius: $semicirc-border;
     padding: 10px;
     border: none;
     color: $white-md;
     background: $theme-orange;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .vendor-register-prompt {
+    padding: 20px;
+    width: 90;
   }
 }
