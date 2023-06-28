@@ -94,11 +94,11 @@ export default function ProductSubinfo({
             <button
               className="container center-content padded-sm"
               onClick={(e) => {
-                if (quantity < 1) {
+                if (quantity <= 1) {
                   setQuantity(1);
                   return;
                 }
-                setQuantity(quantity - 1);
+                setQuantity(q => q - 1);
               }}
             >
               <AiOutlineMinus />
@@ -123,7 +123,7 @@ export default function ProductSubinfo({
                   return;
                 }
 
-                setQuantity(quantity + 1);
+                setQuantity(q => q + 1);
               }}
             >
               <AiOutlinePlus />
