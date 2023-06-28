@@ -2,17 +2,7 @@ import { useEffect, useState } from "react";
 
 import ItemCard from "./ItemCard";
 
-export default function Items() {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_BASE_URL}/inventory`)
-      .then((response) => response.json())
-      .then((data) => {
-        setItems(data.items);
-      });
-  }, []);
-
+export default function Items({ items }) {
   return (
     <div className="items-list-container">
       {items &&
