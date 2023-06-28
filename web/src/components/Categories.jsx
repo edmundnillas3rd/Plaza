@@ -5,9 +5,12 @@ import { Link } from "react-router-dom";
 function CategoryItem({ id, name, imageUrl }) {
   return (
     <Link to={`/products/item/category/${id}`}>
-      <div className="category-item container column center-content" style={{
-        backgroundImage: `url(${imageUrl})`
-      }}>
+      <div
+        className="category-item container column center-content"
+        style={{
+          backgroundImage: `url(${imageUrl})`
+        }}
+      >
         <div className="header-category">
           <h3>{name}</h3>
         </div>
@@ -16,17 +19,7 @@ function CategoryItem({ id, name, imageUrl }) {
   );
 }
 
-export default function Categories() {
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_BASE_URL}/inventory/items/categories`)
-      .then((response) => response.json())
-      .then((data) => {
-        setCategories(data.categories);
-      });
-  }, []);
-
+export default function Categories({ categories }) {
   return (
     <div className="category-list-container container space-around gap-sm">
       {categories &&

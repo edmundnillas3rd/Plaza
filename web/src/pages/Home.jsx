@@ -1,7 +1,26 @@
+import { useEffect, useState } from "react";
 import Categories from "../components/Categories";
 import Items from "../components/Items";
 
 export default function Home() {
+  const [items, setItems] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const item_response = fetch(
+      `${import.meta.env.VITE_BASE_URL}/inventory`
+    ).then((response) => response.json());
+    const category_response = fetch(
+      `${import.meta.env.VITE_BASE_URL}/inventory/items/categories`
+    ).then((response) => response.json());
+
+    Promise.all([item_response, category_response]).then((response) => {
+      const [item_data, category_data] = response;
+      setItems(item_data.items);
+      setCategories(category_data.categories);
+    });
+  }, []);
+
   return (
     <>
       <div className="banner-container">
@@ -20,11 +39,11 @@ export default function Home() {
       </div>
       <div className="category-section container column gap-sm pt">
         <h1>Shop our top categories</h1>
-        <Categories />
+        <Categories categories={categories} />
       </div>
       <div className="items-section container column gap-sm">
         <h1>Todays Best Deals for you!</h1>
-        <Items />
+        <Items items={items} />
       </div>
     </>
   );
