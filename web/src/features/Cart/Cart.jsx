@@ -23,7 +23,7 @@ function ShoppingCard({ id, name, image, price, stock, qty }) {
       return;
     }
 
-    if (value < 1) {
+    if (value <= 1) {
       setQuantity(1);
       return;
     }
