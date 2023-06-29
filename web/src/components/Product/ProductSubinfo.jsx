@@ -5,12 +5,12 @@ import {
   AiOutlinePlus,
   AiOutlineShoppingCart
 } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { appendItem } from "../../features/Cart/cartSlice";
 
 import StarRating from "../../components/StarRating";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, Route, useNavigate } from "react-router-dom";
 
 function LabelInfo({ title, children }) {
   return (
@@ -34,11 +34,17 @@ export default function ProductSubinfo({
   price
 }) {
   const [quantity, setQuantity] = useState(1);
+  const user = useSelector((state) => state.user.username);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const addToCartHandler = (e) => {
+    if (!!!user) {
+      navigate("/auth");
+      return;
+    }
+
     const item = {
       id,
       name,
@@ -53,6 +59,11 @@ export default function ProductSubinfo({
   };
 
   const immediateBuyHandler = (e) => {
+    if (!!!user) {
+      navigate("/auth");
+      return;
+    }
+
     const item = {
       id,
       name,
@@ -98,7 +109,7 @@ export default function ProductSubinfo({
                   setQuantity(1);
                   return;
                 }
-                setQuantity(q => q - 1);
+                setQuantity((q) => q - 1);
               }}
             >
               <AiOutlineMinus />
@@ -123,7 +134,7 @@ export default function ProductSubinfo({
                   return;
                 }
 
-                setQuantity(q => q + 1);
+                setQuantity((q) => q + 1);
               }}
             >
               <AiOutlinePlus />
