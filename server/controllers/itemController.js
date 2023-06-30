@@ -199,7 +199,7 @@ exports.item_detail = async (req, res, next) => {
 
 // POST
 exports.new_item = async (req, res, next) => {
-  if (!req.isAuthenticated()) {
+  if (req.isUnauthenticated()) {
     res.status(401).json({
       message: "Not Authenticated"
     });
@@ -249,7 +249,7 @@ exports.new_item = async (req, res, next) => {
 };
 
 exports.item_review = async (req, res, next) => {
-  if (!req.isAuthenticated()) {
+  if (req.isUnauthenticated()) {
     res.status(401).json({
       message: "Not Authenticated"
     });
@@ -257,10 +257,10 @@ exports.item_review = async (req, res, next) => {
   }
 
   const { id } = req.params;
-  const { user, description, rating } = req.body;
+  const { reviewer, description, rating } = req.body;
 
   const review = new Review({
-    user,
+    reviewer,
     item: id,
     description,
     rating

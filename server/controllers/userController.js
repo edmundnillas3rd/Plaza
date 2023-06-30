@@ -51,27 +51,23 @@ exports.sign_up = async (req, res, next) => {
 };
 
 exports.log_in = (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
-    if (err) throw err;
+  if (!req.user) {
+    // console.log("User not found!");
+    res.json({ message: "Incorrect username or password!" });
+  } else {
+    req.logIn(req.user, (err) => {
+      if (err) console.error(err);
 
-    if (!user) {
-      console.log("User not found!");
-      res.json({ message: "Incorrect username or password!" });
-    } else {
-      req.logIn(user, (err) => {
-        if (err) console.error(err);
+      const token = jwt.sign({ id: req.user._id }, process.env.JWTSECRET);
+      res.header(token);
 
-        const token = jwt.sign({ id: user._id }, process.env.JWTSECRET);
-        res.header(token);
-
-        res.status(200).json({
-          user: {
-            id: user._id,
-            name: user.name,
-            token
-          }
-        });
+      res.status(200).json({
+        user: {
+          id: req.user._id,
+          name: req.user.name,
+          token
+        }
       });
-    }
-  })(req, res, next);
+    });
+  }
 };
