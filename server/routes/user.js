@@ -1,11 +1,11 @@
-const passport = require("passport");
 const express = require("express");
 const router = express.Router();
 const user_controller = require("../controllers/userController");
+const { authorization } = require("../utils/authorizeJWT");
 
 // GET
 router.get("/", user_controller.index);
-router.get("/logout", passport.authenticate("jwt", { session: false }), user_controller.log_out);
+router.get("/logout", authorization, user_controller.log_out);
 
 // POST
 router.post("/signup", user_controller.sign_up);
