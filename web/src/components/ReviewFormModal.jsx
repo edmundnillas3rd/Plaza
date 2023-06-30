@@ -20,7 +20,7 @@ export default function ReviewFormModal({ callbackFn }) {
     e.preventDefault();
 
     const review = {
-      user,
+      reviewer: user,
       description,
       rating
     };
