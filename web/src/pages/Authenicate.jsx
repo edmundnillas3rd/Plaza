@@ -23,6 +23,7 @@ export default function Authenticate() {
       headers: {
         "Content-Type": "application/json"
       },
+      credentials: "include",
       body: JSON.stringify(user)
     })
       .then((response) => response.json())

@@ -54,7 +54,8 @@ export default function Profile() {
     fetch(`${import.meta.env.VITE_BASE_URL}/logout`, {
       headers: {
         Authorization: `Bearer ${token}`
-      }
+      },
+      credentials: "include"
     }).then((response) => {
       dispatch(resetUser());
       setShow(false);
