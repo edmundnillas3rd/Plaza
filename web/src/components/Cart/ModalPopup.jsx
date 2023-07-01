@@ -38,6 +38,7 @@ export default function ModalPopup({ callbackFn }) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`
       },
+      credentials: "include",
       body: JSON.stringify(userData)
     });
 

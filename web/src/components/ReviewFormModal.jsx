@@ -31,6 +31,7 @@ export default function ReviewFormModal({ callbackFn }) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`
       },
+      credentials: "include",
       body: JSON.stringify(review)
     })
       .then((response) => response.json())

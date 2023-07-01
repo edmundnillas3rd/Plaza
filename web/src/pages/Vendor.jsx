@@ -46,6 +46,7 @@ export default function Vendor() {
       headers: {
         Authorization: `Bearer ${token}`
       },
+      credentials: "include",
       body: formData
     }).then((response) => {
       if (response.ok) navigate("/");
