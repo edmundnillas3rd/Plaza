@@ -180,11 +180,8 @@ export default function Navbar() {
         <GiHamburgerMenu />
       </div>
       <div
-        className="sidenav container column gap-half"
+        className={`sidenav ${displayNav && "show"} container column gap-half`}
         ref={navRef}
-        style={{
-          width: `${displayNav ? "250px" : "0"}`
-        }}
       >
         <span
           className="mt"
@@ -240,7 +237,9 @@ export default function Navbar() {
                   <Link
                     key={index}
                     to={`/products/item/category/${category._id}`}
-                  >{category.name}</Link>
+                  >
+                    {category.name}
+                  </Link>
                 ))}
             </div>
           )}
