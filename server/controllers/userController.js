@@ -50,24 +50,13 @@ exports.sign_up = async (req, res, next) => {
   }
 };
 
-exports.log_in = (req, res, next) => {
-  if (!req.user) {
-    // console.log("User not found!");
-    res.json({ message: "Incorrect username or password!" });
-  } else {
-    req.logIn(req.user, (err) => {
-      if (err) console.error(err);
-
-      const token = jwt.sign({ id: req.user._id }, process.env.JWTSECRET);
-      res.header(token);
-
-      res.status(200).json({
-        user: {
-          id: req.user._id,
-          name: req.user.name,
-          token
-        }
-      });
-    });
-  }
+exports.log_in = async (req, res, next) => {
+  const token = jwt.sign({ id: req.user._id }, process.env.JWTSECRET);
+  res.status(200).json({
+    user: {
+      id: req.user._id,
+      name: req.user.name,
+      token
+    }
+  });
 };
