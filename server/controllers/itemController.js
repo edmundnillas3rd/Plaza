@@ -7,7 +7,11 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+const dotenv = require("dotenv");
+dotenv.config({path: "config.env"});
+
 const { getStorage } = require("firebase-admin/storage");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_API_KEY);
 
 const initializeFirebase = require("../utils/firebaseConfig");
 const firebaseApp = initializeFirebase();
@@ -242,6 +246,12 @@ exports.new_item = async (req, res, next) => {
   });
 
   const newItem = await item.save();
+
+  const stripeProduct = await stripe.products.create({
+    id: newItem._id,
+    name: newItem.name,
+    description: newItem.description
+  });
 
   if (newItem === item) {
     res.status(200).json({ message: "New Item added!" });
