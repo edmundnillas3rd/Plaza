@@ -5,7 +5,13 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config({ path: "config.env" });
 
-exports.index = (req, res, next) => {};
+exports.index = async (req, res, next) => {
+  const response = await User.find();
+
+  res.status(200).json({
+    users: [response]
+  })
+};
 
 exports.log_out = (req, res, next) => {
   req.logout(function (err) {

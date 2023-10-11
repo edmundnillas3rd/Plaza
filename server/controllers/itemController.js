@@ -233,7 +233,7 @@ exports.new_item = async (req, res, next) => {
     return url;
   });
 
-  const item = await new Item({
+  const item = new Item({
     seller,
     name,
     price,
@@ -250,7 +250,11 @@ exports.new_item = async (req, res, next) => {
   const stripeProduct = await stripe.products.create({
     id: newItem._id,
     name: newItem.name,
-    description: newItem.description
+    description: newItem.description,
+    default_price_data: {
+      currency: "usd",
+      unit_amount_decimal: newItem.price
+    }
   });
 
   if (newItem === item) {
