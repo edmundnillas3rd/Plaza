@@ -7,9 +7,11 @@ const User = require("../models/user");
 const dotenv = require("dotenv");
 dotenv.config({ path: "config.env" });
 
+const stripe = require("stripe")(process.env.STRIPE_SECRET_API_KEY);
+
 exports.index = async (req, res, next) => {};
 
-exports.cart = async (req, res, next) => {
+exports.checkout_items = async (req, res, next) => {
   if (!req.isAuthenticated()) {
     res.status(401).json({
       message: "Not Authenticated"
@@ -19,22 +21,28 @@ exports.cart = async (req, res, next) => {
 
   const { user, orders } = req.body;
 
-  const newOrders = orders.map((o) => ({
-    item: o.id,
-    name: o.name,
-    quantity: o.quantity
-  }));
-
   const order = new Order({
     buyer: user,
-    orders: newOrders
+    orders: orders
   });
 
-  await order.save();
+  const newOrders = await order.save();
 
-  res.status(200).json({ message: "New Order added!" });
+  const queriedOrders = await newOrders.populate("orders.item");
 
-  newOrders.forEach(async (o) => {
+  const stripeLineItems = queriedOrders.orders.map(order => ({
+    price: order.item.stripe_price_id,
+    quantity: order.quantity
+  }))
+
+  await stripe.checkout.sessions.create({
+    line_items: stripeLineItems,
+    mode: "payment",
+    success_url: `${process.env.CLIENT_URL}`,
+    cancel_url: `${process.env.CLIENT_URL}`
+  })
+
+  newOrders.orders.forEach(async (o) => {
     const updatedItemStocks = await Item.findByIdAndUpdate(o.item, {
       $inc: { stock: -o.quantity }
     });
@@ -76,4 +84,6 @@ exports.cart = async (req, res, next) => {
   };
 
   transporter.sendMail(message);
+
+  res.status(200).json({ message: "New Order added!" });
 };
