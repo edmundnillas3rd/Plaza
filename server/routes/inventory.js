@@ -1,7 +1,8 @@
 var express = require("express");
 var router = express.Router();
 const multer = require("multer");
-const upload = multer({ dest: "images/" });
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 const item_catalog = require("../controllers/itemController");
 
 const { authorization } = require("../utils/authorizeJWT");
