@@ -212,8 +212,6 @@ exports.new_item = async (req, res, next) => {
   const bucket = getStorage(firebaseApp).bucket();
 
   const urlImagePaths = files.map((file) => {
-    // const filePath = file.buffer;
-
     const url = `${seller}/${name}/${file.originalname}`;
 
     const uploadedFile = bucket.file(url);
@@ -224,11 +222,6 @@ exports.new_item = async (req, res, next) => {
         contentType: "image/jpeg"
       }
     })
-    
-    // bucket.upload(filePath, {
-    //   destination: url,
-    //   gzip: true
-    // });
 
     return url;
   });
