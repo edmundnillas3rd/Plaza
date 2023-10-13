@@ -32,7 +32,7 @@ export default function ModalPopup({ callbackFn }) {
       orders: cart
     };
 
-    fetch(`${import.meta.env.VITE_BASE_URL}/orders/cart`, {
+    fetch(`${import.meta.env.VITE_BASE_URL}/orders/checkout-session`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

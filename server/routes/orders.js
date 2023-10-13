@@ -9,6 +9,6 @@ const authenticate = passport.authenticate("jwt", { session: false });
 router.get("/", order_controller.index);
 
 // POST
-router.post("/cart", authenticate ,order_controller.cart);
+router.post("/checkout-session", authenticate, order_controller.checkout_items);
 
 module.exports = router;

@@ -33,10 +33,6 @@ function ShoppingCard({ id, name, image, price, stock, qty }) {
     dispatch(
       updateItem({
         id,
-        name,
-        image,
-        price,
-        stock,
         quantity: value
       })
     );
