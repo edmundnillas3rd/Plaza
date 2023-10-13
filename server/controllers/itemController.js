@@ -1,12 +1,3 @@
-const multer = require("multer");
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "");
-  }
-});
-const upload = multer({ storage: storage });
-
 const dotenv = require("dotenv");
 dotenv.config({path: "config.env"});
 
@@ -221,14 +212,23 @@ exports.new_item = async (req, res, next) => {
   const bucket = getStorage(firebaseApp).bucket();
 
   const urlImagePaths = files.map((file) => {
-    const filePath = file.path;
+    // const filePath = file.buffer;
 
     const url = `${seller}/${name}/${file.originalname}`;
 
-    bucket.upload(filePath, {
-      destination: url,
-      gzip: true
-    });
+    const uploadedFile = bucket.file(url);
+    const fileBuffer = Buffer.from(file.buffer, "utf-8");
+
+    uploadedFile.save(fileBuffer, {
+      metadata: {
+        contentType: "image/jpeg"
+      }
+    })
+    
+    // bucket.upload(filePath, {
+    //   destination: url,
+    //   gzip: true
+    // });
 
     return url;
   });
