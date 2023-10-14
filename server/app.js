@@ -16,6 +16,7 @@ const app = express();
 
 const dotenv = require("dotenv");
 dotenv.config({ path: "config.env" });
+const stripe = require("stripe")(process.env.STRIPE_SECRET_API_KEY);
 
 const connectDB = require("./utils/connectDB");
 connectDB();

@@ -1,16 +1,15 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   AiOutlineMinus,
   AiOutlinePlus,
   AiOutlineShoppingCart
 } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
 
 import { appendItem } from "../../features/Cart/cartSlice";
 
 import StarRating from "../../components/StarRating";
-import { Navigate, Route, useNavigate } from "react-router-dom";
 
 function LabelInfo({ title, children }) {
   return (
@@ -26,7 +25,6 @@ function LabelInfo({ title, children }) {
 export default function ProductSubinfo({
   id,
   name,
-  image,
   description,
   rating,
   seller,
@@ -46,12 +44,8 @@ export default function ProductSubinfo({
     }
 
     const item = {
-      id,
-      name,
-      image: image[0],
-      price,
-      quantity,
-      stock
+      item: id,
+      quantity
     };
 
     e.preventDefault();
@@ -65,12 +59,8 @@ export default function ProductSubinfo({
     }
 
     const item = {
-      id,
-      name,
-      image: image[0],
-      price,
-      quantity,
-      stock
+      item: id,
+      quantity
     };
 
     e.preventDefault();
