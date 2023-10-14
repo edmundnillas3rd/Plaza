@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Vendor() {
@@ -65,7 +65,7 @@ export default function Vendor() {
           <h3 className="mb">Sell New Product</h3>
           <form
             method="POST"
-            enctype="multipart/form-data"
+            encType="multipart/form-data"
             onSubmit={onSubmitHandler}
           >
             <div className="form-input-container grid gap-half">

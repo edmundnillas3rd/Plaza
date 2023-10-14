@@ -69,7 +69,7 @@ async function signItems(items) {
   // TODO (Edmund): the same could be said for this loop for signing
   // the url of each products
   for (const item of items) {
-    const { _id, name, price, category, url } = item;
+    const { _id, name, price, category, url, stock } = item;
 
     const imageUrl = item.image.urls[0];
     const [signedUrl] = await bucket.file(imageUrl).getSignedUrl(options);
@@ -92,7 +92,8 @@ async function signItems(items) {
       rating,
       category,
       url,
-      signedUrl
+      signedUrl,
+      stock
     };
 
     signedItems.push(await newItem);

@@ -35,7 +35,7 @@ exports.checkout_items = async (req, res, next) => {
     quantity: order.quantity
   }))
 
-  await stripe.checkout.sessions.create({
+  const session = await stripe.checkout.sessions.create({
     line_items: stripeLineItems,
     mode: "payment",
     success_url: `${process.env.CLIENT_URL}`,
@@ -85,5 +85,7 @@ exports.checkout_items = async (req, res, next) => {
 
   transporter.sendMail(message);
 
-  res.status(200).json({ message: "New Order added!" });
+  res.status(200).json({
+    url: session.url
+  });
 };

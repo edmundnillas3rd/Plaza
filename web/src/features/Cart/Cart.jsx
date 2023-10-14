@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 import {
   updateItem,
   removeItem,
   getTotalAmount,
-  appendItem
+  appendItem,
+  reset
 } from "./cartSlice";
 import ModalPopup from "../../components/Cart/ModalPopup";
 
@@ -51,7 +51,8 @@ function ShoppingCard({ id, name, image, price, stock, qty }) {
         <button
           className="container center-content padded-sm"
           onClick={(e) => {
-            updateQtyItem(quantity - 1);
+            e.preventDefault();
+            updateQtyItem(parseInt(quantity - 1));
           }}
         >
           <AiOutlineMinus />
@@ -61,17 +62,19 @@ function ShoppingCard({ id, name, image, price, stock, qty }) {
           type="text"
           inputMode="numeric"
           pattern="\d+"
-          value={quantity}
+          value={parseInt(quantity)}
           min="1"
           max={stock}
           onChange={(e) => {
+            e.preventDefault();
             updateQtyItem(parseInt(e.target.value));
           }}
         />
         <button
           className="container center-content padded-sm"
           onClick={(e) => {
-            updateQtyItem(quantity + 1);
+            e.preventDefault();
+            updateQtyItem(parseInt(quantity + 1));
           }}
         >
           <AiOutlinePlus />
@@ -91,7 +94,10 @@ function ShoppingCard({ id, name, image, price, stock, qty }) {
 
 export default function Cart() {
   const [show, setShow] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
 
+  const id = useSelector((state) => state.user.id);
+  const token = useSelector((state) => state.user.token)
   const user = useSelector((state) => state.user.username);
   const cart = useSelector((state) => state.cart.contents);
 
@@ -109,8 +115,52 @@ export default function Cart() {
       dispatch(appendItem(JSON.parse(retrieveCart)));
     }
 
+    fetch(`${import.meta.env.VITE_BASE_URL}/inventory`)
+      .then(response => response.json())
+      .then(data => {
+        const filteredItems = cart.map(item => {
+          const foundItem = data.items.find(product => product.item === item._id);
+          return {
+            id: foundItem._id,
+            name: foundItem.name,
+            price: foundItem.price,
+            image: foundItem.signedUrl,
+            stock: foundItem.stock,
+            quantity: item.quantity
+          };
+        });
+        setCartItems(filteredItems);
+    })
+
     dispatch(getTotalAmount());
   }, []);
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    const userData = {
+      user: id,
+      orders: cart
+    };
+
+    fetch(`${import.meta.env.VITE_BASE_URL}/orders/checkout-session`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      credentials: "include",
+      body: JSON.stringify(userData)
+    }).then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+    }).then(data => {
+      window.location.href = data.url;
+    });
+
+    localStorage.removeItem("cart");
+    dispatch(reset());
+  }
 
   return (
     <div className="cart-page container center-content padded-md">
@@ -138,10 +188,10 @@ export default function Cart() {
           </>
         ) : (
           <>
-            {cart.map((item, index) => (
+            {cartItems.map((item, index) => (
               <ShoppingCard
                 key={index}
-                id={item.id}
+                id={item._id}
                 name={item.name}
                 image={item.image}
                 price={item.price}
@@ -149,14 +199,11 @@ export default function Cart() {
                 qty={item.quantity}
               />
             ))}
-            <button
-              className="button-orange-theme"
-              onClick={(e) => {
-                setShow(true);
-              }}
-            >
-              Checkout
-            </button>
+            <form method="POST" onSubmit={onSubmitHandler} >
+              <button className="button-orange-theme" type="submit">
+                Checkout
+              </button>
+            </form>
           </>
         )}
       </div>
