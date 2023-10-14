@@ -63,7 +63,7 @@ exports.checkout_items = async (req, res, next) => {
 
   const foundUser = await User.findById(user);
 
-  const orderList = orders.reduce(
+  const orderList = queriedOrders.orders.reduce(
     (acc, currentValue, currentIndex, array) =>
       acc + `<li>${array[currentIndex].name}</li>\n`,
     ""
