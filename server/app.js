@@ -11,15 +11,19 @@ const MongoStore = require("connect-mongo");
 const inventoryRouter = require("./routes/inventory");
 const userRouter = require("./routes/user");
 const orderRouter = require("./routes/orders");
+const webhookRouter = require("./routes/webhooks");
 
 const app = express();
 
 const dotenv = require("dotenv");
 dotenv.config({ path: "config.env" });
-const stripe = require("stripe")(process.env.STRIPE_SECRET_API_KEY);
 
 const connectDB = require("./utils/connectDB");
 connectDB();
+
+// Webhooks
+app.use("/webhook", express.raw({ type: "application/json" }));
+app.use("/webhook", webhookRouter);
 
 app.use(logger("dev"));
 app.use(express.json());
