@@ -35,6 +35,16 @@ exports.checkout_items = async (req, res, next) => {
     quantity: order.quantity
   }))
 
+  const totalAmount = queriedOrders.orders.reduce((accumulator, currentValue, currentIndex, orders) => {
+    return accumulator + (orders[currentIndex].item.price * orders[currentIndex].quantity);
+  }, 0);
+
+  const stripePaymentIntent = await stripe.paymentIntents.create({
+    amount: totalAmount,
+    currency: "usd",
+    payment_method_types: ["card"]
+  })
+
   const session = await stripe.checkout.sessions.create({
     line_items: stripeLineItems,
     mode: "payment",
@@ -42,7 +52,9 @@ exports.checkout_items = async (req, res, next) => {
     cancel_url: `${process.env.CLIENT_URL}`
   })
 
-  if (session.status === "complete")
+  const { paymentIntent } = await stripe.confirmCardPayment(stripePaymentIntent.id);
+
+  if (paymentIntent && paymentIntent.status === "succeeded")
   {
     newOrders.orders.forEach(async (o) => {
       const updatedItemStocks = await Item.findByIdAndUpdate(o.item, {

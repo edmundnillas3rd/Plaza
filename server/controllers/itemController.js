@@ -227,12 +227,33 @@ exports.new_item = async (req, res, next) => {
     return url;
   });
 
+  // Multiplied by 100
+  // since stripe only accepts amount in decimals
+  const modifiedPrice = price * 100;
+
+  const stripeProduct = await stripe.products.create({
+    name: name,
+    description: description,
+    default_price_data: {
+      currency: "usd",
+      unit_amount_decimal: modifiedPrice
+    }
+  });
+
+  const stripeProductPrice = await stripe.prices.create({
+    currency: "usd",
+    product: stripeProduct.id,
+    unit_amount: modifiedPrice
+  })
+
   const item = new Item({
-    seller,
-    name,
-    price,
-    description,
-    stock,
+    seller: seller,
+    name: name,
+    price: (modifiedPrice / 100),
+    stripe_product_id: stripeProduct.id,
+    stripe_price_id: stripeProductPrice.id,
+    description: description,
+    stock: stock,
     category: categoryName[0]._id,
     image: {
       urls: urlImagePaths
@@ -240,16 +261,6 @@ exports.new_item = async (req, res, next) => {
   });
 
   const newItem = await item.save();
-
-  const stripeProduct = await stripe.products.create({
-    id: newItem._id,
-    name: newItem.name,
-    description: newItem.description,
-    default_price_data: {
-      currency: "usd",
-      unit_amount_decimal: newItem.price
-    }
-  });
 
   if (newItem === item) {
     res.status(200).json({ message: "New Item added!" });
