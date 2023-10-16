@@ -7,7 +7,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_API_KEY);
 const initializeFirebase = require("../utils/firebaseConfig");
 const firebaseApp = initializeFirebase();
 
-const Item = require("../models/item");
+const { Item, ArchiveItem } = require("../models/item");
 const User = require("../models/user");
 const Review = require("../models/review");
 const Category = require("../models/category");
