@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const Item = require("../models/item");
+const {Item, ArchiveItem } = require("../models/item");
 const Order = require("../models/order");
 const User = require("../models/user");
 
@@ -83,14 +83,41 @@ exports.checkout_webhook = async (req, res) => {
       orders: orders
     });
 
-    const newOrders = await order.save();
+    let newOrders = await order.save();
+    newOrders = await newOrders.populate("orders.item");
     newOrders.orders.forEach(async (o) => {
-      const updatedItemStocks = await Item.findByIdAndUpdate(o.item, {
-        $inc: { stock: -o.quantity }
-      });
-
-      if (updatedItemStocks.stock <= 0) 
-        Item.findByIdAndRemove(o.item);
+      const foundItem = await Item.findById(o.item);
+      if (foundItem.stock === 0)
+      {
+        const archivedItem = new ArchiveItem({
+          name: foundItem.name,
+          seller: foundItem.seller,
+          price: foundItem.price,
+          stripe_price_id: foundItem.stripe_price_id,
+          stripe_product_id: foundItem.stripe_product_id,
+          description: foundItem.description,
+          stock: foundItem.stock,
+          reviews: foundItem.reviews,
+          category: foundItem.category,
+          image: {
+            urls: [...foundItem.image.urls]
+          }
+        });
+        await archivedItem.save();
+        await foundItem.delete();
+        await stripe.prices.update(archivedItem.stripe_price_id, {
+          active: false
+        });
+        await stripe.products.update(archivedItem.stripe_product_id, {
+          active: false
+        });
+      }
+      else
+      {
+        await Item.findByIdAndUpdate(o.item, {
+          $inc: { stock: -o.quantity }
+        });
+      }
     });
 
     const transporter = nodemailer.createTransport({

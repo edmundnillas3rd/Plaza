@@ -25,4 +25,7 @@ itemSchema.virtual("url").get(function () {
   return `/inventory/items/${this._id}`;
 });
 
-module.exports = mongoose.model("Item", itemSchema);
+module.exports = { 
+  Item: mongoose.model("Item", itemSchema),
+  ArchiveItem: mongoose.model("ArchiveItem", itemSchema)
+};
