@@ -4,7 +4,6 @@
   align-items: center;
 }
 
-
 .image-previewer-container {
   background-size: contain;
   background-repeat: no-repeat;
@@ -22,6 +21,7 @@
   gap: 5px;
   width: 350px;
   height: 96px;
+  overflow: hidden;
 }
 
 .review-form-modal {
