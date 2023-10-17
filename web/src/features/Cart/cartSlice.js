@@ -14,6 +14,11 @@ const cartSlice = createSlice({
       }
 
       const cart = JSON.parse(localStorage.getItem("cart"));
+      const duplicate = cart.find(content => content.item === action.payload.item);
+
+      // ID is expected to be string
+      if (duplicate !== undefined && typeof duplicate.item === "string")
+        return;
 
       if (!!cart) {
         state.contents = [...cart, action.payload];
