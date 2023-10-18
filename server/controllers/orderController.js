@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const {Item, ArchiveItem } = require("../models/item");
+const { Item, ArchiveItem } = require("../models/item");
 const Order = require("../models/order");
 const User = require("../models/user");
 
@@ -9,7 +9,15 @@ dotenv.config({ path: "config.env" });
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_API_KEY);
 
-exports.index = async (req, res, next) => {};
+exports.index = async (req, res, next) => {
+
+  const orders = await Order.find();
+
+  res.status(200).json({
+    orders
+  });
+
+};
 
 exports.checkout_items = async (req, res, next) => {
   const { orders } = req.body;
