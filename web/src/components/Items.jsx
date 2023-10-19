@@ -11,7 +11,7 @@ export default function Items({ items }) {
             key={index}
             id={item._id}
             name={item.name}
-            image={item.signedUrl}
+            image={item.image.urls[0]}
             category={item.category.name}
             price={item.price}
             rating={item.rating}
