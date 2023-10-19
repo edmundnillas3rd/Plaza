@@ -7,100 +7,12 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_API_KEY);
 const initializeFirebase = require("../utils/firebaseConfig");
 const firebaseApp = initializeFirebase();
 
-const { Item, ArchiveItem } = require("../models/item");
-const User = require("../models/user");
+const { Item } = require("../models/item");
 const Review = require("../models/review");
 const Category = require("../models/category");
 
 const mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId;
-
-async function signItems(items) {
-  const signedItems = [];
-  const bucket = getStorage(firebaseApp).bucket();
-
-  const options = {
-    version: "v2", // defaults to 'v2' if missing.
-    action: "read",
-    expires: Date.now() + 1000 * 60 * 60 // one hour
-  };
-
-  // TODO (Edmund): It would be better to put this in a seperate
-  // function for handling sending data for previewing a product
-  if (!Array.isArray(items)) {
-    const { _id, name, seller, price, description, stock, category, url } =
-      items;
-
-    const signedUrls = [];
-    for (const url of items.image.urls) {
-      const [signedUrl] = await bucket.file(url).getSignedUrl(options);
-      signedUrls.push(await signedUrl);
-    }
-
-    const review = await Review.aggregate([
-      {
-        $group: { _id: "$item", avgRating: { $avg: "$rating" } }
-      },
-      {
-        $match: { _id: ObjectId(_id) }
-      }
-    ]);
-    const rating =
-      review[0]?.avgRating === undefined ? 0 : review[0].avgRating.toFixed(1);
-
-    const newItem = {
-      _id,
-      name,
-      seller,
-      price,
-      description,
-      stock,
-      category,
-      url,
-      signedUrls,
-      rating
-    };
-
-    signedItems.push(await newItem);
-
-    return signedItems;
-  }
-
-  // TODO (Edmund): the same could be said for this loop for signing
-  // the url of each products
-  for (const item of items) {
-    const { _id, name, price, category, url, stock } = item;
-
-    const imageUrl = item.image.urls[0];
-    const [signedUrl] = await bucket.file(imageUrl).getSignedUrl(options);
-
-    const review = await Review.aggregate([
-      {
-        $group: { _id: "$item", avgRating: { $avg: "$rating" } }
-      },
-      {
-        $match: { _id: ObjectId(_id) }
-      }
-    ]);
-    const rating =
-      review[0]?.avgRating === undefined ? 0 : review[0].avgRating.toFixed(1);
-
-    const newItem = {
-      _id,
-      name,
-      price,
-      rating,
-      category,
-      url,
-      signedUrl,
-      stock
-    };
-
-    signedItems.push(await newItem);
-  }
-
-  return signedItems;
-}
 
 // GET
 exports.index = async (req, res, next) => {
@@ -113,10 +25,8 @@ exports.index = async (req, res, next) => {
     return;
   }
 
-  const signedItems = await signItems(items);
-
   res.status(200).json({
-    items: signedItems,
+    items,
     categories
   });
 };
@@ -139,10 +49,8 @@ exports.item_filter_categories = async (req, res) => {
     category: category_id
   }).populate("category", "name");
 
-  const signedItems = await signItems(items);
-
   res.status(200).json({
-    items: signedItems
+    items
   });
 };
 
@@ -163,10 +71,8 @@ exports.item_search = async (req, res) => {
     }
   ]);
 
-  const signedItems = await signItems(searchedItems);
-
   res.status(200).json({
-    items: signedItems
+    items: searchedItems
   });
 };
 
@@ -185,10 +91,8 @@ exports.item_detail = async (req, res, next) => {
     return;
   }
 
-  const [signedItem] = await signItems(item);
-
   res.status(200).json({
-    item: signedItem,
+    item,
     reviews
   });
 };
@@ -212,20 +116,25 @@ exports.new_item = async (req, res, next) => {
 
   const bucket = getStorage(firebaseApp).bucket();
 
-  const urlImagePaths = files.map((file) => {
-    const url = `${seller}/${name}/${file.originalname}`;
+  await bucket.makePublic();
+
+  let urlImagePaths = files.map(async (file) => {
+    let url = `${seller}/${name}/${file.originalname}`;
 
     const uploadedFile = bucket.file(url);
     const fileBuffer = Buffer.from(file.buffer, "utf-8");
 
-    uploadedFile.save(fileBuffer, {
+    await uploadedFile.save(fileBuffer, {
       metadata: {
         contentType: "image/jpeg"
       }
     })
 
+    url = uploadedFile.publicUrl();
     return url;
   });
+
+  urlImagePaths = await Promise.all(urlImagePaths);
 
   // Multiplied by 100
   // since stripe only accepts amount in decimals
@@ -237,7 +146,8 @@ exports.new_item = async (req, res, next) => {
     default_price_data: {
       currency: "usd",
       unit_amount_decimal: modifiedPrice
-    }
+    },
+    images: [...urlImagePaths]
   });
 
   const stripeProductPrice = await stripe.prices.create({
@@ -249,14 +159,14 @@ exports.new_item = async (req, res, next) => {
   const item = new Item({
     seller: seller,
     name: name,
-    price: (modifiedPrice / 100),
+    price: price,
     stripe_product_id: stripeProduct.id,
     stripe_price_id: stripeProductPrice.id,
     description: description,
     stock: stock,
     category: categoryName[0]._id,
     image: {
-      urls: urlImagePaths
+      urls: [...urlImagePaths]
     }
   });
 
