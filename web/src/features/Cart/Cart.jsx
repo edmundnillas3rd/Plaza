@@ -124,7 +124,7 @@ export default function Cart() {
             id: foundItem._id,
             name: foundItem.name,
             price: foundItem.price,
-            image: foundItem.signedUrl,
+            image: foundItem.image.urls[0],
             stock: foundItem.stock,
             quantity: item.quantity
           };
