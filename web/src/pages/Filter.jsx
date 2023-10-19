@@ -28,9 +28,9 @@ export default function Filter() {
               items.map((item, index) => (
                 <ItemCard
                   key={index}
-                  id={item._id}
+                  id={item.id}
                   name={item.name}
-                  image={item.signedUrl}
+                  image={item.image.urls[0]}
                   category={item.category.name}
                   price={item.price}
                   rating={item.rating}
