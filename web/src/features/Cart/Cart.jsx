@@ -191,7 +191,7 @@ export default function Cart() {
             {cartItems.map((item, index) => (
               <ShoppingCard
                 key={index}
-                id={item._id}
+                id={item.id}
                 name={item.name}
                 image={item.image}
                 price={item.price}
