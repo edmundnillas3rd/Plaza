@@ -63,11 +63,11 @@ export default function Product() {
       <div className="product-header-container section gap-md">
         {product && (
           <>
-            <ImageDisplay urls={product.signedUrls} />
+            <ImageDisplay urls={product.image.urls} />
             <ProductSubinfo
               id={product._id}
               name={product.name}
-              image={product.signedUrls}
+              image={product.image.urls}
               category={product.category.name}
               seller={product.seller.name}
               description={product.description}
