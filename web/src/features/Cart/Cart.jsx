@@ -83,7 +83,7 @@ function ShoppingCard({ id, name, image, price, stock, qty }) {
       <p className="brand-orange">{price * quantity}</p>
       <button
         onClick={(e) => {
-          dispatch(removeItem({ id }));
+          dispatch(removeItem({ item: id }));
         }}
       >
         Remove
