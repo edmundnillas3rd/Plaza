@@ -5,7 +5,7 @@ dotenv.config({ path: "config.env" });
 
 // For Firebase Admin SDK only
 const firebaseConfig = {
-  storageBucket: "plaza-54500.appspot.com",
+  storageBucket: process.env.STORAGE_BUCKET,
   credential: applicationDefault()
 };
 
