@@ -17,11 +17,12 @@
 
 .image-slider-container {
   display: flex;
+  margin-top: 10px;
   overflow-x: scroll;
+  overflow-y: hidden;
   gap: 5px;
   width: 350px;
   height: 96px;
-  overflow: hidden;
 }
 
 .review-form-modal {
