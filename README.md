@@ -7,6 +7,7 @@ An an ecommerce website made with React, MongoDB, Firebase, and Redux. This was 
 ![demo-2](assets/images/demo-2.jpg)
 ![demo-3](assets/images/demo-3.jpg)
 ![demo-4](assets/images/demo-4.jpg)
+![demo-5](assets/images/demo-5.png)
 
 # Frontend Dependencies
 - React.js
@@ -20,6 +21,7 @@ An an ecommerce website made with React, MongoDB, Firebase, and Redux. This was 
 - Multer
 - Firebase Admin
 - Passport.js
+- Stripe API
 
 # Features
 - Buying/Selling/Review of products
